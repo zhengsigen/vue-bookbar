@@ -1,4 +1,4 @@
-# dzy-1.0
+# dzy-2.0
 
 ## Project setup
 ```
