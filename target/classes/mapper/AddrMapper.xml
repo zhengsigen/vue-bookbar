@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1801.spring.dzy.mapper.AddrMapper">
+    <insert id="addAddr" useGeneratedKeys="true" keyProperty="id" parameterType="Address">
+        insert address_tb(name, phone, province, city, district, street) values(#{address.name}, #{address.phone}, #{address.province}, #{address.city}, #{address.district}, #{address.street})
+    </insert>
+    <update id="updateAddr">
+        update address_tb
+        <set>
+            <if test="address.name != null">
+                name=#{address.name},
+            </if>
+            <if test="address.phone != null">
+                phone=#{address.phone},
+            </if>
+            <if test="address.province != null">
+                province=#{address.province},
+            </if>
+            <if test="address.city != null">
+                city=#{address.city},
+            </if>
+            <if test="address.district != null">
+                district=#{address.district},
+            </if>
+            <if test="address.street">
+                street=#{address.street}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <select id="getAddrById" resultType="address">
+        select id, name, phone, province, city, district, street, create_date as createDate, update_date as updateDate
+        from address_tb
+        where id=#{id}
+    </select>
+
+<!--    切_______________________________________________________________________________________割线-->
+
+
+</mapper>

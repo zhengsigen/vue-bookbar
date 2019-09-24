@@ -1,0 +1,90 @@
+<template>
+  <div>
+    <div class="balance-detail" v-for="b in detail" :key="b.id">
+      <!-- <div > -->
+      <div class="content" @click="clickJump(b.orderId)">
+        <div class="desc">
+          <span v-if="b.type == 0">卖书收入</span>
+          <span v-else>买书支出</span>
+        </div>
+        <div class="date">
+          <div class="date-content">{{b.updateTime}}</div>
+        </div>
+      </div>
+      <div class="price">
+        <span style="color: #d6ba8c;" v-if="b.type == 0">+{{b.fee |numeral('0,0.00')}}</span>
+        <span v-else>-{{b.fee |numeral('0,0.00')}}</span>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+</template>
+
+<script>
+export default {
+  name: "balanceDetail",
+
+  data() {
+    return {
+      detail: {}
+    };
+  },
+
+  created() {
+    this.$http
+      .get("/detail")
+      .then(res => {
+        this.detail = res.data;
+        console.info(res.data);
+      })
+      .catch(res => {
+        console.info(res);
+      });
+  },
+  methods: {
+    clickJump(orderId) {
+      for (let i = 0; i < this.detail.length; i++) {
+        if (this.detail[i].orderId == orderId) {
+          if (this.detail[i].type == 0) {
+            this.$router.push("/order/" + orderId);
+          } else {
+            this.$router.push({
+              path: "/buy/order",
+              query: { id: this.detail[i].orderId }
+            });
+          }
+        }
+      }
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.balance-detail {
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #f2f2f2;
+  display: flex;
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 67%;
+    height: 100%;
+    padding: 0px 10px 0px 17px;
+    overflow: hidden;
+    .date {
+      font-size: 12px;
+      color: #aaaaaa;
+    }
+  }
+  .price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+    overflow: hidden;
+  }
+}
+</style>

@@ -1,0 +1,50 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+import http from './common/Axios'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state: {
+    user: {
+      // id: 26,
+      // name:null,
+      // cover: null,
+      // balance: 0,
+      // addrId: null,
+      // createDate: null,
+      // loginDate: null
+    },
+    userInfo:{
+
+    }
+  },
+  getters:{
+    user(state){
+      return state.user;
+    },
+    userInfo(state){
+      return state.userInfo;
+    },
+  },
+  mutations:{
+    updateUser(state,user){
+      state.user = user;
+    },
+    updateUserInfo(state,userInfo){
+      state.userInfo = userInfo;
+    }
+  },
+  actions: {
+    async getUserInfo ({ commit },user) {
+      let data = await http.get("/user/info/");
+      console.info(data.data,"dddddddddddd")
+      if(data.code === 0){
+        // this.userInfo = data.data.user;
+        commit('updateUser',data.data.user)
+      }else{
+          console.info(data.desc);
+      }
+    }
+  }
+})

@@ -1,0 +1,331 @@
+<template>
+    <div class="userLogin">
+         <div class="backdrop">
+            <div class="middle">
+                <div class="modal-mainWrapper">
+                    <div class="modal-main">
+                        <div class="modal-header">
+                            请输入手机号码进行绑定
+                        </div>
+                        <div class="modal-body">
+                             <div class="item">
+                                <span class="item-name">手机号：</span>
+                                <input class="input" placeholder="请输入手机号码" v-model="info.phone">
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="item">
+                                <span class="item-name">校验码：</span>
+                                <input class="count" v-model="info.code">
+                                <div class="btn" :disabled="show"  @click="getCode">{{show ? '获取验证码' : count +'s后重新获取'}}</div>     
+                            </div>
+                        </div>
+                        <div class="modal-body" >
+                            <span v-show="show">&nbsp;</span>
+                            <span class="item-text" v-show="!show">校验码已发送至你的手机，请查收</span>  
+                        </div>
+                        <div class="modal-footer" >
+                            <div class="modal-footer-button" @click="sendCode">
+                                确认
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-buttonWrapper">
+                    <div class="modal-close" @click="closeUserLogin">
+                        <i class="el-icon-close"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import { mapMutations,mapGetters } from "vuex";
+import { debuglog } from 'util';
+const REG = /^1[3|4|5|7|8][0-9]{9}$/;
+export default {
+    name: "userLogin",
+    data(){
+        return {
+            show: true,
+            count: '',
+            timer: null,
+            info:{
+                phone:'',
+                code:''
+            },
+            user:{},
+            send: 0
+        }
+    },
+    async created () {
+       
+    },
+    computed: { ...mapGetters(["userInfo"]),},
+    methods:{
+        ...mapMutations(["updateUser"]),
+        countDown(){
+            const TIME_COUNT = 60;
+            if (!this.timer) {
+                this.count = TIME_COUNT;
+                this.show = false;
+                this.timer = setInterval(() => {
+                    if (this.count > 0 && this.count <= TIME_COUNT) {
+                        this.count--;
+                    } else {
+                        this.show = true;
+                        clearInterval(this.timer);
+                        this.timer = null;
+                    }
+                }, 1000)
+            }
+        },
+        getCode(){
+            if(this.count){
+                return;
+            }
+            //验证手机号码 /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/
+            // let reg = /^1[3|4|5|7|8][0-9]{9}$/;
+            if(!this.info.phone.match(REG)){
+                this.$message({
+                    message: '手机号码必须是11位,且以1开头',
+                    type: "error"
+                });
+                return;
+            }
+            console.info("验证")
+            this.$http.get("/captcha/"+this.info.phone).then(res => {
+                if(res.code === 0){
+                     this.countDown();
+                    console.info("发送手机号成功");
+                }else if(res.code !== 0){
+                    this.$message({
+                        message: res.desc,
+                        type: "error"
+                    });
+                } 
+            });    
+        },
+        async sendCode(){
+            if(this.send){
+                return;
+            }
+            
+            //验证手机号码 /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/
+            
+            if(!this.info.phone.match(REG)){
+                this.$message({
+                    message: '手机号码必须是11位,且以1开头',
+                    type: "error"
+                });
+                return;
+            }
+            //验证校验码
+            if(!this.info.code.match(/^[1-9]\d{5}$/)){
+                this.$message({
+                    message: '验证码错误,验证码为六位数字',
+                    type: "error"
+                });
+                return;
+            }
+            //防止用户频繁点击登录按钮
+            this.send = 1;
+            let data = await this.$http.put("/wx?phone="+this.info.phone+"&code="+this.info.code,this.userInfo);
+            //请求完成 解禁
+            this.send = await 0;
+            await console.info(data)
+            if(data.code === 0){
+                this.$message({
+                    message: data.desc,
+                    type: "success"
+                });
+                localStorage.setItem("token",data.data)
+                console.info(data.data)
+                // console.info(this.$route.query.path)
+                if(this.$route.query.path){
+                   this.$router.push(this.$route.query.path)
+                }else {
+                    this.$router.push("/my")
+                }   
+            } else {
+                this.$message({
+                    message: data.desc,
+                    type: "error"
+                });
+            } 
+        //     this.$http.post("/login/user/",this.info).then(res => {
+        //         if(res.data.code === 0){
+        //             this.$message({
+        //                 message: res.data.desc,
+        //                 type: "success"
+        //             });
+        //           this.user = res.data.data.user;
+        //           this.updateUser(this.user);
+                  
+        //         //   sessionStorage.setItem("user",JSON.stringify(this.user));
+        //         //   this.$router.push('/my');
+        //           this.$router.back();
+        //         }else{
+        //             this.$message({
+        //                 message: res.data.desc,
+        //                 type: "error"
+        //             });
+        //         } 
+        //     });  
+        },
+        closeUserLogin(){
+            this.$router.push('/');
+        }
+    }
+};
+</script>
+<style lang="scss" scoped>
+    .backdrop {
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        z-index: 2;
+        background-color: rgba(0, 0, 0, .4);
+        .middle {
+            display: flex;
+            height: 100%;
+            margin: 0 1em;
+            flex-direction: column;
+            pointer-events: none;
+            .modal-mainWrapper {
+                flex-grow: 1;
+                display: flex;   
+                align-items: center;
+                justify-content: center;
+                height: 520px;
+                .modal-main {
+                    position: relative;
+                    box-sizing: border-box;
+                    width: 100%;
+                    max-width: 340px;
+                    background: #fff;
+                    border-radius: 10px;
+                    overflow-x: hidden;
+                    pointer-events: auto;
+                    cursor: pointer;
+                    .modal-header {
+                        margin: 0 22px;
+                        padding: 15px 0;
+                        font-size: 20px;
+                        font-weight: 100;    
+                        text-align: center;
+                        border-bottom: .5px solid rgb(242, 242, 242);
+                    }
+                    .modal-body {
+                        padding: 0 22px;
+                        margin: 27px 0;
+                        text-align: center;
+                        white-space: pre-wrap;
+                        .item{
+                            display: flex;
+                            margin-bottom: 15px;
+                            align-items: center;
+                            .item-name{
+                            flex-shrink: 0;
+                            width: 64px;
+                            }
+                            .input {
+                                display: inline-block;
+                                box-sizing: border-box;
+                                width: 100%;
+                                margin: 0;
+                                padding: 10px;
+                                color: inherit;
+                                font: inherit;
+                                font-size: 14px;
+                                line-height: 20px;
+                                background: rgb(247, 247, 247);
+                                border: 1px solid rgb(247, 247, 247);
+                                border-radius: 5px;
+                                appearance: none;
+                                outline: none;
+                            }
+                            .count{
+                                width: 70px;
+                                height: 19px;
+                                padding: 6px 0;
+                                font-size: 15px;
+                                line-height: 21px;
+                                border: 1px solid rgb(247, 247, 247);
+                                background: rgb(247, 247, 247);
+                                text-align: center;
+                                margin-right: 5px;
+                                // appearance: none;
+                                outline: none;
+                                
+                            }
+                            .btn{   
+                                width: 130px;
+                                padding: 6px 0;
+                                font-size: 15px;
+                                line-height: 21px;
+                                color: #fff;
+                                background: gray; 
+                                border-color: #18c3aa;
+                                border-radius: 999px;
+                                text-align: center;
+                                &.disabled{
+                                    font-size: 10px;
+                                    color: #F56C6C;
+                                }
+                            }
+                        }
+                        .item-text{
+                            font-size: 12px;
+                            color: red;
+                        }
+                    }
+                    .modal-footer {
+                        display: flex;
+                        justify-content: center;
+                        padding: 0 22px;
+                        margin: 27px 0;
+                        .modal-footer-button{
+                            width: 135px;
+                            padding: 6px 0;
+                            font-size: 15px;
+                            line-height: 21px;
+                            color: #fff;
+                            background: rgb(24, 195, 170);
+                            border-color: rgb(24, 195, 170);
+                            border-radius: 999px;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+            
+            .modal-buttonWrapper {
+                flex-grow: 1;
+                display: flex;   
+                height: 147px;
+                justify-content: center;
+                .modal-close{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-shrink: 0;
+                    width: 50px;
+                    height: 50px;
+                    pointer-events: auto;
+                    border:1px solid #fff;
+                    border-radius: 999px;
+                    .el-icon-close{
+                        font-size: 20px;
+                        color: #fff;
+                    }
+                }
+            }           
+        }
+    }
+</style>

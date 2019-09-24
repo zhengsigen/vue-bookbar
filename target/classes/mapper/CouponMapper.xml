@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1801.spring.dzy.mapper.CouponMapper">
+    <insert id="addCoupon">
+		INSERT INTO coupon_tb (`name`, expires_in,amount, `per_limit`, `type`)	VALUES (#{name}, #{expiresIn} , #{amount}, #{perLimit}, #{type})
+    </insert>
+
+    <insert id="sendCoupon">
+        INSERT INTO user_coupon_tb (user_id, coupon_id, remarks, state, expiration_date)
+	    VALUES (#{userID}, #{couponID}, #{remarks}, 0, #{expirationDate})
+    </insert>
+
+    <select id="queryCoupon" resultType="Coupon">
+        SELECT id ,name, amount, `per_limit`, `type`, expires_in, create_date, update_date FROM coupon_tb
+    </select>
+
+    <select id="queryCouponByID" resultType="UserCoupon">
+        SELECT uc.id, uc.user_id, uc.coupon_id, uc.order_id, uc.remark, uc.state, uc.expiration_date, uc.use_time,
+            u.name,u.wx_name,u.cover
+            FROM user_coupon_tb uc,users_tb u where u.id=uc.user_id and uc.coupon_id=#{id}
+    </select>
+
+    <select id="queryCouponByUserID" resultType="UserCoupon">
+        SELECT uc.id, c.name, uc.remark, c.`type` , c.amount, c.per_limit, uc.expiration_date, c.expires_in,uc.create_date,uc.update_date
+           FROM coupon_tb c, user_coupon_tb uc
+           where c.id=uc.coupon_id and state=0 and uc.user_id=#{id};
+    </select>
+</mapper>

@@ -1,0 +1,967 @@
+<template>
+  <div>
+    <div class="exothecium">
+      <div class="roots">
+        <div class="exothecium-body flex">
+          <div class="orderList" v-if="state">
+            <div class="order-left">
+              <div class="order-message">
+                <span class="faillette"></span>
+                <div class="header">下单成功</div>
+                <div class="date">
+                  <span>{{sellOrder.createTime | moment}}</span>
+                </div>
+              </div> 
+              <div class="order-message" v-if="orderStatus >= orderStatusEnum.audit || cancelStatus < orderStatusEnum.reduceNum">
+                <span :class="orderStatus >= orderStatusEnum.audit ? 'faillette' : 'faillettes' "></span>
+                <div class="header">多抓鱼线上审核</div>
+                <div :class="orderStatus >= orderStatusEnum.audit? 'date' : 'vertical'"></div>
+              </div>
+              <div class="order-message" v-if="orderStatus >= orderStatusEnum.takeBook || cancelStatus < orderStatusEnum.reduceNum">
+                <span :class="orderStatus >= orderStatusEnum.takeBook? 'faillette' : 'faillettes'"></span> 
+                <div class="header">安排快递上门取书</div>
+                <div :class="orderStatus >= orderStatusEnum.takeBook? 'date' : 'vertical'">
+                  预约
+                  <span>2019-8-13 17:00</span>
+                  ，无需支付快递费用
+                </div>
+              </div>
+              <div class="order-message" v-if="orderStatus >= orderStatusEnum.inTransit || cancelStatus < orderStatusEnum.reduceNum">
+                <span :class="orderStatus >= orderStatusEnum.inTransit ? 'faillette' : 'faillettes'"></span>
+                <div class="header">运输途中</div>
+                <div :class="orderStatus >= orderStatusEnum.inTransit ? 'date' : 'vertical'"></div>
+              </div>
+              <div class="order-message" v-if="orderStatus >= orderStatusEnum.delivery || cancelStatus < orderStatusEnum.reduceNum">
+                <span :class="orderStatus >=orderStatusEnum.delivery ? 'faillette' : 'faillettes'"></span>
+                <div class="header">多抓鱼收货</div>
+                <div :class="orderStatus >=orderStatusEnum.delivery ? 'date' : 'vertical'"></div>
+              </div>
+              <div class="order-message" v-if="orderStatus >= orderStatusEnum.remit || cancelStatus < orderStatusEnum.reduceNum">
+                <span :class="orderStatus >=orderStatusEnum.remit ? 'faillette' : 'faillettes'"></span>
+                <div class="header">多抓鱼审核打款</div>
+                <div class="headers-intro">
+                  <span>预计签收后 1-3 天完成审核。春节、促销活动等审核紧张时期，审核时间可能会延长，具体请见多抓鱼公众号通知。</span>
+                </div>
+              </div>
+              <div class="order-message" v-if="cancelStatus >= orderStatusEnum.reduceNum">
+                <span class="faillette"></span>
+                <div class="header">订单已取消</div>
+              </div>
+            </div>
+            <div class="order-right">
+              <div class="order-button">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="rgb(170, 170, 170)"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="Icon"
+                  v-if="state"
+                  @click.prevent.stop="updateState"
+                >
+                  <polyline points="18 15 12 9 6 15" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="orderList" v-if="!state">
+            <div class="order-left">
+              <div class="order-message" v-if="orderStatus === 0 && cancelStatus != 10">
+                <span class="faillette" ></span>
+                <div class="header">下单成功</div>
+                <div class="date">
+                  <span>{{sellOrder.createTime | moment}}</span>
+                </div>
+              </div> 
+              <div class="order-message" v-if="orderStatus === 1 && cancelStatus != 11">
+                <span :class="orderStatus >= orderStatusEnum.audit ? 'faillette' : 'faillettes' "></span>
+                <div class="header">多抓鱼线上审核</div>
+                <div :class="orderStatus >= orderStatusEnum.audit? 'date' : 'vertical'"></div>
+              </div>
+              <div class="order-message" v-if="orderStatus === 2">
+                <span :class="orderStatus >= orderStatusEnum.takeBook? 'faillette' : 'faillettes'"></span> 
+                <div class="header">安排快递上门取书</div>
+                <div :class="orderStatus >= orderStatusEnum.takeBook? 'date' : 'vertical'">
+                  预约
+                  <span>2019-8-13 17:00</span>
+                  ，无需支付快递费用
+                </div>
+              </div>
+              <div class="order-message" v-if="orderStatus === 3">
+                <span :class="orderStatus >= orderStatusEnum.inTransit ? 'faillette' : 'faillettes'"></span>
+                <div class="header">运输途中</div>
+                <div :class="orderStatus >= orderStatusEnum.inTransit ? 'date' : 'vertical'"></div>
+              </div>
+              <div class="order-message" v-if="(orderStatus === 4 && cancelStatus != 15) || (orderStatus === 5 && cancelStatus != 15)">
+                <span :class="orderStatus >=orderStatusEnum.delivery ? 'faillette' : 'faillettes'"></span>
+                <div class="header">多抓鱼收货</div>
+                <div :class="orderStatus >=orderStatusEnum.delivery ? 'date' : 'vertical'"></div>
+              </div>
+              <div class="remit" v-if="orderStatus === 6">
+                <span :class="orderStatus >=orderStatusEnum.remit ? 'faillette' : 'faillettes'"></span>
+                <div class="header">多抓鱼审核打款</div>
+                <div class="headers-intro"></div>
+              </div>
+              <div class="top" v-if="cancelStatus === 15 || cancelStatus === 10 || cancelStatus === 11">
+                <span class="faillette"></span>
+                <div class="header">订单已取消</div>
+              </div>
+            </div>
+            <div class="order-right">
+              <div class="order-button">
+                <span v-if="!state"  class="find-detail" @click.prevent.stop="updateState">查看详情</span>
+              </div>
+            </div>
+          </div>
+          <div class="user-discounts" @click="clickJumpAdvertis">
+            <div class="discount">
+              <img
+                src="../../assets/img/coupon_order_20.png"
+                style="height: 77.9px;width: 342px;"
+                alt
+              />
+            </div>
+          </div>
+          <div class="boot-list">
+            <div class="boot-header">
+              <div class="boot-count">
+                共{{this.sellBooks.length}}本 
+              </div>
+            </div>
+            <div class="boot-body">
+              <div class="book-lists" >
+                <div class="book-inner" v-for="(book,i) in this.sellBooks" :key="i" @click="entrance(book.id)">
+                  <div class="imgHeight">
+                    <div class="book-img">
+                      <img
+                        :src="book.cover"
+                        alt
+                        style="height: 70px;width: 50px;"
+                      />
+                    </div>
+                  </div>
+                  <div class="boot-intro">
+                    <div class="boot-title">{{book.name}}</div>
+                    <div class="boot-matha">{{book.author}}{{book.maxDiscount}}</div>
+                  </div>
+                  <div class="boot-right">
+                    <span> ￥{{book.price * (book.condition === conditionEnum.brandNew ? book.maxDiscount :book.condition === conditionEnum.medium ? book.minDiscount :book.condition === conditionEnum.fail ? 0 : book.maxDiscount)/10 | numeral('0,0.00')}}</span>
+                    <span>{{book.condition === conditionEnum.brandNew ? '品相良好' :book.condition === conditionEnum.medium ? '品相中等' :book.condition === conditionEnum.fail ? '品相不合格' : ''}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="book-money">
+              <div class="money-list">
+                <div class="buy-max">
+                  <div class="max-intro">
+                    <span class="intro-text">最高可卖</span>
+                  </div>
+                  <div class="max-price">
+                    <span>￥{{total | numeral('0,0.00')}}</span>
+                  </div>
+                </div>
+                <div class="buy-max">
+                  <div class="max-intro">
+                    <span class="intro-text">运费</span>
+                  </div>
+                  <div class="max-price">
+                    <span>￥0.00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="footer">
+                <div class="footers">
+                  最高可卖
+                  <span class="allmoney">￥{{total | numeral('0,0.00')}}</span>
+                </div>
+              </div>
+              <div class="price-ranger">
+                预估价格区间
+                <span>￥{{sellMinPrice | numeral('0,0.00')}}</span>
+                ~
+                <span>￥{{sellTotalPrice | numeral('0,0.00')}}</span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="transparent"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="Icon"
+                  width="12"
+                  height="12"
+                  style="padding-left: 3px;"
+                  @click="jumpQualityAudit"
+              >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12" y2="8" />
+              </svg>
+              </div>
+            </div>
+          </div>
+          <div class="boot-cat">
+            <div class="cat-title">
+              <h3>预定券进度预测</h3>
+              <svg
+                  viewBox="0 0 24 24"
+                  fill="transparent"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="Icon"
+                  width="12"
+                  height="12"
+                  style="padding-left: 3px;"
+              >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12" y2="8" />
+              </svg>
+            </div>
+            <div class="cat-course">
+              <div class="cat-feature">
+                <img class="reality" src="../../assets/img/cat.png" alt />
+                <img class="sham" src="../../assets/img/cat.png" alt />
+              </div>
+              <div class="progress">
+                <div class="progress-practical"></div>
+                <div class="progress-anticipated"></div>
+                <div class="progress-blank"></div>
+              </div>
+            </div>
+          </div>
+          <div class="order-information">
+            <div class="information">
+              <div class="serial-number">
+                <div class="serial-name">订单编号</div>
+                <div class="serial-figure">{{sellOrder.id}}</div>
+                <div class="button-copy">复制</div>
+              </div>
+              <div class="shipments">
+                <div class="shipments-name">发货人</div>
+                <div>{{sellOrder.userName}} {{sellOrder.phone}}</div>
+              </div>
+              <div class="address">
+                <div class="address-name">取件地址</div>
+                <div>{{sellOrder.province}}{{sellOrder.city}}{{sellOrder.district}}{{sellOrder.street}}</div>
+              </div>
+              <div class="sign" @click="clickJump">
+                <svg t="1567129065105" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4826" width="32" height="32"><path d="M541.8624 318.60096c11.93728 0 35.81312 12.96384 71.62368 38.7968 83.56224 61.69216 170.10816 103.47264 259.63904 125.34272 21.87008 7.9744 30.82368 22.89536 26.85952 44.76672-5.96864 19.9104-19.91168 26.85824-41.78176 20.8896-109.44128-33.80736-204.9408-81.55648-286.49728-143.24992-15.94752-11.93728-24.90112-17.90592-26.85952-17.90592-4.01024 0-10.95808 4.98944-20.8896 14.92096-79.59936 69.66656-183.072 123.3856-310.37312 161.15456-19.91168 5.96864-33.85344 1.02656-41.78048-14.92096-4.01024-19.8656 3.96288-33.80736 23.87456-41.78176 111.40096-31.8016 207.87968-82.53568 289.48224-152.20224C510.99264 330.53824 529.92512 318.60096 541.8624 318.60096zM324.00384 232.05376l176.0768 0c15.90144 2.00448 24.85376 11.93728 26.85824 29.8432-2.00448 17.90592-10.95808 26.85952-26.85824 26.85952L404.5824 288.75648c9.9328 21.91616 17.90592 41.78048 23.87456 59.6864 0 19.91168-7.97312 32.82816-23.87456 38.7968-17.90592 2.00448-29.8432-5.96864-35.81184-23.87456-9.97888-33.80736-17.90592-58.66112-23.87456-74.60864l-47.7504 0c-4.01024 5.96864-6.99392 9.97888-8.9536 11.93728-17.90592 31.84768-32.82688 54.74432-44.76544 68.64-17.90592 21.91616-34.83264 27.8848-50.73408 17.90592-13.94304-13.89568-12.96256-31.80288 2.98496-53.71904 25.83424-33.80736 55.67744-84.54144 89.53088-152.20224 7.92704-17.90592 19.8656-23.87456 35.81312-17.90592 17.90592 5.96864 23.87456 17.90592 17.90592 35.81312-2.00448 5.96864-4.98944 12.96256-8.9536 20.8896C325.96352 224.128 324.00384 228.09088 324.00384 232.05376zM679.1424 808.03456l140.26496 0c17.90592 0 26.85824 9.9328 26.85824 29.8432 0 19.86432-8.95232 30.8224-26.85824 32.82688L249.3952 870.70464c-19.91168-2.00448-30.86976-12.96384-32.82816-32.82688 1.9584-19.91168 12.91648-29.8432 32.82816-29.8432l405.87136 0c-19.91168-7.97312-22.89536-21.87008-8.95232-41.78176 39.77472-61.6448 67.61344-121.33248 83.56096-179.06176 5.96864-17.90592 17.90592-24.85376 35.81312-20.8896 17.90592 5.96864 24.85376 18.9312 20.8896 38.7968-17.90464 65.65632-47.74912 129.35424-89.5296 190.99904C687.06944 804.0256 681.1008 808.03456 679.1424 808.03456zM324.00384 587.19232c31.8016 35.81312 64.62976 85.568 98.4832 149.21728 7.92704 19.91168 5.96864 35.81312-5.96864 47.7504-17.90592 7.97312-31.84896 2.98496-41.78176-14.92096-39.82208-67.61472-70.64448-116.3904-92.51456-146.2336-11.93728-13.89568-11.93728-25.83424 0-35.81312C296.11904 575.25504 310.06208 575.25504 324.00384 587.19232zM679.1424 542.42688 419.50336 542.42688c-19.91168 0-29.8432-8.95232-29.8432-26.85824 0-17.9072 9.9328-27.83872 29.8432-29.84448L679.1424 485.72416c15.90144 2.00576 24.85376 11.93728 26.85824 29.84448C703.99616 533.47456 695.04384 542.42688 679.1424 542.42688zM520.97152 584.20864c19.8656 47.74912 36.79232 101.46688 50.73536 161.15456 1.95712 19.91168-4.98944 31.84896-20.89088 35.81312-17.90592 2.00448-28.864-6.94912-32.82688-26.85952-11.93728-53.71776-26.85952-102.44736-44.76544-146.23232-7.97312-15.90144-4.98944-27.83872 8.9536-35.81312C500.08064 564.34432 512.9984 568.3072 520.97152 584.20864zM631.392 232.05376l223.8272 0c15.90016 2.00448 24.85376 11.93728 26.85824 29.8432-2.00448 19.91168-10.95936 29.8432-26.85824 29.8432l-125.344 0c11.93728 21.91616 21.87008 42.80704 29.8432 62.67136 1.9584 19.91168-4.98816 32.82816-20.8896 38.7968-15.94752 4.01024-27.8848-3.96416-35.81312-23.87456-15.94752-39.776-27.8848-65.65632-35.81312-77.5936l-62.67136 0c-4.01024 4.01024-7.97312 7.97312-11.93728 11.93728-13.94304 17.90592-29.8432 21.91744-47.7504 11.93728-11.93728-11.93728-11.93728-27.83872 0-47.74912 19.8656-31.8016 34.78656-60.66688 44.76672-86.54592 7.92576-15.90144 19.86432-20.89088 35.81184-14.92224 17.90592 7.97312 23.87456 19.91168 17.90592 35.81312C639.32032 216.1536 635.35616 226.08512 631.392 232.05376z" p-id="4827" fill="#ffffff"></path></svg>
+              </div>
+              <div class="homepage">
+                <router-link to="/" tag="div">
+                  <div class="home-buttom">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="22"
+                      height="22"
+                      viewBox="0 0 22 22"
+                    >
+                      <path
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="1.5"
+                        d="M19.022 10.252v7.64a3 3 0 0 1-3 3H5.66a3 3 0 0 1-3-3v-7.676C.582 9.8.393 8.267 2.424 6.429l4.212-3.814c2.378-2.153 6.226-2.16 8.612 0L19.46 6.43c2.088 1.89 1.825 3.466-.438 3.823zM7.76 20.865h6.364v-4.327c0-1.11-.711-2.005-1.59-2.005H9.35c-.878 0-1.59.898-1.59 2.005v4.327z"
+                      />
+                    </svg>
+                  </div>
+                </router-link>
+              </div>
+            </div>
+          </div>
+          <div class="fixed">
+            <div class="fixed-buttom">
+              <div class="fixed-bar">
+                <div class="fixed-bainner" v-if="orderStatus < orderStatusEnum.takeBook && cancelStatus < orderStatusEnum.reduceNum"  @click="updateOrder">
+                  <div class="contact-service">
+                    <div class="contact-inner">修改订单信息</div>
+                  </div>
+                </div>
+                <div class="fixed-bainner" @click="cancelOrder" v-if="orderStatus < orderStatusEnum.takeBook && cancelStatus < orderStatusEnum.reduceNum">
+                  <div class="contact-service">
+                    <div class="contact-inner">取消订单</div>
+                  </div>
+                </div>
+                <div class="fixed-bainner">
+                  <div class="contact-service">
+                    <div class="contact-inner">联系客服</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+const orderStatusEnum = {
+  audit:1,
+  takeBook:2,
+  inTransit:3,
+  delivery:4,
+  remit:6,
+  reduceNum:10,
+  percent:10
+}
+const conditionEnum = {
+  brandNew:0,
+  medium:1,
+  fail:2,
+}
+export default {
+  data() {
+    return {
+      conditionEnum,
+      orderStatusEnum,
+      conditions: [],
+      state: false,
+      sellBooks:{},
+      sellOrder:{},
+      orderStatus:'',
+      orderId:'',
+      cancelStatus:'',
+      total:''
+    };
+  },
+  computed:{
+    sellTotalPrice(){
+      let total = 0;
+      for(let i=0;i<this.sellBooks.length;i++){
+        total +=this.sellBooks[i].price *this.sellBooks[i].maxDiscount/10;
+      }
+      return total;
+    },
+    sellMinPrice(){
+      let total = 0;
+      for(let i=0;i<this.sellBooks.length;i++){
+        total +=this.sellBooks[i].price * this.sellBooks[i].minDiscount/10;
+      }
+      return total;
+    }
+  },
+  methods: {
+    async refresh(){
+      this.orderId = this.$route.params.orderId;
+      let data = await this.$http.get("/order/"+this.orderId);
+      console.info(data)
+      if(data.code === 0){
+        this.sellBooks = data.data.orderBooksConditions; 
+        console.info(this.sellBooks);
+        this.sellOrder = data.data; 
+        this.cancelStatus = data.data.status;
+        this.total = this.sellOrder.total
+        this.orderStatus = this.cancelStatus >= orderStatusEnum.reduceNum ? this.cancelStatus - orderStatusEnum.reduceNum : this.cancelStatus;
+        console.info("cancelStatus:"+this.cancelStatus);
+        console.info("orderStatus:"+this.orderStatus);
+      }else{
+          console.info(data.desc);
+      } 
+    },
+    updateOrder(){
+      this.$router.push('/order/addr/update/'+this.orderId)
+    },
+    jumpQualityAudit(){
+      this.$router.push('/audit');
+    },
+    entrance(id){
+      this.$router.push({
+        path:'/boo/:id',
+        name:'book',
+        params:{
+          id : id
+        }
+      })
+    },
+    clickJump(){
+      this.$router.push('/order/succeed/'+this.orderId)
+    },
+    clickJumpAdvertis(){
+      this.$router.push('/invitation')
+    },
+    updateState() {
+      this.state = !this.state;
+      console.info(this.state);
+    },
+    async cancelOrder(){
+      this.orderId = this.$route.params.orderId;
+      let data = await this.$http.put("/order",{
+        id:this.orderId,
+        status: 10 //取消订单
+      });
+
+      if(data.code === 0){
+        this.cancelStatus = data.status; 
+        this.orderStatus = this.cancelStatus >= orderStatusEnum.reduceNum ? this.cancelStatus - orderStatusEnum.reduceNum : this.cancelStatus;
+        this.refresh();
+      }else{
+        console.info(data.desc);
+      } 
+    }
+  },
+   //初始化订单书籍列表
+  created() {
+     this.refresh();
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.exothecium {
+  max-width: 600px;
+  margin: 0px auto;
+  .roots {
+    position: relative;
+    min-height: 100vh;
+    background-color: rgb(242, 242, 242);
+    .exothecium-body {
+      padding-bottom: 51px;
+      box-sizing: border-box;
+      min-height: 100vh;
+      .orderList {
+        display: flex;
+        margin-bottom: 15px;
+        padding: 0px 15px;
+        background: rgb(255, 255, 255);
+        .order-left {
+          padding-top: 22px;
+          flex-grow: 1;
+          .top::before {
+            background: rgb(24, 195, 170);
+            top: -23px;
+            bottom: 23px;
+            left: 17px;
+            content: "";
+            position: absolute;
+            width: 1.5px;
+          }
+          .top{
+            position: relative;
+            box-sizing: border-box;
+            padding: 0px 0px 15px 35px;
+            .faillette {
+              background: rgb(24, 195, 170);
+              position: absolute;
+              z-index: 1;
+              left: 14px;
+              top: 6.5px;
+              width: 7.5px;
+              height: 7.5px;
+              border-radius: 999px;
+              .header {
+                font-weight: 400;
+                font-size: 16px;
+              }
+            }
+          }
+          .remit::before {
+            background: rgb(24, 195, 170);
+            top: -23px;
+            bottom: 46px;
+            left: 17px;
+            content: "";
+            position: absolute;
+            width: 1.5px;
+          }
+          .remit{
+            position: relative;
+            box-sizing: border-box;
+            padding: 0px 0px 15px 35px;
+            .faillette{
+              background: #18c3aa;
+              position: absolute;
+              z-index: 1;
+              left: 14px;
+              top: 6.5px;
+              width: 7.5px;
+              height: 7.5px;
+              border-radius: 999px;
+            }
+            .headers-intro{
+              display: flex;
+              align-items: center;
+              min-height: 15px;
+              margin-top: 2px;
+              color: #aaaaaa;
+              font-size: 11px;
+            }
+          }
+          .order-message{
+            position: relative;
+            box-sizing: border-box;
+            padding: 0px 0px 15px 35px;
+            .faillette {
+              background: rgb(24, 195, 170);
+              position: absolute;
+              z-index: 1;
+              left: 14px;
+              top: 6.5px;
+              width: 7.5px;
+              height: 7.5px;
+              border-radius: 999px;
+              .header {
+                font-weight: 400;
+                font-size: 16px;
+              }
+            }
+           
+            .faillettes {
+              background: rgb(233, 233, 233);
+              position: absolute;
+              z-index: 1;
+              left: 14px;
+              top: 6.5px;
+              width: 7.5px;
+              height: 7.5px;
+              border-radius: 999px;
+            }
+            .vertical{
+                  color: #aaaaaa;
+                  font-size: 11px;
+            }
+          }
+          .order-message.exothecium::before {
+            top: 0px;
+            height: 12px;
+            content: "";
+            position: absolute;
+            left: 17px;
+            width: 1.5px;
+          }
+          .date {
+            display: flex;
+            align-items: center;
+            min-height: 15px;
+            margin-top: 2px;
+            color: rgb(170, 170, 170);
+            font-size: 11px;
+          }
+          .date::after {
+            background: rgb(24, 195, 170);
+            top: 12px;
+            bottom: -2px;
+            left: 17px;
+            content: "";
+            position: absolute;
+            width: 1.5px;
+          }
+          .headers-intro {
+            display: flex;
+            align-items: center;
+            min-height: 15px;
+            margin-top: 2px;
+            color: rgb(170, 170, 170);
+            font-size: 11px;
+          }
+          .vertical intro {
+            display: flex;
+            align-items: center;
+            min-height: 15px;
+            margin-top: 2px;
+            color: rgb(170, 170, 170);
+            font-size: 11px;
+          }
+          .vertical::after {
+            top: 12px;
+            bottom: 0px;
+            left: 17px;
+            content: "";
+            position: absolute;
+            width: 1.5px;
+            background: rgb(233, 233, 233);
+          }
+        }
+        .order-find {
+          display: flex;
+          align-items: flex-end;
+          padding-bottom: 21px;
+        }
+        .order-right {
+           padding-bottom: 28px;
+          display: flex;
+          align-items: flex-end;
+          .order-button {
+             width: 20px;
+             height: 10px;
+            padding: 2px;
+            .orders-button {
+              padding: 2px;
+            }
+            .find-detail {
+              position: absolute;
+              color: rgb(24, 195, 170);
+              font-size: 12px;
+              width: 68px;
+              height: 28px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 100px;
+              border-width: 0.5px;
+              border-style: solid;
+              border-color: rgb(24, 195, 170);
+              border-image: initial;
+              margin-left: -46px;
+            }
+          }
+          svg {
+            fill: none;
+            stroke: rgb(170, 170, 170);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+          }
+          user agent stylesheet svg:not(:exothecium),
+          symbol,
+          image,
+          marker,
+          pattern,
+          foreignObject {
+            overflow: hidden;
+          }
+          user agent stylesheet html|* > svg {
+            transform-origin: 50% 50% 0px;
+          }
+          user agent stylesheet * {
+            transform-origin: 0px 0px 0px;
+          }
+        }
+      }
+      .user-discounts {
+        padding: 0px 16px 15px;
+        .discount {
+          background-size: cover;
+          display: flex;
+        }
+      }
+      .boot-list {
+        margin-bottom: 15px;
+        padding: 0px 15px;
+        background: rgb(255, 255, 255);
+        .boot-header {
+          display: flex;
+          padding: 15px 0px;
+          border-bottom: 0.5px solid rgb(242, 242, 242);
+          .boot-count {
+            flex: 1 1 0%;
+          }
+        }
+
+        .book-lists {
+          border-bottom: 0.5px solid rgb(242, 242, 242);
+          .book-inner {
+            display: flex;
+            font-size: 14px;
+            padding: 12px 0px;
+            border-bottom: 0.5px solid rgb(230, 230, 230);
+            .imgHeight {
+              width: 50px;
+              height: 70px;
+              position: relative;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+              .book-img {
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+                background-position: center center;
+                background-repeat: no-repeat;
+                display: block;
+                max-width: 100%;
+                max-height: 100%;
+              }
+            }
+            .boot-intro {
+              flex-grow: 1;
+              margin-left: 8px;
+              overflow: hidden;
+              .boot-title {
+                line-height: 1.29;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                font-weight: 400;
+                overflow: hidden;
+              }
+              .boot-matha {
+                margin-top: 6px;
+                line-height: 1.5;
+                color: rgb(170, 170, 170);
+                font-size: 12px;
+              }
+            }
+            .boot-right {
+              display: flex;
+              flex-direction: column;
+              flex-shrink: 0;
+              align-items: center;
+              margin-left: 12px;
+            }
+          }
+        }
+        .money-list {
+          padding: 14px 0px;
+          border-bottom: 0.5px solid rgb(242, 242, 242);
+          .buy-max {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-top: 0px;
+            .max-intro {
+              display: flex;
+              flex-grow: 1;
+              flex-direction: row;
+              align-items: center;
+              margin-right: 1em;
+              overflow: hidden;
+              .intro-text {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+              }
+            }
+            .max-price {
+              flex-shrink: 0;
+              font-weight: 400;
+              line-height: 1;
+            }
+          }
+        }
+        .footer {
+          border-bottom: none;
+          display: flex;
+          justify-content: flex-end;
+          padding: 14px 0px;
+          .allmoney {
+            font-size: 1.33em;
+            font-weight: 400;
+            color: rgb(242, 129, 129);
+          }
+        }
+        .price-ranger {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-end;
+          margin-top: -7px;
+          padding-bottom: 24px;
+          font-size: 12px;
+          font-weight: 300;
+          line-height: 1.33;
+          color: rgb(170, 170, 170);
+          text-align: right;
+        }
+      }
+      .boot-cat {
+        margin: 15px 0px;
+        padding: 14px 15px 20px;
+        background: rgb(255, 255, 255);
+        .cat-title {
+          display: flex;
+          align-items: center;
+          margin-bottom: 14px;
+          .cat-svg {
+            display: inline-block;
+            font-size: 0.8em;
+            color: rgb(170, 170, 170);
+            margin: -8px -8px -8px -4px;
+          }
+        }
+        h3 {
+          margin: 0;
+          font: inherit;
+          display: block;
+        }
+        .cat-course {
+          width: 98%;
+          margin-left: 2px;
+          .cat-feature {
+            position: relative;
+            height: 40px;
+            max-height: 6vh;
+            .reality {
+              left: -3%;
+              z-index: 1;
+              position: absolute;
+              bottom: 0px;
+              height: 100%;
+            }
+            .sham {
+              left: 2.16%;
+              opacity: 0.5;
+              position: absolute;
+              bottom: 0px;
+              height: 100%;
+            }
+          }
+          .progress {
+            border: none;
+            position: relative;
+            width: 100%;
+            height: 10px;
+            border-radius: 99px;
+            overflow: hidden;
+            .progress-practical {
+              width: 0.5%;
+              background-color: rgb(24, 195, 170);
+              z-index: 1;
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              height: 10px;
+            }
+            .progress-anticipated {
+              width: 8.66%;
+              background-color: rgba(24, 195, 170, 0.2);
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              height: 10px;
+            }
+            .progress-blank {
+              width: 100%;
+              height: 100%;
+              background-color: rgba(242, 242, 242, 0.6);
+            }
+          }
+        }
+      }
+      .order-information {
+        margin-bottom: 15px;
+        padding: 0px 15px;
+        background: rgb(255, 255, 255);
+        .information {
+          font-size: 14px;
+          line-height: 20px;
+          padding: 15px 0px;
+          .serial-number {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            .serial-name {
+              flex-shrink: 0;
+              width: 4em;
+              margin-right: 1em;
+              color: rgb(170, 170, 170);
+              text-align: right;
+            }
+            .button-copy {
+              font-weight: 300;
+              margin-left: 10px;
+              padding: 2px 10px;
+              font-size: 12px;
+              display: inline-block;
+              box-sizing: border-box;
+              text-align: center;
+              text-decoration: none;
+              white-space: nowrap;
+              border: 0.5px solid rgb(242, 242, 242);
+              border-radius: 999px;
+              // pointer-events: auto;
+              cursor: pointer;
+            }
+          }
+          .shipments {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            .shipments-name {
+              flex-shrink: 0;
+              width: 4em;
+              margin-right: 1em;
+              color: rgb(170, 170, 170);
+              text-align: right;
+            }
+          }
+          .address {
+            margin-bottom: 0px;
+            align-items: flex-start;
+            display: flex;
+            .address-name {
+              flex-shrink: 0;
+              width: 4em;
+              margin-right: 1em;
+              color: rgb(170, 170, 170);
+              text-align: right;
+            }
+          }
+          .sign {
+            width: 46px;
+            height: 46px;
+            box-sizing: border-box;
+            position: fixed;
+            bottom: 130px;
+            right: 16px;
+            border-radius: 50%;
+            border-width: 4px;
+            border-style: solid;
+            border-color: rgb(214, 186, 140);
+            border-image: initial;
+            background-color: red;
+            background-position: center center;
+            background-repeat: no-repeat;
+          }
+          .home-buttom {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 46px;
+            height: 46px;
+            position: fixed;
+            bottom: 180px;
+            right: 16px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px 0px;
+            border-radius: 50%;
+            background: rgba(102, 102, 102, 0.96);
+          }
+        }
+      }
+      .fixed {
+        background-color: rgb(255, 255, 255);
+        border-top: 0.5px solid rgb(210, 210, 210);
+        z-index: 10;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        .fixed-buttom {
+          .fixed-bar {
+            overflow-x: scroll;
+            display: flex;
+            flex-direction: row-reverse;
+            .fixed-bainner {
+              height: 50px;
+              padding-top: 6px;
+              .contact-service {
+                margin-right: 10px;
+                display: inline-block;
+                height: 32px;
+                padding: 0 1em;
+                font-size: 13px;
+                border-color: rgb(217, 217, 217);
+                border: 0.5px solid rgb(242, 242, 242);
+                .contact-inner {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  height: 100%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</style>

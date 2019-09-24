@@ -1,0 +1,27 @@
+module.exports = {
+    baseUrl: "/", // 已废弃
+    publicPath: "/",
+    devServer: {
+        port:80,
+        // proxy: {
+        //   "/dzy": {
+        //     target: "http://127.0.0.1:8080/",
+        //     changeOrigin: true
+        //   }
+        // }
+        proxy: {
+          "/dzy": {
+            target: "http://192.168.6.182:8090/",
+            changeOrigin: true
+          }
+        }
+    },
+    chainWebpack: config => {
+      config.module
+        .rule("images")
+        .use("url-loader")
+        .loader("url-loader")
+        .tap(options => Object.assign(options, {limit: 10240}))
+    }
+
+}

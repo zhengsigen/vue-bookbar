@@ -1,0 +1,807 @@
+15:34:25.763 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 11416 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+15:34:25.766 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+15:34:25.810 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+15:34:25.811 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+15:34:28.374 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+15:34:28.427 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+15:34:28.437 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+15:34:28.437 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+15:34:28.546 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+15:34:28.546 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 2735 ms
+15:34:29.550 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+15:34:29.861 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+15:34:29.887 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+15:34:29.919 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+15:34:29.922 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 4.594 seconds (JVM running for 5.263)
+15:38:49.422 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+15:38:49.422 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+15:38:49.428 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+15:38:49.502 [http-nio-8090-exec-1] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.c1801.spring.dzy.common.ResData com.c1801.spring.dzy.controller.order.OrderPayController.OrderPay(com.c1801.spring.dzy.model.OrderPay,java.lang.Integer,javax.servlet.http.HttpSession) throws java.io.IOException
+15:38:49.503 [http-nio-8090-exec-1] INFO  c.c.s.d.c.ContronllerAdvice - [exception,74] - errorcode = 1004
+15:38:49.528 [http-nio-8090-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.c1801.spring.dzy.common.ResData com.c1801.spring.dzy.controller.order.OrderPayController.OrderPay(com.c1801.spring.dzy.model.OrderPay,java.lang.Integer,javax.servlet.http.HttpSession) throws java.io.IOException]
+15:39:08.817 [http-nio-8090-exec-2] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.c1801.spring.dzy.common.ResData com.c1801.spring.dzy.controller.order.OrderPayController.OrderPay(com.c1801.spring.dzy.model.OrderPay,java.lang.Integer,javax.servlet.http.HttpSession) throws java.io.IOException
+15:39:08.818 [http-nio-8090-exec-2] INFO  c.c.s.d.c.ContronllerAdvice - [exception,74] - errorcode = 1004
+15:39:08.819 [http-nio-8090-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.c1801.spring.dzy.common.ResData com.c1801.spring.dzy.controller.order.OrderPayController.OrderPay(com.c1801.spring.dzy.model.OrderPay,java.lang.Integer,javax.servlet.http.HttpSession) throws java.io.IOException]
+15:39:40.716 [http-nio-8090-exec-3] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+15:39:41.82 [http-nio-8090-exec-3] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = java.lang.NullPointerException
+15:39:41.85 [http-nio-8090-exec-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [java.lang.NullPointerException]
+15:40:04.977 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 41204 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+15:40:04.980 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+15:40:05.39 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+15:40:05.39 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+15:40:06.705 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+15:40:06.719 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+15:40:06.730 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+15:40:06.731 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+15:40:06.825 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+15:40:06.825 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1786 ms
+15:40:07.685 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+15:40:07.985 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+15:40:08.09 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+15:40:08.30 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+15:40:08.33 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.381 seconds (JVM running for 3.919)
+15:40:10.579 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+15:40:10.579 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+15:40:10.584 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+15:40:10.700 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+15:40:12.658 [http-nio-8090-exec-1] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.c1801.spring.dzy.mapper.OrderPayMapper.orderPaymentRecord
+15:40:12.682 [http-nio-8090-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.c1801.spring.dzy.mapper.OrderPayMapper.orderPaymentRecord]
+15:44:48.566 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 18996 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+15:44:48.570 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+15:44:48.633 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+15:44:48.633 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+15:44:50.281 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+15:44:50.294 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+15:44:50.304 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+15:44:50.304 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+15:44:50.403 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+15:44:50.403 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1769 ms
+15:44:51.295 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+15:44:51.598 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+15:44:51.622 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+15:44:51.644 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+15:44:51.646 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.424 seconds (JVM running for 3.977)
+15:44:56.670 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+15:44:56.671 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+15:44:56.676 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+15:44:56.798 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+15:44:58.230 [http-nio-8090-exec-1] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.type.TypeException: Could not set parameters for mapping: ParameterMapping{property='wxPay', mode=IN, javaType=class java.lang.Integer, jdbcType=null, numericScale=null, resultMapId='null', jdbcTypeName='null', expression='null'}. Cause: org.apache.ibatis.type.TypeException: Error setting non null for parameter #3 with JdbcType null . Try setting a different JdbcType for this parameter or a different configuration property. Cause: java.lang.ClassCastException: java.lang.Double cannot be cast to java.lang.Integer
+15:44:58.256 [http-nio-8090-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.type.TypeException: Could not set parameters for mapping: ParameterMapping{property='wxPay', mode=IN, javaType=class java.lang.Integer, jdbcType=null, numericScale=null, resultMapId='null', jdbcTypeName='null', expression='null'}. Cause: org.apache.ibatis.type.TypeException: Error setting non null for parameter #3 with JdbcType null . Try setting a different JdbcType for this parameter or a different configuration property. Cause: java.lang.ClassCastException: java.lang.Double cannot be cast to java.lang.Integer]
+15:45:50.788 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 18852 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+15:45:50.791 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+15:45:50.852 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+15:45:50.852 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+15:45:52.534 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+15:45:52.588 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+15:45:52.596 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+15:45:52.597 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+15:45:52.697 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+15:45:52.697 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1845 ms
+15:45:53.627 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+15:45:53.942 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+15:45:53.965 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+15:45:53.986 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+15:45:53.988 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.539 seconds (JVM running for 4.063)
+15:45:58.221 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+15:45:58.221 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+15:45:58.227 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+15:45:58.346 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+15:45:59.701 [http-nio-8090-exec-1] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'order_id' in 'class com.c1801.spring.dzy.model.OrderPay'
+15:45:59.726 [http-nio-8090-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'order_id' in 'class com.c1801.spring.dzy.model.OrderPay']
+15:46:40.179 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 42148 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+15:46:40.183 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+15:46:40.252 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+15:46:40.253 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+15:46:41.853 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+15:46:41.866 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+15:46:41.874 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+15:46:41.874 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+15:46:41.967 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+15:46:41.967 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1714 ms
+15:46:42.843 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+15:46:43.143 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+15:46:43.166 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+15:46:43.187 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+15:46:43.190 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.368 seconds (JVM running for 3.936)
+15:46:48.878 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+15:46:48.878 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+15:46:48.884 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+15:46:49.02 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+15:46:50.247 [http-nio-8090-exec-1] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'fee_pay' cannot be null
+### The error may exist in file [C:\开发\项目\springboot\dzy2.0\demo 微信\target\classes\mapper\OrderPayMapper.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: UPDATE order_pay_tb   SET   pay_type=?,   fee_pay=?,   wx_pay=?   WHERE order_id = ?
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'fee_pay' cannot be null
+; Column 'fee_pay' cannot be null; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'fee_pay' cannot be null
+15:46:50.276 [http-nio-8090-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'fee_pay' cannot be null
+### The error may exist in file [C:\开发\项目\springboot\dzy2.0\demo 微信\target\classes\mapper\OrderPayMapper.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: UPDATE order_pay_tb   SET   pay_type=?,   fee_pay=?,   wx_pay=?   WHERE order_id = ?
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'fee_pay' cannot be null
+; Column 'fee_pay' cannot be null; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'fee_pay' cannot be null]
+15:48:20.428 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 30836 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+15:48:20.431 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+15:48:20.489 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+15:48:20.490 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+15:48:22.156 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+15:48:22.170 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+15:48:22.178 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+15:48:22.178 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+15:48:22.279 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+15:48:22.279 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1789 ms
+15:48:23.178 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+15:48:23.477 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+15:48:23.500 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+15:48:23.523 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+15:48:23.525 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.438 seconds (JVM running for 3.997)
+15:48:26.410 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+15:48:26.410 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+15:48:26.415 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+15:48:26.544 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+15:48:27.782 [http-nio-8090-exec-1] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = java.lang.NullPointerException
+15:48:27.808 [http-nio-8090-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [java.lang.NullPointerException]
+15:48:43.630 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 12008 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+15:48:43.633 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+15:48:43.690 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+15:48:43.690 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+15:48:45.377 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+15:48:45.391 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+15:48:45.401 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+15:48:45.401 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+15:48:45.495 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+15:48:45.496 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1806 ms
+15:48:46.371 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+15:48:46.699 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+15:48:46.722 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+15:48:46.744 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+15:48:46.747 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.463 seconds (JVM running for 3.996)
+15:48:49.323 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+15:48:49.324 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+15:48:49.329 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+15:48:49.449 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+15:48:51.363 [http-nio-8090-exec-1] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'user_id' in 'class com.c1801.spring.dzy.model.BalanceDetail'
+15:48:51.394 [http-nio-8090-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named 'user_id' in 'class com.c1801.spring.dzy.model.BalanceDetail']
+15:50:45.933 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 43892 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+15:50:45.936 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+15:50:45.991 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+15:50:45.991 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+15:50:47.684 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+15:50:47.738 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+15:50:47.748 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+15:50:47.748 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+15:50:47.842 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+15:50:47.842 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1851 ms
+15:50:48.715 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+15:50:49.04 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+15:50:49.30 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+15:50:49.50 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+15:50:49.53 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.43 seconds (JVM running for 3.952)
+15:50:52.946 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+15:50:52.946 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+15:50:52.951 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+15:50:53.75 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+15:50:54.287 [http-nio-8090-exec-1] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'fee' cannot be null
+### The error may exist in file [C:\开发\项目\springboot\dzy2.0\demo 微信\target\classes\mapper\BalanceDetail.xml]
+### The error may involve com.c1801.spring.dzy.mapper.BalanceDetailMapper.addBalanceDetail-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO balance_statement_tb (user_id, order_id, `type`, fee) values(?, ?,       ?, ?)
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'fee' cannot be null
+; Column 'fee' cannot be null; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'fee' cannot be null
+15:50:54.314 [http-nio-8090-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'fee' cannot be null
+### The error may exist in file [C:\开发\项目\springboot\dzy2.0\demo 微信\target\classes\mapper\BalanceDetail.xml]
+### The error may involve com.c1801.spring.dzy.mapper.BalanceDetailMapper.addBalanceDetail-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO balance_statement_tb (user_id, order_id, `type`, fee) values(?, ?,       ?, ?)
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'fee' cannot be null
+; Column 'fee' cannot be null; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Column 'fee' cannot be null]
+15:54:26.850 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 33520 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+15:54:26.853 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+15:54:26.907 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+15:54:26.907 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+15:54:28.634 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+15:54:28.648 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+15:54:28.657 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+15:54:28.657 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+15:54:28.750 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+15:54:28.751 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1844 ms
+15:54:29.663 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+15:54:29.966 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+15:54:29.990 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+15:54:30.12 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+15:54:30.14 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.511 seconds (JVM running for 4.031)
+15:54:32.772 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+15:54:32.772 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+15:54:32.778 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+15:54:32.893 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+15:58:26.955 [http-nio-8090-exec-4] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = java.lang.NullPointerException
+15:58:26.958 [http-nio-8090-exec-4] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [java.lang.NullPointerException]
+16:00:13.295 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 2520 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:00:13.299 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:00:13.357 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:00:13.357 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:00:15.85 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:00:15.101 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:00:15.111 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:00:15.111 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:00:15.221 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:00:15.221 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1863 ms
+16:00:16.121 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:00:16.431 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:00:16.462 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:00:16.495 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:00:16.499 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.534 seconds (JVM running for 4.057)
+16:00:25.223 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:00:25.223 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+16:00:25.228 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+16:00:25.357 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+16:14:49.240 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 30196 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:14:49.243 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:14:49.306 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:14:49.306 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:14:51.128 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:14:51.143 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:14:51.152 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:14:51.152 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:14:51.249 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:14:51.249 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1943 ms
+16:14:52.400 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:14:52.703 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:14:52.731 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:14:52.756 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:14:52.758 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.859 seconds (JVM running for 4.412)
+16:15:00.529 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:15:00.530 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+16:15:00.537 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 7 ms
+16:16:44.782 [http-nio-8090-exec-5] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+16:23:48.203 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 880 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:23:48.206 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:23:48.270 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:23:48.271 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:23:50.44 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:23:50.58 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:23:50.66 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:23:50.66 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:23:50.163 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:23:50.163 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1892 ms
+16:23:51.56 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:23:51.350 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:23:51.374 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:23:51.395 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:23:51.398 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.524 seconds (JVM running for 4.075)
+16:24:00.527 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 8204 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:24:00.531 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:24:00.595 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:24:00.595 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:24:02.268 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:24:02.282 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:24:02.291 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:24:02.292 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:24:02.390 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:24:02.390 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1794 ms
+16:24:03.340 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:24:03.651 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:24:03.675 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:24:03.697 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:24:03.700 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.515 seconds (JVM running for 4.058)
+16:24:04.457 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:24:04.457 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+16:24:04.463 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+16:24:04.595 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+16:24:05.863 [http-nio-8090-exec-1] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = org.springframework.dao.DuplicateKeyException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '888' for key 'order_id'
+### The error may exist in file [C:\开发\项目\springboot\dzy2.0\demo 微信\target\classes\mapper\BalanceDetail.xml]
+### The error may involve com.c1801.spring.dzy.mapper.BalanceDetailMapper.addBalanceDetail-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO balance_statement_tb (user_id, order_id, `type`, fee) values(?, ?,       ?, ?)
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '888' for key 'order_id'
+; Duplicate entry '888' for key 'order_id'; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '888' for key 'order_id'
+16:24:05.891 [http-nio-8090-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [org.springframework.dao.DuplicateKeyException: 
+### Error updating database.  Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '888' for key 'order_id'
+### The error may exist in file [C:\开发\项目\springboot\dzy2.0\demo 微信\target\classes\mapper\BalanceDetail.xml]
+### The error may involve com.c1801.spring.dzy.mapper.BalanceDetailMapper.addBalanceDetail-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO balance_statement_tb (user_id, order_id, `type`, fee) values(?, ?,       ?, ?)
+### Cause: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '888' for key 'order_id'
+; Duplicate entry '888' for key 'order_id'; nested exception is com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '888' for key 'order_id']
+16:25:50.291 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 27900 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:25:50.294 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:25:50.357 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:25:50.357 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:25:52.23 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:25:52.37 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:25:52.46 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:25:52.46 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:25:52.143 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:25:52.143 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1786 ms
+16:25:53.27 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:25:53.361 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:25:53.391 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:25:53.417 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:25:53.420 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.475 seconds (JVM running for 4.021)
+16:25:53.574 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:25:53.574 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+16:25:53.580 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+16:27:19.302 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 40840 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:27:19.304 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:27:19.367 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:27:19.368 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:27:21.49 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:27:21.98 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:27:21.110 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:27:21.110 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:27:21.207 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:27:21.208 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1840 ms
+16:27:22.152 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:27:22.447 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:27:22.471 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:27:22.494 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:27:22.497 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.571 seconds (JVM running for 4.143)
+16:27:25.30 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:27:25.30 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+16:27:25.35 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+16:27:25.309 [http-nio-8090-exec-2] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+16:29:04.316 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 30028 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:29:04.319 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:29:04.373 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:29:04.373 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:29:06.36 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:29:06.50 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:29:06.58 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:29:06.59 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:29:06.154 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:29:06.154 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1781 ms
+16:29:07.33 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:29:07.340 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:29:07.363 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:29:07.384 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:29:07.387 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.393 seconds (JVM running for 3.913)
+16:29:15.464 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:29:15.465 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+16:29:15.469 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 4 ms
+16:29:15.700 [http-nio-8090-exec-2] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+16:29:49.697 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 26556 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:29:49.700 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:29:49.761 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:29:49.761 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:29:51.395 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:29:51.408 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:29:51.417 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:29:51.417 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:29:51.514 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:29:51.514 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1753 ms
+16:29:52.371 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:29:52.670 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:29:52.694 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:29:52.716 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:29:52.718 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.354 seconds (JVM running for 3.87)
+16:29:54.154 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:29:54.155 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+16:29:54.160 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+16:29:54.319 [http-nio-8090-exec-2] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+16:32:10.785 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 18912 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:32:10.789 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:32:10.844 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:32:10.844 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:32:12.512 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:32:12.526 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:32:12.535 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:32:12.535 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:32:12.629 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:32:12.629 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1785 ms
+16:32:13.495 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:32:13.786 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:32:13.809 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:32:13.830 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:32:13.833 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.373 seconds (JVM running for 3.887)
+16:32:17.363 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:32:17.363 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+16:32:17.369 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+16:32:17.502 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+16:33:55.613 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 37340 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:33:55.616 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:33:55.672 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:33:55.672 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:33:57.353 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:33:57.366 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:33:57.375 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:33:57.376 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:33:57.471 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:33:57.471 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1798 ms
+16:33:58.370 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:33:58.683 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:33:58.706 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:33:58.729 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:33:58.731 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.459 seconds (JVM running for 3.986)
+16:34:01.50 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:34:01.50 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+16:34:01.55 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+16:34:01.176 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+16:35:40.149 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 5232 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:35:40.151 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:35:40.209 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:35:40.209 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:35:41.908 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:35:41.921 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:35:41.930 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:35:41.930 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:35:42.61 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:35:42.61 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1851 ms
+16:35:42.981 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:35:43.296 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:35:43.321 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:35:43.343 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:35:43.346 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.523 seconds (JVM running for 4.041)
+16:35:46.478 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:35:46.478 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+16:35:46.484 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+16:35:46.613 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+16:38:07.782 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 31928 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:38:07.785 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:38:07.849 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:38:07.849 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:38:09.589 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:38:09.603 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:38:09.612 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:38:09.612 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:38:09.708 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:38:09.708 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1858 ms
+16:38:10.645 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:38:10.947 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:38:10.972 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:38:10.995 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:38:10.997 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.571 seconds (JVM running for 4.125)
+16:38:26.458 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 5628 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:38:26.467 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:38:26.521 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:38:26.521 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:38:28.261 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:38:28.274 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:38:28.283 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:38:28.283 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:38:28.381 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:38:28.382 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1860 ms
+16:38:29.281 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:38:29.591 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:38:29.614 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:38:29.636 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:38:29.639 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.529 seconds (JVM running for 4.077)
+16:38:32.518 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:38:32.518 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+16:38:32.524 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+16:38:32.729 [http-nio-8090-exec-2] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+16:39:10.561 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 22384 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:39:10.563 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:39:10.617 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:39:10.617 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:39:12.323 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:39:12.337 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:39:12.346 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:39:12.347 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:39:12.444 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:39:12.444 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1826 ms
+16:39:13.304 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:39:13.594 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:39:13.618 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:39:13.639 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:39:13.641 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.417 seconds (JVM running for 3.947)
+16:39:28.904 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 43376 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:39:28.907 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:39:28.968 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:39:28.968 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:39:30.697 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:39:30.710 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:39:30.718 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:39:30.718 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:39:30.821 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:39:30.821 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1853 ms
+16:39:31.764 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:39:32.88 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:39:32.113 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:39:32.136 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:39:32.138 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.568 seconds (JVM running for 4.095)
+16:39:32.399 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+16:39:32.399 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+16:39:32.405 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+16:39:32.629 [http-nio-8090-exec-2] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+16:41:06.843 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 40024 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+16:41:06.846 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+16:41:06.900 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+16:41:06.900 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+16:41:08.522 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+16:41:08.576 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+16:41:08.585 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+16:41:08.585 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+16:41:08.681 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+16:41:08.681 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1781 ms
+16:41:09.539 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+16:41:09.826 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+16:41:09.848 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+16:41:09.869 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+16:41:09.872 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.362 seconds (JVM running for 3.886)
+20:22:45.328 [Thread-6] INFO  o.s.s.c.ThreadPoolTaskExecutor - [shutdown,208] - Shutting down ExecutorService 'applicationTaskExecutor'
+20:22:45.730 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 40024 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+20:22:45.730 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+20:22:46.818 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+20:22:46.819 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+20:22:46.819 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+20:22:46.819 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+20:22:46.838 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+20:22:46.838 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1105 ms
+20:22:47.436 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+20:22:47.555 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+20:22:47.569 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+20:22:47.573 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+20:22:47.574 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 1.907 seconds (JVM running for 13301.6)
+20:22:47.576 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - [onApplicationEvent,63] - Condition evaluation unchanged
+20:22:55.167 [Thread-10] INFO  o.s.s.c.ThreadPoolTaskExecutor - [shutdown,208] - Shutting down ExecutorService 'applicationTaskExecutor'
+20:22:55.724 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 40024 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+20:22:55.724 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+20:22:56.139 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+20:22:56.140 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+20:22:56.140 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+20:22:56.140 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+20:22:56.153 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+20:22:56.153 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 426 ms
+20:22:56.628 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+20:22:56.709 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+20:22:56.719 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+20:22:56.722 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+20:22:56.723 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 1.033 seconds (JVM running for 13310.749)
+20:22:56.724 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - [onApplicationEvent,63] - Condition evaluation unchanged
+20:42:07.326 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20:42:07.328 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+20:42:07.340 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 12 ms
+20:42:17.331 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 43272 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+20:42:17.334 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+20:42:17.391 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+20:42:17.391 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+20:42:19.68 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+20:42:19.82 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+20:42:19.92 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+20:42:19.92 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+20:42:19.230 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+20:42:19.230 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1839 ms
+20:42:20.181 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+20:42:20.514 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+20:42:20.539 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+20:42:20.563 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+20:42:20.565 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.558 seconds (JVM running for 4.113)
+20:42:44.992 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20:42:44.992 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+20:42:44.997 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+20:42:45.58 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+20:43:08.665 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 7592 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+20:43:08.667 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+20:43:08.728 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+20:43:08.729 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+20:43:10.349 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+20:43:10.363 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+20:43:10.372 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+20:43:10.372 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+20:43:10.469 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+20:43:10.470 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1741 ms
+20:43:11.368 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+20:43:11.669 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+20:43:11.694 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+20:43:11.715 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+20:43:11.717 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.39 seconds (JVM running for 3.948)
+20:43:13.502 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20:43:13.503 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+20:43:13.509 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+20:43:13.574 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+20:43:14.710 [http-nio-8090-exec-1] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = java.lang.RuntimeException: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; 前言中不允许有内容。
+20:43:14.758 [http-nio-8090-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [java.lang.RuntimeException: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; 前言中不允许有内容。]
+20:43:57.935 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 14624 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+20:43:57.946 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+20:43:57.995 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+20:43:57.996 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+20:43:59.610 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+20:43:59.624 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+20:43:59.633 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+20:43:59.633 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+20:43:59.730 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+20:43:59.731 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1735 ms
+20:44:00.606 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+20:44:00.906 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+20:44:00.930 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+20:44:00.952 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+20:44:00.955 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.369 seconds (JVM running for 3.895)
+20:44:49.270 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20:44:49.271 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+20:44:49.278 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 7 ms
+20:44:49.334 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+20:47:00.401 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 9308 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+20:47:00.403 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+20:47:00.454 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+20:47:00.454 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+20:47:02.62 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+20:47:02.85 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+20:47:02.102 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+20:47:02.103 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+20:47:02.274 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+20:47:02.274 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1819 ms
+20:47:03.186 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+20:47:03.549 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+20:47:03.575 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+20:47:03.601 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+20:47:03.603 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.543 seconds (JVM running for 4.072)
+20:47:04.06 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20:47:04.06 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+20:47:04.12 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+20:47:04.65 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+20:47:07.543 [http-nio-8090-exec-1] INFO  c.c.s.d.c.ContronllerAdvice - [exception,43] - 拦截异常e = java.lang.RuntimeException: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; 前言中不允许有内容。
+20:47:07.592 [http-nio-8090-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - [logException,198] - Resolved [java.lang.RuntimeException: org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; 前言中不允许有内容。]
+20:48:29.928 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 15252 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+20:48:29.930 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+20:48:29.991 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+20:48:29.991 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+20:48:31.500 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+20:48:31.551 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+20:48:31.560 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+20:48:31.561 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+20:48:31.657 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+20:48:31.657 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1666 ms
+20:48:32.570 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+20:48:32.867 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+20:48:32.892 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+20:48:32.914 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+20:48:32.916 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.32 seconds (JVM running for 3.858)
+20:48:33.304 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20:48:33.304 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+20:48:33.309 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+20:48:33.369 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+20:49:03.486 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 39384 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+20:49:03.489 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+20:49:03.545 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+20:49:03.546 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+20:49:05.181 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+20:49:05.195 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+20:49:05.205 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+20:49:05.205 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+20:49:05.299 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+20:49:05.300 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1753 ms
+20:49:06.212 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+20:49:06.568 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+20:49:06.592 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+20:49:06.616 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+20:49:06.619 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.477 seconds (JVM running for 4.02)
+20:49:06.939 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20:49:06.940 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+20:49:06.945 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+20:49:07.02 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+20:56:02.657 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 28664 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+20:56:02.660 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+20:56:02.711 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+20:56:02.712 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+20:56:04.396 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+20:56:04.409 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+20:56:04.418 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+20:56:04.418 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+20:56:04.514 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+20:56:04.515 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1803 ms
+20:56:05.382 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+20:56:05.666 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+20:56:05.692 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+20:56:05.714 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+20:56:05.717 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.4 seconds (JVM running for 3.926)
+20:57:05.554 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 18744 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+20:57:05.557 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+20:57:05.611 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+20:57:05.611 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+20:57:07.256 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+20:57:07.271 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+20:57:07.279 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+20:57:07.279 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+20:57:07.382 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+20:57:07.382 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1771 ms
+20:57:08.315 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+20:57:08.623 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+20:57:08.648 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+20:57:08.671 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+20:57:08.674 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.446 seconds (JVM running for 3.975)
+20:57:13.754 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+20:57:13.754 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+20:57:13.763 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 9 ms
+20:57:14.05 [http-nio-8090-exec-2] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+21:28:35.689 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 36472 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+21:28:35.692 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+21:28:35.747 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+21:28:35.748 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+21:28:37.407 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+21:28:37.421 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+21:28:37.429 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+21:28:37.429 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+21:28:37.526 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+21:28:37.526 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1778 ms
+21:28:38.429 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+21:28:38.738 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+21:28:38.773 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+21:28:38.797 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+21:28:38.802 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.43 seconds (JVM running for 3.992)
+21:28:40.170 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+21:28:40.170 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+21:28:40.175 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+21:28:40.239 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+21:31:09.101 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 32680 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+21:31:09.103 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+21:31:09.156 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+21:31:09.156 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+21:31:10.767 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+21:31:10.782 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+21:31:10.792 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+21:31:10.792 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+21:31:10.891 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+21:31:10.891 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1735 ms
+21:31:11.780 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+21:31:12.82 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+21:31:12.105 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+21:31:12.126 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+21:31:12.129 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.359 seconds (JVM running for 3.901)
+21:31:12.705 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+21:31:12.705 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+21:31:12.711 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+21:31:12.775 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+21:32:23.405 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 37200 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+21:32:23.408 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+21:32:23.461 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+21:32:23.461 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+21:32:25.136 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+21:32:25.149 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+21:32:25.158 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+21:32:25.159 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+21:32:25.254 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+21:32:25.254 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1792 ms
+21:32:26.180 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+21:32:26.490 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+21:32:26.518 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+21:32:26.542 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+21:32:26.544 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.462 seconds (JVM running for 3.996)
+21:32:26.666 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+21:32:26.666 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+21:32:26.672 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 6 ms
+21:32:26.735 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+21:43:55.743 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 5052 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+21:43:55.746 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+21:43:55.798 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+21:43:55.799 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+21:43:57.484 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+21:43:57.498 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+21:43:57.506 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+21:43:57.507 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+21:43:57.604 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+21:43:57.605 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1806 ms
+21:43:58.463 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+21:43:58.747 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+21:43:58.770 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+21:43:58.791 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+21:43:58.794 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.373 seconds (JVM running for 3.924)
+21:44:12.791 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+21:44:12.791 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+21:44:12.796 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+21:44:12.862 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+21:47:43.566 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarting,50] - Starting DzyApplication on DESKTOP-85KN65G with PID 31344 (started by admin in C:\开发\项目\springboot\dzy2.0\demo 微信)
+21:47:43.568 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStartupProfileInfo,650] - The following profiles are active: dev
+21:47:43.629 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+21:47:43.630 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - [logTo,225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+21:47:45.361 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [initialize,90] - Tomcat initialized with port(s): 8090 (http)
+21:47:45.376 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8090"]
+21:47:45.385 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+21:47:45.385 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.21]
+21:47:45.480 [restartedMain] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+21:47:45.481 [restartedMain] INFO  o.s.w.c.ContextLoader - [prepareWebApplicationContext,283] - Root WebApplicationContext: initialization completed in 1851 ms
+21:47:46.386 [restartedMain] INFO  o.s.s.c.ThreadPoolTaskExecutor - [initialize,171] - Initializing ExecutorService 'applicationTaskExecutor'
+21:47:46.717 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - [startServer,57] - LiveReload server is running on port 35729
+21:47:46.741 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8090"]
+21:47:46.763 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer - [start,202] - Tomcat started on port(s): 8090 (http) with context path ''
+21:47:46.766 [restartedMain] INFO  c.c.s.d.DzyApplication - [logStarted,59] - Started DzyApplication in 3.541 seconds (JVM running for 4.111)
+21:47:47.769 [http-nio-8090-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+21:47:47.769 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,524] - Initializing Servlet 'dispatcherServlet'
+21:47:47.774 [http-nio-8090-exec-1] INFO  o.s.w.s.DispatcherServlet - [initServletBean,546] - Completed initialization in 5 ms
+21:47:47.831 [http-nio-8090-exec-1] INFO  c.a.d.p.DruidDataSource - [info,106] - {dataSource-1} inited
+21:57:48.817 [OkHttp ConnectionPool] WARN  okhttp3.OkHttpClient - [log,129] - A connection to https://api.weixin.qq.com/ was leaked. Did you forget to close a response body? To see where this was allocated, set the OkHttpClient logger level to FINE: Logger.getLogger(OkHttpClient.class.getName()).setLevel(Level.FINE);

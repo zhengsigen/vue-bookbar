@@ -1,0 +1,318 @@
+<template>
+  <div class>
+    <div class="coupon-items" :style="mask?'filter: blur(6px)':''">
+      <div class="coupon-item">
+        <div class="coupon-items-content">
+          <div class="coupon-items-header">
+            <h1 class="content">邀请新用户，得买书券</h1>
+            <img src="../../assets/img/coupon_price_20.png" class="coupon-content-price" />
+          </div>
+          <div class="coupon-items-body">
+            <ul class="coupon-items-up">
+              <li class="coupon-items-intro">
+                <div class="content" style="margin-bottom:10px">
+                  好友通过你的邀请链接或二维码领取买书券并成功下首单，订单完成后你将获得
+                  <span class="price">20 元买书抵扣券</span>
+                </div>
+              </li>
+              <li class="coupon-items-intro">受邀好友也将获得 15 元新人买书抵扣券</li>
+            </ul>
+            <img
+              src="../../assets/img/coupon_main_20.png"
+              style="background-size: cover; width: 105%; margin-top: 17px;"
+            />
+            <div class="dot">
+              <div class="dot-content" v-for="i in 20" :key="i"></div>
+            </div>
+            <div class="share">
+              <div class="share-content">发邀请，得买书券</div>
+            </div>
+          </div>
+          <div class="coupon-items-rule">
+            <h2 class="rule-title">活动规则</h2>
+            <div class="coupon-items-rule-content">
+              <ul class="rule-contents-item">
+                <li class="li-rule-content">符合得券的新用户条件为：之前没有注册过多抓鱼，并通过你的邀请链接成功下单买书/卖书。</li>
+                <li class="li-rule-content">成功邀请到一个符合条件的下单新用户可获得一张抵扣券，一个邀请人最多可获得 10 张抵扣券。</li>
+                <li class="li-rule-content">20 元抵扣券为满减抵扣券，订单满 40 元可用，有效期为 90 天。</li>
+                <li class="li-rule-content">20 元抵扣券的发放时间为你邀请的符合条件的新用户的买书单状态为「快递发货」，卖书单状态为「已审核打款」。</li>
+                <li class="li-rule-content">15 元新人买书抵扣券为满减抵扣券，订单满 30 元可用，有效期为 2 天。</li>
+                <li class="li-rule-content">使用抵扣券时一个订单只能使用一张，不能叠加使用，且买书抵扣券不能用于锁定。</li>
+                <li class="li-rule-content">对于通过作弊等不正当方式获利的用户，多抓鱼有权对其账号进行封禁。</li>
+                <li class="li-rule-content">多抓鱼对本活动有最终解释权。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="invite-qr-code" v-show="mask" @click.self="getBack()">
+      <div class="invite-layer" style="margin: 0px 2em;">
+        <div class="invite-layer-wrap">
+          <div class="invite-item">
+            <div class="invite-title">
+              <div class="invite-content">
+                <img class="qr-code" :src="codeImg" />
+                <div class="desc">微信扫码，参与「邀请新用户得券活动」</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  name: "coupon",
+  data() {
+    return {
+      mask: false,
+      codeImg:""
+    };
+  },
+  methods: {
+    getBack() {
+      this.$router.go(-1);
+    }
+  },
+  created() {
+    this.$http.post('/invite',{url:'/choosetypeusers'}).then(res => 
+    {this.codeImg = res.data.img
+    this.mask = true})
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.coupon-items {
+  width: 100%;
+  .coupon-item {
+    max-width: 600px;
+    margin: 0px auto;
+    .coupon-items-content {
+      min-height: 690px;
+      background: rgb(246, 242, 236);
+      overflow: hidden;
+      .coupon-items-header {
+        display: flex;
+        flex-direction: row;
+        padding: 25px 15px;
+        .content {
+          font-size: 24px;
+          font-weight: 600;
+          line-height: normal;
+        }
+        .coupon-content-price {
+          width: 60px;
+          height: 40px;
+          margin-left: 10px;
+          position: relative;
+          bottom: -7px;
+        }
+      }
+      .coupon-items-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(255, 255, 255);
+        margin: 0px 15px;
+        padding: 24px 15px 37px;
+        border-radius: 10px;
+
+        .coupon-items-up {
+          font-size: 15px;
+          font-weight: normal;
+          line-height: 1.47;
+          text-align: left;
+          margin: 0px;
+          padding: 0px;
+          list-style: none;
+          li.coupon-items-intro::before {
+            content: "";
+            box-sizing: border-box;
+            width: 5.625px;
+            height: 5.625px;
+            position: absolute;
+            left: 0px;
+            top: 8.2125px;
+            border-radius: 50%;
+            background: rgb(195, 71, 55);
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(195, 71, 55);
+            border-image: initial;
+          }
+          .coupon-items-intro {
+            padding-left: 16px;
+            position: relative;
+            margin-bottom: 0px;
+            .price {
+              position: relative;
+              z-index: 0;
+              padding-left: 0.25em;
+            }
+          }
+        }
+        .dot {
+          display: flex;
+          box-sizing: border-box;
+          width: 100%;
+          flex-direction: row;
+          justify-content: space-between;
+          margin: 24px 0px 32px;
+          padding: 0px 20px;
+          .dot-content {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgb(246, 242, 236);
+          }
+        }
+        .share {
+          background: rgb(195, 71, 55);
+          border-color: rgb(242, 129, 129);
+          box-shadow: none;
+          padding: 0 1.2em;
+          border-radius: 999px;
+          height: 44px;
+          font-size: 15px;
+          font-weight: 500;
+          width: 100%;
+          color: #fff;
+          transition: box-shadow 0.2s;
+          text-align: center;
+          text-decoration: none;
+          white-space: nowrap;
+          border: 0.5px solid rgb(242, 242, 242);
+          pointer-events: auto;
+          padding: 0px;
+          cursor: pointer;
+          .share-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+          }
+        }
+      }
+
+      .coupon-items-rule {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 25px;
+        padding: 0px 15px 104px;
+
+        .rule-title {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          font-size: 15px;
+          font-weight: normal;
+          line-height: 1.47;
+          text-align: center;
+          margin-bottom: -30px;
+        }
+        ::before {
+          content: "";
+          width: 6px;
+          height: 6px;
+          margin-right: 10px;
+          background-color: rgb(195, 71, 55);
+          border-radius: 50%;
+        }
+        ::after {
+          content: "";
+          width: 6px;
+          height: 6px;
+          margin-left: 10px;
+          background-color: rgb(195, 71, 55);
+          border-radius: 50%;
+        }
+        .coupon-items-rule-content {
+          margin-top: 8px;
+          .rule-contents-item {
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 1.5;
+            text-align: left;
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            .li-rule-content {
+              padding-left: 16px;
+              position: relative;
+              margin-bottom: 0px;
+            }
+          }
+          li.li-rule-content::before {
+            content: "";
+            box-sizing: border-box;
+            width: 6px;
+            height: 6px;
+            position: absolute;
+            left: 0px;
+            top: 9px;
+            border-radius: 50%;
+            background: rgb(195, 71, 55);
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(195, 71, 55);
+            border-image: initial;
+          }
+        }
+      }
+    }
+  }
+}
+.invite-qr-code {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.3);
+  .invite-layer {
+    display: flex;
+    height: 100%;
+    margin: 0 1em;
+    flex-direction: column;
+    pointer-events: none;
+    .invite-layer-wrap {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .invite-item {
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 340px;
+        background: #fff;
+        border-radius: 10px;
+        overflow-x: hidden;
+        pointer-events: auto;
+        .invite-title {
+          padding: 0px;
+          margin: 0px;
+          font-size: 16px;
+          text-align: center;
+          white-space: pre-wrap;
+          .invite-content {
+            padding: 50px 0px;
+            .qr-code {
+              width: 215px;
+              vertical-align: top;
+            }
+            .desc {
+              margin-top: 0.6em;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</style>

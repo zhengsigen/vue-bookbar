@@ -1,0 +1,78 @@
+<template>
+  <div class="invite">
+    <el-table :data="tableData" style="text-align: center;">
+      <el-table-column prop="name" label="邀请用户">
+        <template #default="{row}">
+          <img style="width:24px;height:24px;border-radius: 99px; " :src="row.cover" />
+          :{{row.wxName?row.wxName:row.name?row.name:'匿名用户'}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="status" label="状态" style="text-align: center;">
+        <template #default="{row}">
+          {{inviteStatus[row.status]}}
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="coupon" @click="routerInvition">
+      邀请新用户，得20元买书券
+      <i class="el-icon-arrow-right"></i>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "invite",
+  data() {
+    return {
+      tableData: [],
+      inviteStatus:['已接受','完成']
+    };
+  },
+  methods: {
+    routerInvition() {
+      try {
+        if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+          this.$router.push({
+            path: "/invitation"
+          });
+        } else {
+          this.$router.push({
+            path: "/invitation"
+          });
+        }
+      } catch (e) {}
+    }
+  },
+  created(){
+    this.$http.get("/invite").then(res => res.data.list.map(d => this.tableData.push({...d.inviteeUser,status:d.status})))
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.invite {
+  max-width: 600px;
+  margin: 0px auto;
+  .coupon {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: rgb(24, 195, 170);
+    background-color: rgba(24, 195, 170, 0.1);
+    text-align: center;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 8px 0px;
+    .el-icon-arrow-right {
+      font-size: 16px;
+    }
+  }
+}
+</style>

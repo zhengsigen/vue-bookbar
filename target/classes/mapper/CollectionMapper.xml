@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1801.spring.dzy.mapper.CollectionMapper">
+
+<!--    查询单个书单信息-->
+    <select id="querySingleCollection" resultType="bookCollectionPack">
+        select bc.id id, bc.name, bc.intro, bc.background_image, bc.background_color,
+            count(distinct bcl.user_id) contributorsCount ,count(distinct bcl.book_id) itemsCount, bc.expiration_date,
+            bc.create_date, bc.update_date
+        from book_collection_tb bc right join book_collection_list_tb bcl on bc.id = bcl.collection_id
+        where bc.id = #{collectionId} and bc.state = 1 and bc.expiration_date >= now()
+    </select>
+
+<!--    查询书单推荐列表-->
+    <select id="queryRecommendList" resultMap="recommendMap">
+        select bcl.id recommendId, bcl.`comment`, bcl.create_date recommendCreateDate, bcl.update_date recommendUpdateDate,
+            <if test="userId != null">
+--                 有用户id，则查询用户是否点赞
+                count(if(a.user_id = #{userId},1,null)) isApplaud,
+            </if>
+            b.id bookId, b.name bookName, b.author, b.cover bookCover, b.douban_rate,
+            u.id userId,u.name userName,u.wx_name, u.cover userCover,
+            count(a.recommend_id) applaud
+--             (select count(id) from applaud_tb a where a.recommend_id = recommendId) applaud
+        from book_collection_tb bc right join book_collection_list_tb bcl on bc.id = bcl.collection_id and bc.state = 1 and bc.expiration_date >= now() left join books_tb b on bcl.book_id = b.id left join users_tb u on bcl.user_id = u.id left join applaud_tb a on a.recommend_id = bcl.id
+        where bcl.collection_id = #{collectionId}
+            <if test="recommendId != null">
+                and bcl.id != #{recommendId}
+            </if>
+        group by bcl.id
+        order by
+        <choose>
+              <when test="order == 1">applaud desc, recommendUpdateDate desc</when>
+                <otherwise>recommendCreateDate desc</otherwise>
+        </choose>
+    </select>
+
+<!--    根据推荐id查询推荐信息-->
+    <select id="queryRecommendByRecommendId" resultMap="recommendMap">
+        select bcl.id recommendId, bcl.`comment`, bcl.create_date recommendCreateDate, bcl.update_date recommendUpdateDate,
+    <!--       有用户id，则查询用户是否点赞  -->
+            <if test="userId != null">
+                count(if(a.user_id= #{userId},1,null)) isApplaud,
+            </if>
+         b.id bookId, b.name bookName, b.author, b.cover bookCover, b.douban_rate,
+         u.id userId,u.name userName,u.wx_name, u.cover userCover,
+         count(a.recommend_id) applaud
+         from book_collection_list_tb bcl left join books_tb b on bcl.book_id = b.id left join users_tb u on bcl.user_id = u.id left join applaud_tb a on a.recommend_id = bcl.id
+         where bcl.id = #{recommendId}
+         group by bcl.id
+
+     </select>
+
+
+ <!--    修改更新时间-->
+    <update id="updateRecommendUpdateDate">
+        update book_collection_list_tb set update_date = now() where id = #{id}
+    </update>
+
+
+    <resultMap id="recommendMap" type="recommendAccount" autoMapping="true">
+        <id column="recommendId" property="id"/>
+        <result column="recommendCreateDate" property="createDate"/>
+        <result column="recommendUpdateDate" property="updateDate"/>
+        <association column="bookId" property="book" autoMapping="true">
+            <id column="bookId" property="id"/>
+            <result column="bookName" property="name"/>
+            <result column="bookCover" property="cover"/>
+        </association>
+        <association column="userId" property="user" autoMapping="true">
+            <id column="userId" property="id"/>
+            <result column="userName" property="name"/>
+            <result column="userCover" property="cover"/>
+        </association>
+    </resultMap>
+
+</mapper>

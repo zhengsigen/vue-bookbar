@@ -1,0 +1,522 @@
+<template>
+  <div class="cart" ref="home" @scroll="scrollHander()">
+    <div class="tabs" ref="top">
+      <a class="tab active">
+        <span>全部</span>
+      </a>
+      <router-link class="tab" exact :to="{ path: '/cart/wishlist' }">
+        <span>到货提醒</span>
+      </router-link>
+    </div>
+    <div class="books-main" ref="books">
+      <div class="books" v-if="carts.length">
+        <div class="book" v-for="cart in carts" :key="cart.id" @click.stop="toBook(cart.book.id)">
+          <v-checkbox :checks="checks" :value="cart.id" @update='changeCheck(cart.id)' ></v-checkbox>
+          <div class="content">
+            <img :src="cart.book.cover" alt="">
+            <div class="info">
+              <h2 class="title">
+                {{cart.book.name}}
+                <div class="close" @click.stop="delCart(cart.id)">
+                  <i class="el-icon-close"></i>
+                </div>
+              </h2>
+              <span class="desc has-other" v-if="cart.hasOtherCondition" @click.stop="updateConditionState(cart)" >
+                {{conditions[cart.condition]}}
+                <i class="el-icon-caret-bottom"></i>
+              </span>
+              <div class="desc" v-else>{{conditions[cart.condition]}}</div>
+              <div class="publisher">{{cart.book.publisher}}</div>
+              <div class="condition">
+                <div class="price">￥{{cart.book.price*cart.discount / 10 | numeral}}</div>
+                <span class="discount">{{cart.discount}}折</span>
+                <!-- <div class="lock">锁定</div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="footer-wrapper">
+          <div class="line"></div>
+          <svg
+            width="12"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            class="jsx-4100974190"
+          >
+            <rect x="4" y="4" width="16" height="16" class="jsx-4100974190" />
+          </svg>
+          <div class="line"></div>
+        </div>
+      </div>
+      <div
+        class="loading"
+        v-show="loading"
+        v-loading="loading"
+        element-loading-text="拼命加载中"
+        element-loading-spinner="el-icon-loading"
+      ></div>
+    </div>
+    <div class="navs">
+      <router-link class="coupon" tag="div" :to="{path:'/invitation'}" >邀请新用户，得20元买书券
+        <i class="el-icon-arrow-right"></i>
+      </router-link>
+      <div class="settle">
+        <div class="selected">
+          <v-checkbox :checked="checkedAll" @update='changeCheckAll' ></v-checkbox>
+          已选{{checks.length || ""}}
+        </div>
+        <div class="text">
+          <div class="price">￥{{total | numeral}}</div>
+          <div class="desc">运费 ￥5</div>
+        </div>
+        <el-button type="success" :disabled="checks.length === 0" @click="pay()">
+          <i class="el-icon-wallet"></i> 结算
+        </el-button>
+      </div>
+    </div>
+    <router-link tag="div" class="toHome" :to="{ path: '/' }">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+        <path
+          fill="none"
+          stroke="#fff"
+          stroke-width="1.5"
+          d="M19.022 10.252v7.64a3 3 0 0 1-3 3H5.66a3 3 0 0 1-3-3v-7.676C.582 9.8.393 8.267 2.424 6.429l4.212-3.814c2.378-2.153 6.226-2.16 8.612 0L19.46 6.43c2.088 1.89 1.825 3.466-.438 3.823zM7.76 20.865h6.364v-4.327c0-1.11-.711-2.005-1.59-2.005H9.35c-.878 0-1.59.898-1.59 2.005v4.327z"
+        />
+      </svg>
+    </router-link>
+    <v-condition v-if="showConditions" @close-conditions="showConditions =false" @refresh="reloadCart(1,carts.length)" :cart="cart"></v-condition>
+  </div>
+</template>
+
+<script>
+import VCheckbox from "@/components/checkbox/Checkbox"
+import VCondition from "@/components/condition/SelectCondition"
+import {mapActions} from "vuex";
+
+const CART_URL = "/cart";
+
+export default {
+  name: 'cart',
+  data () {
+    return {
+      checks: [],
+      carts:[],
+      cart:null,//修改品相的书籍
+      conditions: ["品相良好", "品相中等"],
+      showConditions: false,
+      pager: {
+        pageNum: 1,
+        pageSize: 2,
+        total: 0,
+        pages: -1,
+        lastPage: false
+      },
+      loading: false,
+      bookScorll: null,// 滚动条元素高度
+      bookMain: null, //商品列表高度
+      top:null
+    }
+  },
+  created () {
+    this.refreshCart(1);
+  },
+  methods: {
+    ...mapActions(["queryBookSkus"]),
+    //刷新数据
+    async refreshCart(pageNum) {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true; // 显示加载图标
+      let pageSize = this.pager.pageSize;
+      let pages = this.pager.pages;
+      // 是否是最一页
+      if (this.pager.lastPage) {
+        this.loading = false;
+        return;
+      }
+
+      pageNum = pageNum <= 0 ? 1 : pageNum;
+
+      let data = await this.$http.get(CART_URL, {
+        params: {
+          pageSize,
+          pageNum
+        }
+      });
+      console.info(data.data);
+      let pager = data.data;
+      if (data.code === 0) {
+        //有数据返回追加
+        if (pager.list.length) {
+          this.carts.push(...pager.list);
+          let {pageNum,pageSize,pages,total,lastPage} = pager;
+          this.pager = {pageNum,pageSize,pages,total,lastPage};
+        }
+        this.filterCheck();
+      }
+      this.loading = false;
+      this.getScorllHeight();
+    },
+    //重载数据
+    async reloadCart(pageNum,pageSize){
+      console.info(pageSize)
+      let data = await this.$http.get(CART_URL, {
+        params: {
+          pageSize,
+          pageNum
+        }
+      });
+      console.info(data.data);
+      let pager = data.data;
+      if (data.code === 0) {
+        //有数据返回追加
+        if (pager.list.length) {
+          this.carts = pager.list;
+          let {total,lastPage} = pager;
+          this.$set(this.pager,"total",total);
+          this.$set(this.pager,"lastPage",lastPage);
+        }
+        this.filterCheck();
+      }
+      this.loading = false;
+      this.getScorllHeight();
+    },
+    //删除购物车商品
+    async delCart(id){
+      let data = await this.$http.delete(CART_URL+"/"+id);
+      if(data.code === 0){
+        this.reloadCart(1,this.carts.length);
+      }
+    },
+    filterCheck(){
+      this.checks = this.carts.filter(cart => cart.hasSelected).map(cart => cart.id);
+    },
+    //修改选中状态
+    async changeCheck(id){
+      
+      let data = await this.$http.patch(CART_URL+"/"+id);
+      console.info(data)
+      // debugger
+      if(data.code === 0){
+        this.reloadCart(1,this.carts.length);
+      }
+    },
+    // 批量选中或取消
+    async changeCheckAll () {
+      let selected = 1;
+      // debugger
+      if(this.checkedAll){
+        selected = 0;
+      }
+      let checks = this.carts.map(cart => cart.id);
+      let data = await this.$http.put(CART_URL+"?selected="+selected,checks);
+      if(data.code === 0){
+        console.info(data.code)
+        this.reloadCart(1,this.carts.length);
+      }
+    },
+    //付款
+    pay() {
+      if(!this.checks.length){
+        return;
+      }
+      this.$router.push({path: '/buy/addr'});
+    },
+    //弹出修改品相选项
+    updateConditionState(cart) {
+      this.showConditions = !this.showConditions;
+      this.cart = cart;
+      console.info(this.showConditions)
+      if(this.showConditions){
+        this.queryBookSkus(cart.book.id);
+      }
+    },
+    //跳转到书籍详情
+    toBook(id){
+      this.$router.push({name:"book",params: {id}});
+    },
+    //获取滚动条高度
+    getScorllHeight() {
+      this.$nextTick(function() {
+        let ele = this.$refs.home;
+        let firstElTop = ele.offsetTop;
+        console.info(firstElTop);
+        //滚动条元素高度
+        this.bookScorll = ele.scrollHeight; 
+        //商品列表高度
+        this.bookMain = this.$refs.books.scrollHeight;
+        //头部高度
+        this.top = this.$refs.top.scrollHeight;
+        //数据不够继续请求
+        if(this.bookMain + this.top <= ele.clientHeight) {
+          this.refreshCart(this.pager.pageNum+1);
+        }
+      });
+    },
+    //当前滚动条位置
+    scrollHander() {
+      
+      let ele = this.$refs.home;
+      console.info(ele.scrollTop);
+      if (ele.scrollTop + ele.clientHeight >= this.bookScorll - 5) {
+        this.refreshCart(this.pager.pageNum + 1);
+      }
+    },
+  },
+  computed: {
+    //是否全选
+    checkedAll() {
+      return this.carts.length > 0 && this.checks.length === this.carts.length
+    },
+    total () {
+      if(!this.checks.length) {
+        return 0;
+      }
+      let total = this.carts.filter(cart => this.checks.includes(cart.id)).reduce((prev, cart) => prev + cart.book.price * cart.discount * 0.1, 0);
+      console.info(total);
+      return total;
+    }
+  },
+  components: {
+    VCheckbox,
+    VCondition
+  }
+}
+</script>
+<style lang="scss" scoped>
+  .cart {
+    overflow-y: scroll;
+    height: calc(100vh - 95px);
+    .tabs {
+      display: flex;
+      height: 50px;
+      border-bottom: 0.5px solid #f2f2f2;
+      // background-color: #f2f2f2;
+      .tab {
+        color: #333333;
+        text-decoration: none;
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        &.active {
+          color: #18c3aa;
+          span {
+            margin-bottom: 0;
+            border-bottom: 3px solid #18c3aa;
+          }
+        }
+        span {
+          margin-top: 3px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 3px;
+        }
+      }
+    }
+    @mixin checkbox {
+      .checkbox {
+        margin-right: 12px;
+        align-self: center;
+        border: 1px solid rgb(24, 195, 170);
+        border-radius: 999px;
+        font-size: 18px;
+        text-align: center;
+        width: 23px;
+        height: 23px;
+        &.checked {
+          background: rgb(24, 195, 170);
+        }
+      }
+    }
+    .books-main{
+
+      .books {
+        background: #fff;
+        .book {
+          border-bottom: 0.5px solid rgb(242, 242, 242);
+          padding: 21px 15px;
+          display: flex;
+          @include checkbox;
+          .content {
+            flex: 1;
+            display: flex;
+            img {
+              width: 60px;
+              height: 90px;
+            }
+            .info {
+              flex: 1;
+              display: flex;
+              flex-flow: column nowrap;
+              align-items: flex-start;
+              justify-content: space-between;
+              margin-left: 12px;
+              .title {
+                width: 100%;
+                margin: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                color: #333;
+                font-size: 14px; 
+                font-weight: normal;
+              }
+              .desc {
+                display: inline-block;
+                font-size: 12px;
+                color: #666;
+                margin-top: 2px;
+                padding: 2px 4px;
+                border: .5px solid rgb(214, 186, 140);
+                border-radius: 4px;
+                &.has-other{
+                  // border: .5px solid rgb(214, 186, 140);
+                  border-radius: 4px;
+                }
+              }
+              .publisher{
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                font-size: 10px;
+                color: #333;
+              }
+              .condition {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                .price {
+                  color: #333;
+                }
+                .discount {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  box-sizing: border-box;
+                  height: 18px;
+                  padding: 0 6px;
+                  color: rgb(214, 186, 140);
+                  font-weight: 400;
+                  border: 0.5px solid rgb(214, 186, 140);
+                  border-radius: 4px;
+                  white-space: nowrap;
+                  margin-left: 6px;
+                  margin-right: 6px;
+                  color: rgb(242, 129, 129);
+                  border-color: rgb(242, 129, 129);
+                  font-size: 12px;
+                }
+                .lock {
+                  font-size: 12px;
+                  padding: 6px 10px;
+                  background-color: rgb(255, 255, 255);
+                  color: rgb(24, 195, 170);
+                  white-space: nowrap;
+                  border: .5px solid rgb(242, 242, 242);
+                  border-radius: 999px;
+                  text-align: center;
+                  border-color: rgb(24, 195, 170);
+                }
+              }
+            }
+          }
+        }
+      }
+      .footer {
+        display: flex;
+        justify-content: center;
+        height: 19px;
+        color: rgb(102, 102, 102);
+        font-size: 14px;
+        line-height: 19px;
+        padding: 30px 0px;
+        line-height: 19px;
+        .footer-wrapper {
+          display: flex;
+          align-items: center;
+          color: rgba(0, 0, 0, 0.1);
+          .line {
+            width: 42px;
+            border-top: 0.5px solid currentcolor;
+          }
+          svg {
+            transform: rotate(45deg);
+            margin: 0px 9px;
+          }
+        }
+      }
+      .loading {
+        padding-bottom: 40px;
+      }
+    }
+
+    .navs {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgb(247, 247, 247);
+      .coupon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: rgb(24, 195, 170);
+        background-color: rgba(24, 195, 170, 0.1);
+        text-align: center;
+        font-size: 13px;
+        cursor: pointer;
+        padding: 8px 0px;
+        .el-icon-arrow-right{
+          font-size: 16px;
+        }
+      }
+      .settle {
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+        .selected {
+          display: flex;
+          @include checkbox;
+        }
+        .text {
+          flex-grow: 1;
+          margin-right: 15px;
+          .price {
+            margin-left: 10px;
+            text-align: right;
+            line-height: 1.2;
+            font-size: 20px;
+            color: rgb(242, 129, 129);
+          }
+          .desc {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 12px;
+            color: rgb(170, 170, 170);
+          }
+        }
+      }
+    }
+    .toHome {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      position: fixed;
+      bottom: 96px;
+      right: 16px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px 0px;
+      border-radius: 50%;
+      background: rgba(102, 102, 102, 0.96);
+    }
+  }
+</style>

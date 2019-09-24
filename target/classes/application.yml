@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: dev
+
+phone:
+  config:
+    accessKey: cn-hangzhou
+    accessId: LTAIVXIqZXQFQSMG
+    secret: YZIEcwTiHQO3CedPozpAP83ndK3X1e
+    domain: dysmsapi.aliyuncs.com
+    version: 2017-05-25
+    action: SendSms
+    signName:  dzy
+    templateCode: SMS_172350185
+
+wx:
+  subscription:
+    appid: wx0f0a4bbe2fc2fc3a
+    appsecret: 716a65aa345ba2c8324f5612cdb5d251
+    domain: wx.panqingshan.cn
+    mchid: 1508262781
+
+#wx:
+#  subscription:
+#    appid: wxe3e07d4b4cfae325
+#    appsecret: 4c5c4b297f6ecbda72ece68c121e88d4
+
+

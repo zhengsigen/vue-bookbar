@@ -1,0 +1,143 @@
+<template>
+  <div style="max-width: 600px;
+    margin: 0px auto;">
+    <div class="root">
+      <div class="root-alignTop" style="flex-wrap: wrap;">
+        <div
+          v-for="c in collectionsBooksList"
+          :key="c.id"
+          class="open-collection-card"
+          @click="routerCollections(c.id)"
+          :style="{'background': 'linear-gradient(to top,'+c.backgroundColor+'4c,35%, '+c.backgroundColor+' 69%) center top / auto no-repeat, url('+imgAgency+c.backgroundImage+') center center / cover no-repeat'}"
+        >
+          <div
+            href
+            style="display: block; box-sizing: border-box; width: 100%; height: 100%; padding: 16px; position: relative;"
+          >
+            <span class="inner">
+              <h3 class="inner-size" style="font-size: 16px; font-weight: 600;">{{c.name}}</h3>
+              <span class="inner-text" style="vertical-align: middle; font-size: 12px;">
+                <div class="inner-pe">{{c.contributorsCount}}人推荐了 {{c.itemsCount}}本书</div>
+              </span>
+              <div
+                class="avatars"
+                style="position: absolute; bottom: 16px; right: 16px; flex-flow: row-reverse;"
+              >
+                <span class="avatar" v-for="(user,index) in c.contributors" :key="index">
+                  <span class="rot" v-show="index < 3">
+                    <img alt :src="user.cover" class="picture" />
+                  </span>
+                </span>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      collectionsBooksList: [],
+      imgAgency: "https://images.weserv.nl/?url="
+    };
+  },
+  methods: {
+    routerCollections(id) {
+      this.$router.push({
+        name: "open-collections",
+        params: {
+          id: id
+        }
+      });
+    }
+  },
+  created() {
+    this.$http.get("/collection").then(res => {
+      this.collectionsBooksList = res.data;
+    });
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.root {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0%;
+
+  .root-alignTop {
+    align-items: flex-start;
+    display: flex;
+    .open-collection-card {
+      width: calc((100% - 45px) / 2);
+      height: 229px;
+      margin-left: 15px;
+      margin-top: 16px;
+      color: rgb(238, 238, 238);
+      border-radius: 5px;
+      background-position: center top, center center;
+      background-repeat: no-repeat, no-repeat;
+
+      .inner {
+        color: #eeeeee;
+        text-align: left;
+
+        .inner-size {
+          margin: 0px;
+          color: #eeeeee;
+          margin-bottom: 6px;
+          font-size: 18px;
+        }
+        .inner-text {
+          .inner-pe {
+            text-align: left;
+          }
+        }
+        .avatars {
+          display: flex;
+
+          .avatar {
+            margin-right: 0px;
+            display: block;
+            display: block;
+            margin-right: -5.5px;
+            .rot {
+              display: inline-block;
+              vertical-align: top;
+              box-sizing: border-box;
+              width: 30px;
+              height: 30px;
+              background: rgb(242, 242, 242);
+              border-width: 1px;
+              border-style: solid;
+              border-color: rgb(242, 242, 242);
+              border-image: initial;
+              border-radius: 99px;
+              overflow: hidden;
+              .picture {
+                display: block;
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+    @media (min-width: 480px) {
+      .open-collection-card {
+        width: calc((100% - 60px) / 3);
+      }
+    }
+    .a {
+      color: inherit;
+      text-decoration: none;
+      background: transparent;
+      outline: none;
+    }
+  }
+}
+</style>

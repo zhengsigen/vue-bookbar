@@ -1,0 +1,377 @@
+<template>
+  <div class="wishlist">
+    <div class="tabs">
+      <router-link class="tab" exact :to="{ path: '/cart' }">
+        <span>全部</span>
+      </router-link>
+      <a class="tab active">
+        <span>到货提醒</span>
+      </a>
+    </div>
+    <div class="header">
+      <div class="left">到货提醒 {{carts.length||""}}</div>
+      <div class="right">
+        到货提醒发送规则
+        <i @click.stop="prompt=true" class="el-icon-warning-outline"></i>
+      </div>
+    </div>
+    <div class="books" v-if="carts.length">
+      <div class="book" v-for="cart in carts" :key="cart.id" @click.stop="toBook(cart.book.id)">
+        <div class="content">
+          <div class="cover">
+            <img class="cover" :src="cart.book.cover" alt="" />
+            <p>暂时无货</p>
+          </div>
+          <div class="info">
+            <h2 class="title">
+              {{cart.book.name}}
+              <div class="close" @click.stop="delCart(cart.id)">
+                <i class="el-icon-close"></i>
+              </div>
+            </h2>
+            <span class="desc has-other" v-if="cart.hasOtherCondition" @click.stop="updateConditionState(cart)" >
+              {{conditions[cart.condition]}}
+              <i class="el-icon-caret-bottom"></i>
+            </span>
+            <div class="desc" v-else>{{conditions[cart.condition]}}</div>
+            <div class="publisher">{{cart.book.publisher}}</div>
+            <div class="condition">
+              <div class="price">￥{{cart.book.price*cart.discount / 10 | numeral}}</div>
+              <span class="discount">{{cart.discount}}折</span>
+              <!-- <div class="lock">锁定</div> -->
+            </div>
+          </div>
+        </div>
+        <div class="close" @click.stop="removeCart(cart.id)">
+          <i class="el-icon-close"></i>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="footer-wrapper">
+        <div class="line"></div>
+        <svg
+          width="12"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+          class="jsx-4100974190"
+        >
+          <rect x="4" y="4" width="16" height="16" class="jsx-4100974190" />
+        </svg>
+        <div class="line"></div>
+      </div>
+    </div>
+    <router-link tag="div" class="toHome" :to="{ path: '/' }">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+        <path
+          fill="none"
+          stroke="#fff"
+          stroke-width="1.5"
+          d="M19.022 10.252v7.64a3 3 0 0 1-3 3H5.66a3 3 0 0 1-3-3v-7.676C.582 9.8.393 8.267 2.424 6.429l4.212-3.814c2.378-2.153 6.226-2.16 8.612 0L19.46 6.43c2.088 1.89 1.825 3.466-.438 3.823zM7.76 20.865h6.364v-4.327c0-1.11-.711-2.005-1.59-2.005H9.35c-.878 0-1.59.898-1.59 2.005v4.327z"
+        />
+      </svg>
+    </router-link>
+    <v-condition v-if="showConditions" @close-conditions="showConditions =false" @refresh="refreshCart(1)" :cart="cart"></v-condition>
+  </div>
+</template>
+
+<script>
+import VCondition from "@/components/condition/SelectCondition";
+import { mapActions } from "vuex"
+const WISHLIST_URL = "/cart/stockout";
+export default {
+  name: 'wishlist',
+   data () {
+    return {
+      carts:[],
+      cart:null,//修改品相的书籍
+      conditions: ["品相良好", "品相中等"],
+      showConditions: false,
+      prompt: false, //提示弹窗
+      pager: {
+        pageNum: 1,
+        pageSize: 5,
+        total: 0,
+        pages: -1,
+        lastPage: false
+      },
+      loading: false,
+      bookScorll: null
+    }
+  },
+  created () {
+    this.refreshCart(1);
+  },
+  methods: {
+    ...mapActions(["queryBookSkus"]),
+    //刷新数据
+    async refreshCart(pageNum) {
+      if (this.loading) {
+        return;
+      }
+      // this.loading = true; // 显示加载图标
+      let pageSize = this.pager.pageSize;
+      let pages = this.pager.pages;
+      // 是否是最一页
+      // if (this.pager.lastPage) {
+      //   this.loading = false;
+      //   return;
+      // }
+
+      pageNum = pageNum <= 0 ? 1 : pageNum;
+
+      let data = await this.$http.get(WISHLIST_URL, {
+        params: {
+          pageSize,
+          pageNum
+        }
+      });
+      console.info(data.data);
+      let pager = data.data;
+      if (data.code === 0) {
+        //有数据返回追加
+        if (pager.list.length) {
+          this.carts = pager.list;
+          this.$set(this.pager, "pageNum", pager.pageNum);
+          this.$set(this.pager, "pageSize", pager.pageSize);
+          this.$set(this.pager, "total", pager.total);
+          this.$set(this.pager, "pages", pager.pages);
+          this.$set(this.pager, "lastPage", pager.lastPage);
+        }
+      }
+      // this.loading = false;
+      // this.getScorllHeight();
+    },
+    //删除购物车商品
+    async removeCart(id){
+      let data = await this.$http.delete("/cart/"+id);
+      if(data.code === 0){
+        this.refreshCart(this.pager.pageNum);
+      }
+    },
+    
+    //弹出修改品相选项
+    updateConditionState(cart) {
+      this.showConditions = !this.showConditions;
+      this.cart = cart;
+      console.info(this.showConditions)
+      if(this.showConditions){
+        this.queryBookSkus(cart.book.id);
+      }
+    },
+    //跳转到书籍详情
+    toBook(id){
+      this.$router.push({name:"book",params: {id}});
+    }
+  },
+  components: {
+    VCondition
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.tabs {
+  display: flex;
+  height: 50px;
+  border-bottom: 0.5px solid #f2f2f2;
+  .tab {
+    color: #333333;
+    text-decoration: none;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    &.active {
+      color: #18c3aa;
+      span {
+        border-bottom: 3px solid #18c3aa;
+      }
+    }
+    span {
+      margin-top: 3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 3px solid #fff;
+    }
+  }
+}
+
+.header {
+  border-bottom: 0.5px solid #f2f2f2;
+  height: 42px;
+  line-height: 42px;
+  display: flex;
+  // align-items: center;
+  padding: 0px 15px;
+  font-size: 14px;
+  font-weight: 300;
+  .left {
+    flex: 1;
+  }
+  .right {
+    color: rgb(170, 170, 170);
+    font-size: 13px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    el-icon-warning-outline {
+      margin-left: 2px;
+    }
+  }
+}
+
+.books {
+  .book {
+    border-width: 0.5px;
+    border-style: solid;
+    border-color: rgb(242, 242, 242);
+    padding: 18px 15px;
+    position: relative;
+    border-top: 0.5px solid rgb(242, 242, 242);
+    .close {
+      position: absolute;
+      right: 18px;
+      top: 15px;
+      color:rgb(170, 170, 170); 
+    }
+    .content {
+      flex: 1;
+      display: flex;
+      .cover {
+        width: 60px;
+        height: 90px;
+        position: relative;
+        font-size: 12px;
+        p {
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          color: rgb(255, 255, 255);
+          background: rgba(0, 0, 0, 0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0;
+        }
+      }
+      .info {
+        flex: 1;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-left: 12px;
+        .title {
+          width: 100%;
+          margin: 0;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          color: #333;
+          font-size: 14px; 
+          font-weight: normal;
+        }
+        .desc {
+          display: inline-block;
+          font-size: 12px;
+          color: #666;
+          margin-top: 2px;
+          padding: 2px 4px;
+          border: .5px solid rgb(214, 186, 140);
+          border-radius: 4px;
+          &.has-other{
+            // border: .5px solid rgb(214, 186, 140);
+            border-radius: 4px;
+          }
+        }
+        .publisher{
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          font-size: 10px;
+          color: #333;
+        }
+        .condition {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          .price {
+            color: #333;
+          }
+          .discount {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            height: 18px;
+            padding: 0 6px;
+            color: rgb(214, 186, 140);
+            font-weight: 400;
+            border: 0.5px solid rgb(214, 186, 140);
+            border-radius: 4px;
+            white-space: nowrap;
+            margin-left: 6px;
+            margin-right: 6px;
+            color: rgb(242, 129, 129);
+            border-color: rgb(242, 129, 129);
+            font-size: 12px;
+          }
+          .lock {
+            font-size: 12px;
+            padding: 6px 10px;
+            background-color: rgb(255, 255, 255);
+            color: rgb(24, 195, 170);
+            white-space: nowrap;
+            border: .5px solid rgb(242, 242, 242);
+            border-radius: 999px;
+            text-align: center;
+            border-color: rgb(24, 195, 170);
+          }
+        }
+      }
+    }
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  height: 19px;
+  color: rgb(102, 102, 102);
+  font-size: 14px;
+  line-height: 19px;
+  padding: 30px 0px;
+  line-height: 19px;
+  .footer-wrapper {
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.1);
+    .line {
+      width: 42px;
+      border-top: 0.5px solid currentcolor;
+    }
+    svg {
+      transform: rotate(45deg);
+      margin: 0px 9px;
+    }
+  }
+}
+
+.toHome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  position: fixed;
+  bottom: 66px;
+  right: 16px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px 0px;
+  border-radius: 50%;
+  background: rgba(102, 102, 102, 0.96);
+}
+</style>

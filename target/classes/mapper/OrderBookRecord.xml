@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c1801.spring.dzy.mapper.OrderBookRecordMapper">
+    <insert id="addOrderBookRecord">
+        insert order_book_record_tb(order_id, user_id, book_id, `condition`)
+        values
+        <foreach collection="orderBookRecord" item="record" separator=",">
+            (#{record.orderId}, #{record.userId}, #{record.bookId}, #{record.condition})
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1801.spring.dzy.mapper.CategoryMapper">
+    <select id="getCategoryList" resultType="Category">
+        select
+            (select count(*) from book_category_tb bct where bct.category_id = ct.id)book_length,
+            id,name
+        from category_tb ct where 1=1
+        <if test="name!=null and name!=''">
+          and name like "%"#{name}"%"
+        </if>
+         limit #{index},#{pageSize}
+    </select>
+    <select id="getCategoryListTotal" resultType="Category">
+        select
+        (select count(*) from book_category_tb bct where bct.category_id = ct.id)book_length,
+        id,name
+        from category_tb ct where 1=1
+        <if test="name!=null and name!=''">
+            and name like "%"#{name}"%"
+        </if>
+    </select>
+    <select id="getCategoryByCategoryId" resultMap="getCategoryListMap">
+            SELECT bct.id, bct.book_id,ct.name, ct.id category_id, ct.create_date, ct.update_date,
+            bt.name book_name,bt.id, bt.isbn10, bt.isbn13, bt.cover, bt.author, bt.price, bt.publisher,
+            bt.pub_date, bt.douban_rate, bt.gist, bt.binding
+            FROM category_tb ct
+            left join book_category_tb bct on ct.id = bct.category_id
+            left join books_tb bt on bct.book_id = bt.id where ct.id =  #{categoryId}
+    </select>
+
+    <resultMap type="CategoryBook" id="getCategoryListMap">
+        <id column="category_id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <collection property="books"
+                    ofType="Book">
+            <id column="book_id" property="id"/>
+            <result column="isbn10" property="ISBN10"/>
+            <result column="isbn13" property="ISBN13"/>
+            <result column="book_name" property="name"/>
+            <result column="cover" property="cover"/>
+            <result column="author" property="author"/>
+            <result column="price" property="price"/>
+            <result column="publisher" property="publisher"/>
+            <result column="pub_date" property="pubDate"/>
+            <result column="douban_rate" property="doubanRate"/>
+            <result column="gist" property="gist"/>
+            <result column="binding" property="binding"/>
+        </collection>
+    </resultMap>
+
+    <insert id="addCategorys">
+        INSERT INTO book_category_tb
+        (book_id, category_id) values
+        <foreach collection="bookId" item="item" separator=",">
+            (#{item}, #{categoryId})
+        </foreach>
+    </insert>
+
+    <delete id="delCategory">
+        DELETE FROM category_tb WHERE id=#{categoryId}
+    </delete>
+    <delete id="delCategoryBook">
+        DELETE FROM book_category_tb WHERE category_id = #{categoryId}
+    </delete>
+
+    <delete id="delCategoryBooks">
+        DELETE FROM book_category_tb WHERE category_id = #{categoryId} and book_id in
+        <foreach item="item" collection="bookId" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateCategory">
+        UPDATE category_tb SET name=#{name} WHERE id=#{id}
+    </update>
+
+    <insert id="addCategory" useGeneratedKeys="true" keyProperty="id" parameterType="Category">
+        INSERT INTO category_tb (name) VALUES (#{name})
+    </insert>
+
+    <!--    给书籍增加分类标签-->
+    <insert id="bookAppendCategorys">
+        insert book_category_tb(book_id, category_id) values
+        <foreach collection="categories" separator="," item="item">
+            (#{bookId},#{item.id})
+        </foreach>
+    </insert>
+
+    <!--    移除书籍分类标签-->
+    <delete id="delCategoryFromBook">
+        delete from book_category_tb
+        where book_id = #{bookId} and
+        category_id in
+        <foreach collection="categories" item="item" open="(" close=")" separator=",">
+            #{item.id}
+        </foreach>
+    </delete>
+
+    <!--    查询出该书有的分类标签-->
+    <select id="getCategoryInBook" resultType="category">
+        select ct.id as id, ct.name as name, ct.create_date createDate ,ct.update_date as updateDate
+        from category_tb ct left join book_category_tb bct on ct.id = bct.category_id
+        where bct.book_id = #{bookId}
+    </select>
+
+    <!--    查询出书籍没有的分类标签-->
+    <select id="getCategoryNotBook" resultType="category">
+        select id, name, create_date as createDate, update_date as updateDate
+        from category_tb
+        where id not in (
+            select ct.id as id
+            from category_tb ct left join book_category_tb bct on ct.id = bct.category_id
+            where bct.book_id = #{bookId}
+        )
+    </select>
+
+    <select id="getCategoryMapByBooksId" resultType="INTEGER">
+        SELECT category_id
+        FROM book_category_tb where book_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

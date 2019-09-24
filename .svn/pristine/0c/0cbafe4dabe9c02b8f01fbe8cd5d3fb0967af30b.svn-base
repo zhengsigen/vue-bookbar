@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>书吧-2.0</title>
+    <link rel="stylesheet" href="/css/dzy-font.css">
+    <script src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js "></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=caab535b699bea587224b2059de7c394"></script>
+    <script src="//cdn.bootcss.com/vConsole/3.3.3/vconsole.min.js"></script>
+    <script>
+      var vConsole = new VConsole();
+    </script>
+  </head>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+  <body>
+    <div id="app" v-cloak></div>
+  </body>
+</html>

@@ -1,0 +1,286 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import Home from "./views/home/Home.vue";
+
+
+Vue.use(Router)
+
+export default new Router({
+    mode: 'history',
+    base: process.env.BASE_URL,
+    linkExactActiveClass: "active",
+    routes: [{
+            //首页
+            path: '/',
+            name: 'home',
+            component: Home,
+        },
+        {
+            //搜索
+            path: '/search',
+            name: 'search',
+            // route level code-splitting
+            // this generates a separate chunk (search.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "search" */ "./views/home/Search.vue")
+        },
+        {
+            //登录
+            path: '/login',
+            name: 'login',
+            // route level code-splitting
+            // this generates a separate chunk (login.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "login" */ "./views/my/Login.vue")
+        },
+        {
+            //授权页
+            path: '/accredit',
+            name: 'accredit',
+            // route level code-splitting
+            // this generates a separate chunk (accredit.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () => import(/* webpackChunkName: "accredit" */ "./views/my/Accredit.vue")       
+        },
+        {
+            //新老用户选择页面
+            path: '/chooseTypeUsers',
+            name: 'chooseTypeUsers',
+            // route level code-splitting
+            // this generates a separate chunk (ChooseTypeUsers.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "login" */ "./views/my/ChooseTypeUsers.vue")
+        },
+        {
+            //书籍详情
+            path: '/book/:id',
+            name: 'book',
+            // route level code-splitting
+            // this generates a separate chunk (book.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "book" */ "./views/home/Book.vue")
+        },
+        {
+            //我的
+            path: '/my',
+            name: 'my',
+            // route level code-splitting
+            // this generates a separate chunk (my.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "my" */ "./views/my/My.vue"),
+            meta: {
+                requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+            }
+        },
+        {
+            //余额
+            path: '/my/balance',
+            name: 'Balance',
+            // route level code-splitting
+            // this generates a separate chunk (balance.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "balance" */ "./views/my/mybalance/Balance.vue"),
+            meta: {
+                requireAuth: true,
+            }
+        },
+        {
+            //订单列表
+            path: '/my/orders',
+            name: 'orders',
+            // route level code-splitting
+            // this generates a separate chunk (orders.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "orders" */ "./views/orderInfo/Orders.vue"),
+            meta: {
+                requireAuth: true,
+            }
+        },
+        {
+            //订单详情
+            path: "/order/:orderId",
+            name: "order",
+            // route level code-splitting
+            // this generates a separate chunk (orderdetail.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "orderdetail" */ "./views/orderInfo/Order.vue"),
+            meta: {
+                requireAuth: true,
+            }
+        },
+        {
+            //邀请新用户
+            path: "/invitation",
+            name: "invitation",
+            // route level code-splitting
+            // this generates a separate chunk (invitation.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "invitation" */ "./views/static/Invitation.vue")
+        },
+        {
+            //用户卖书
+            path: '/selling',
+            name: 'selling',
+            // route level code-splitting
+            // this generates a separate chunk (selling.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "selling" */ './views/sellingBooksList/SellingBooksList.vue'),
+            meta: {
+                requireAuth: true,
+            }
+        },
+        {
+            //收集详情
+            path: "/open-collections/:id",
+            name: "open-collections",
+            // route level code-splitting
+            // this generates a separate chunk (open-collection.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "open-collection" */ "./views/collection/open-collection.vue")
+        },
+        {
+            //收集列表
+            path: "/open-collections",
+            name: "open-collections",
+            // route level code-splitting
+            // this generates a separate chunk (open-collections.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "open-collections" */ "./views/collection/open-collections.vue")
+        },
+        {
+            //卖书下单成功
+            path: "/order/succeed/:orderId",
+            name: "orderSucceed",
+            // route level code-splitting
+            // this generates a separate chunk (ordersucceed.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "ordersucceed" */ './views/orderInfo/OrderSucceed.vue'),
+            meta: {
+                requireAuth: true,
+            }
+        },
+        {
+            //书籍品相审核分级细则
+            path: "/audit",
+            name: "qualityAudit",
+            // route level code-splitting
+            // this generates a separate chunk (qualityAudit.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "qualityAudit" */ "./views/static/sellRules/QualityAudit.vue")
+        },
+        {
+            //买书和卖书规则问答
+            path: "/rules",
+            name: "sellRules",
+            // route level code-splitting
+            // this generates a separate chunk (sellRules.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "sellRules" */ "./views/static/sellRules/SellRules.vue")
+        },
+        {
+            // 不同品相
+            path: "/condition",
+            name: "differentCondition",
+            // route level code-splitting
+            // this generates a separate chunk (differentCondition.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "differentCondition" */ "./views/static/sellRules/DifferentCondition.vue")
+        },
+        {
+            //营业执照
+            path: "/license",
+            name: "license",
+            // route level code-splitting
+            // this generates a separate chunk (License.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "License" */ "./views/static/sellRules/License.vue")
+        },
+        {
+            //用户协议
+            path: "/agreement",
+            name: "userAgreement",
+            // route level code-splitting
+            // this generates a separate chunk (UserAgreement.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "UserAgreement" */ "./views/static/sellRules/UserAgreement.vue")
+        },
+        {
+            //填写订单信息
+            path: "/addr",
+            name: "orderInfo",
+            // route level code-splitting
+            // this generates a separate chunk (orderInfo.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "orderInfo" */ "./views/orderInfo/OrderInfo.vue"),
+            meta: {
+                requireAuth: true,
+            }
+        },
+        {
+            //修改订单信息
+            path: "/order/addr/update/:orderId",
+            name: "updateOrderInfo",
+            // route level code-splitting
+            // this generates a separate chunk (updateOrderInfo.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "updateOrderInfo" */ "./views/orderInfo/UpdateOrderInfo.vue"),
+            meta: {
+                requireAuth: true,
+            }
+        },
+        {
+            //推荐书单
+            path: "/Recommend",
+            name: "Recommend",
+            component: () =>
+                import ("./views/book/Recommend.vue"),
+            meta: {
+                requireAuth: true,
+            },
+        },
+        {
+            //推荐书单
+            path: "/Recommend/:id",
+            name: "Recommend",
+            component: () =>
+                import ("./views/book/Recommend.vue"),
+            meta: {
+                requireAuth: true,
+            },
+        },
+
+        {
+            //推荐书单的搜索
+            path: "/RecommendSerach",
+            name: "RecommendSerach",
+            // route level code-splitting
+            // this generates a separate chunk (updateOrderInfo.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () =>
+                import ( /* webpackChunkName: "updateOrderInfo" */ "./views/book/RecommendSerach.vue"),
+            meta: {
+                requireAuth: true,
+            }
+        },
+    ]
+})

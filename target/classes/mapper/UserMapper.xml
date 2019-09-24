@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1801.spring.dzy.mapper.UserMapper">
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="id" parameterType="User">
+        INSERT INTO users_tb(id,name) values(#{id},#{name})
+    </insert>
+    <select id="getUser" resultType="user">
+        SELECT id, open_id, name,wx_name, cover, balance, addr_id, is_enabled enabled, create_date, login_date
+        from users_tb
+        where name=#{user.name}
+    </select>
+    <resultMap id="accountMap" type="account" autoMapping="true">
+        <id column="userId" property="userId"/>
+        <association column="userId" property="user" autoMapping="true">
+            <id column="userId" property="id"/>
+            <result column="userCreateDate" property="createDate"/>
+            <result column="userLoginDate" property="loginDate"/>
+        </association>
+        <association column="addrId" property="address" autoMapping="true">
+            <id column="addrId" property="id"/>
+            <result column="addrName" property="name"/>
+            <result column="addrCreateDate" property="createDate"/>
+            <result column="addrUpdateDate" property="updateDate"/>
+        </association>
+    </resultMap>
+    <select id="getAccount" resultMap="accountMap">
+        select u.id as userId, u.name as name, u.cover as cover, u.balance as balance, u.addr_id as addrId,u.is_enabled as enabled, u.create_date as userCreateDate, u.login_date as userLoginDate,
+            u.wx_name as wxName,u.open_id as openId,
+            a.name as addrName, a.phone as phone, a.province as province, a.city as city, a.district as district, a.street as street, a.create_date as addrCreateDate, a.update_date as addrUpdateDate
+        from users_tb u left join address_tb as a on u.addr_id=a.id
+        where u.id=#{id}
+    </select>
+    <select id="getUserById" resultType="user">
+         SELECT id, open_id, name,wx_name, cover, balance, addr_id, is_enabled enabled, create_date, login_date
+         from users_tb where id=#{id}
+    </select>
+
+    <!--    <select id="getUserByName" resultType="user">-->
+    <!--        select id, name, cover, balance, addr_id as addrId, create_date as createDate, login_date as loginDate-->
+    <!--        from users_tb-->
+    <!--        where name like concat('%',#{name},'%')-->
+    <!--    </select>-->
+    <!--    <select id="getUserList" resultType="user">-->
+    <!--        select id, name, cover, balance, addr_id as addrId, create_date as createDate, login_date as loginDate from users_tb-->
+    <!--    </select>-->
+
+    <select id="queryUserEnabled" resultType="int">
+        select is_enabled from users_tb where id=#{id}
+    </select>
+
+    <select id="queryUserByName" resultType="User">
+        SELECT id, open_id, name,wx_name, cover, balance, addr_id, is_enabled enabled, create_date, login_date
+         from users_tb where name=#{name}
+    </select>
+
+    <update id="updateUserBalance">
+        UPDATE users_tb SET balance=balance+#{total} WHERE id = #{id}
+    </update>
+
+    <update id="BalancePayment">
+        UPDATE users_tb SET balance=balance-#{total} WHERE id = #{id}
+    </update>
+
+    <update id="updateUserAddr">
+        UPDATE users_tb SET addr_id=#{addrId} WHERE id = #{userId}
+    </update>
+
+    <update id="updateLoginDate">
+        update users_tb set login_date=#{loginDate} where id=#{id}
+    </update>
+
+
+    <select id="getUserListByUserIds" resultType="user">
+        select id, name
+        from users_tb
+        where id in
+        <foreach collection="list" separator="," open="(" close=")" item="item">
+            #{item}
+        </foreach>
+
+    </select>
+    <!--    根据用户id禁用用户-->
+    <select id="updateUserByState" resultType="user">
+            UPDATE users_tb SET is_enabled=#{enabled} WHERE id = #{id}
+    </select>
+
+
+    <!--    统计最近七天创建用户数量-->
+    <select id="statisticUserByCreaeteDate" resultType="statisticUser">
+        select t2.days as date, IFNULL(u.count,0) as count from
+            (SELECT DATE_FORMAT(create_date,'%Y-%m-%d') datet,COUNT(id) count FROM users_tb GROUP BY datet) u right join
+            (SELECT @cdate := date_add(@cdate,interval -1 day) days from
+                (SELECT @cdate :=date(DATE_ADD(now(),INTERVAL 1 day))  from users_tb limit 7) t1  ) t2
+            on t2.days = u.datet
+    </select>
+
+    <!--    条件查询分页-->
+    <select id="queryUserListOfPage" resultType="user">
+        select id, name, cover,is_enabled as enabled, balance, addr_id, create_date, login_date
+        from users_tb
+        <where>
+            <if test="name != null and name !=''">
+                name like concat("%", #{name}, "%")
+            </if>
+            <if test="minDate != null and minDate != ''">
+                and DATE_FORMAT(create_date,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{minDate},'%Y-%m-%d')
+            </if>
+            <if test="maxDate != null and maxDate !=''">
+                and DATE_FORMAT(create_date,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{maxDate},'%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+
+
+    <!--                                                  微信切割线                                                  -->
+    <!--                                                  微信切割线                                                  -->
+    <!--                                                  微信切割线                                                  -->
+
+
+    <select id="queryUserByOpenId" resultType="User">
+        SELECT id, open_id, name, wx_name,cover, balance, addr_id, is_enabled, create_date, login_date
+	    FROM users_tb where open_id = #{openId}
+    </select>
+
+    <insert id="addWXUser">
+        INSERT INTO users_tb
+	    (id, open_id, wx_name, cover)
+	    VALUES (#{id}, #{openId}, #{wxName}, #{cover})
+    </insert>
+
+    <select id="getUserByPhone" resultType="User">
+        SELECT id, open_id, name,wx_name, cover, balance, addr_id, is_enabled enabled, create_date, login_date
+        FROM users_tb where name = #{phone}
+    </select>
+
+    <update id="UserBinding" >
+        UPDATE users_tb
+            SET
+                open_id=#{user.openId},
+                wx_name=#{user.wxName},
+                cover=#{user.cover}
+        WHERE id = #{id}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c1801.spring.dzy.mapper.OrderPayMapper">
+
+    <update id="orderPaymentRecord">
+        UPDATE order_pay_tb
+		SET
+		<if test="feePay!=null and feePay!=''">
+			fee_pay=#{feePay},
+		</if>
+		<if test="wxPay!=null and wxPay!=''">
+			wx_pay=#{wxPay},
+		</if>
+		pay_type=#{payType}
+		WHERE order_id = #{orderId}
+    </update>
+
+</mapper>

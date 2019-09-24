@@ -1,0 +1,607 @@
+<template>
+  <div class="particular" v-if="collectionsBooks !== null" @scroll="scrollHander()" ref="particular">
+    <div
+      class="particular-evenBetween"
+      :style="{'color': 'white', 'background-image':' linear-gradient(to top, '+collectionsBooks.data.backgroundColor+'4c, '+collectionsBooks.data.backgroundColor+' 56%),url('+imgAgency+collectionsBooks.data.backgroundImage+')','background-size': 'cover, cover','background-position': 'center top, center center'}"
+    >
+      <header class="header" style="padding:32px 0 80px 0;">
+        <h1 class="header-size">{{collectionsBooks.data.name}}</h1>
+        <span class="header-test">{{collectionsBooks.data.intro}}</span>
+      </header>
+      <footer class="Flex--evenBetween Flex--alignCenter" style="padding-bottom: 30px;">
+        <span>
+          <div
+            class="text"
+            style="vertical-align: middle; font-size: inherit;"
+          >{{collectionsBooks.total.userTotal}}人推荐了 {{collectionsBooks.total.bookTotal}}本书</div>
+        </span>
+        <div class="flex-avatars" style="flex-flow: row-reverse;">
+          <div v-for="(img,index) in collectionsBooks.image" :key="index">
+            <span class="flex-avatar">
+              <span class="flex-root">
+                <img alt :src="img" class="flex-img" />
+              </span>
+            </span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <div class="infinite-list-wrapper" style="overflow:auto">
+      <div class="ocs" v-for="b in books" :key="b.id">
+        <div class="oc-item" @click="routerBook(b.bookID)">
+          <div class="oc-" style="display: flex;">
+            <div class="bookItem" style="margin-left: 16px;border-bottom: none; ">
+              <img :src="imgAgency+b.cover" alt class="img-par" />
+            </div>
+            <div class="bookItem-text">
+              <div style="font-size: 18px;font-weight: 400;   margin-bottom: 6px;">{{b.name}}</div>
+              <div class="bookImage-content">{{b.author}}</div>
+              <div class="bookItem-meta">豆瓣评分 {{b.doubanRate}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="contribs-wrap">
+          <div class="contrib-for-list">
+            <p class="full-text full-conceal admin" :style="conat">
+              {{b.comment}}
+              <span class="folding-toggle">
+                <button
+                  class="Button Button--primary Button--cleanText"
+                  v-show="conat === null"
+                  @click="conat='-webkit-line-clamp: inherit;'"
+                >...展开</button>
+              </span>
+            </p>
+            <footer class="contrib-footer">
+              <div class="contrib-flex">
+                <a
+                  style="display: flex; align-items: center; white-space: nowrap; overflow: hidden;"
+                >
+                  <span class="contrib-small" style="flex-shrink: 0;">
+                    <img
+                      src="../../assets/img/1e80af58b7bb11e9a78902420ac8025a.jpeg"
+                      alt
+                      style="    display: block;width: 100%;"
+                    />
+                  </span>
+                  <span class="contrib-text">{{b.userName}}</span>
+                </a>
+              </div>
+              <div class="flex-alignCenter">
+                <a style="line-height: 0; margin-right: 30px;">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 17"
+                    style="color: rgb(170, 170, 170);"
+                  >
+                    <g
+                      fill="none"
+                      fill-rule="evenodd"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-width="1.2"
+                      transform="translate(2 1)"
+                    >
+                      <path
+                        d="M13 1L8 6M14 6L14 .87668517C14 .392545599 13.6070711 0 13.1237445 0L8 0M3.83953916 0C1.71931875 0 0 1.74525424 0 3.89745763L0 10.1025424C0 12.2547458 1.71931875 14 3.83953916 14L10.1604608 14C12.2806812 14 14 12.2547458 14 10.1025424L14 9.96491525"
+                      />
+                    </g>
+                  </svg>
+                </a>
+                <div class="interact-actions">
+                  <div class="action-item comment-item">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 17"
+                    >
+                      <g
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke="#AAA"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.2"
+                        transform="translate(1 1)"
+                      >
+                        <path
+                          d="M12.169348,0 L3.83065199,0 C1.71493085,0 0,1.79029667 0,3.9989971 L0,9.14005968 C0,11.3369741 1.69686706,13.1154847 3.79678239,13.135521 L4.46740051,14.4319833 C4.79706463,15.0684285 5.62009596,15.1945389 6.11120519,14.6853828 L7.60259667,13.1390568 L12.169348,13.1390568 C14.2850692,13.1390568 16,11.3487601 16,9.14005968 L16,3.9989971 C16,1.79029667 14.2850692,0 12.169348,0 Z"
+                        />
+                        <path
+                          d="M4.47615044 4.65C9.4446895 4.65 11.928959 4.65 11.928959 4.65M5.59750752 8.65L9.51801392 8.65"
+                        />
+                      </g>
+                    </svg>
+                    <span class="label">1</span>
+                  </div>
+                  <div class="action-item">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 19 18"
+                    >
+                      <g
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke="#AAA"
+                        stroke-width="1.2"
+                        transform="translate(1 1)"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M2.74290235,5.6549 L1.32674307,5.9209 C0.564288721,6.0539 2.27373675e-13,6.8189 2.27373675e-13,7.7199 L2.27373675e-13,11.9069 C2.27373675e-13,13.4389 0.575163664,14.7399 2.35502937,14.7399 L3.1924,14.7529"
+                        />
+                        <path
+                          stroke-linecap="square"
+                          d="M3.5568,12.0065 L3.5568,5.5265 C3.5568,5.0625 3.66704045,4.6065 3.87715685,4.1995 L5.02667263,1.4615 C5.30368708,0.8025 6.22518415,0.2695 6.762253,0.7125 C7.33983756,1.1885 7.68751897,1.9135 7.71107462,2.6895 L7.71672798,2.9035 C7.74876366,3.9715 8.57321145,4.8195 9.58045109,4.8195 L15.0557266,4.8195 C16.6047462,4.8195 17.320838,6.4245 16.8638584,7.9955 L15.6361379,12.4075 C14.9680996,14.2355 13.3097818,15.4405 11.4630187,15.4405 L6.79240423,15.4405 C5.00500143,15.4405 3.5568,13.9025 3.5568,12.0065 Z"
+                        />
+                      </g>
+                    </svg>
+                    <span class="label">{{b.applaudstotal}}</span>
+                  </div>
+                </div>
+              </div>
+            </footer>
+          </div>
+        </div>
+      </div>
+      <div
+          class="loading"
+          v-show="loading"
+          v-loading="loading"
+          element-loading-text="拼命加载中"
+          element-loading-spinner="el-icon-loading"
+        ></div>
+        <div v-if="noMore" style="text-align: center;">没有更多了</div>
+    </div>
+    <div class="AnnoyingButton">
+      <router-link :to="{ path: '/open-collections/'+this.$route.params.id+'/Recommend'}">
+        <span class="Button">
+          <svg
+            class="Icon Icon--HandRaised"
+            viewBox="0 0 36 31"
+            style="overflow: visible; fill-rule: evenodd; fill: rgb(51, 51, 51); position: relative; top: -0.3em; margin-right: 6.5px; width: 16px;"
+          >
+            <path
+              d="M3.71742,23.4994C3.71742,23.4994 5.13652,32.3632 5.13652,32.3632C5.13652,32.4147 5.1872,32.5178 5.1872,32.5693C5.1872,32.5693 8.32948,39.9902 8.32948,39.9902C8.48152,40.2994 8.78561,40.5055 9.08971,40.5055C9.19107,40.5055 9.34312,40.5055 9.44448,40.454C9.90062,40.2479 10.0527,39.7325 9.90062,39.3202L6.80902,32.0025C6.80902,32.0025 5.38993,23.1387 5.38993,23.1387C5.38993,23.0871 5.38993,23.0356 5.33924,22.984C5.33924,22.984 1.74083,12.5227 1.74083,12.5227C1.5381,12.0074 1.79151,11.389 2.29833,11.1828C2.29833,11.1828 2.6531,11.0282 2.6531,11.0282C3.15992,10.8221 3.7681,11.0798 3.97083,11.5951C3.97083,11.6466 3.97083,11.6466 4.02151,11.6982C4.02151,11.6982 8.88698,21.1288 8.88698,21.1288C9.03902,21.438 9.34312,21.5926 9.64721,21.5926C9.64721,21.5926 9.64721,21.5926 9.69789,21.5926C9.74857,21.5926 9.79925,21.5926 9.84993,21.5926C10.3061,21.4896 10.6102,21.0258 10.5088,20.562C10.5088,20.562 7.72129,5.51411 7.72129,5.51411C7.56925,4.7411 8.12675,3.9681 8.88698,3.8135C8.88698,3.8135 9.34312,3.71043 9.34312,3.71043C9.69789,3.6589 10.1033,3.71043 10.4074,3.9681C10.7115,4.22577 10.9143,4.53497 11.0156,4.89571C11.0156,4.89571 13.499,18.6037 13.499,18.6037C13.499,18.6037 13.499,18.6037 13.499,18.6037C13.499,18.6037 13.499,18.6552 13.499,18.6552C13.499,18.6552 13.499,18.7067 13.499,18.7067C13.499,18.7583 13.499,18.7583 13.5497,18.8098C13.5497,18.8098 13.5497,18.8613 13.6004,18.8613C13.6004,18.9129 13.6511,18.9129 13.6511,18.9644C13.6511,18.9644 13.7018,19.016 13.7018,19.016C13.7018,19.016 13.7524,19.0675 13.7524,19.0675C13.7524,19.0675 13.8031,19.119 13.8031,19.119C13.8031,19.119 13.8538,19.1706 13.8538,19.1706C13.8538,19.1706 13.9045,19.1706 13.9045,19.2221C13.9552,19.2221 13.9552,19.2736 14.0059,19.2736C14.0059,19.2736 14.0565,19.2736 14.0565,19.2736C14.1072,19.2736 14.1072,19.2736 14.1579,19.3252C14.2086,19.3252 14.2086,19.3252 14.2593,19.3252C14.2593,19.3252 14.3099,19.3252 14.3099,19.3252C14.3099,19.3252 14.3099,19.3252 14.3099,19.3252C14.3099,19.3252 14.3099,19.3252 14.3099,19.3252C14.3099,19.3252 14.3099,19.3252 14.3099,19.3252C14.3606,19.3252 14.3606,19.3252 14.4113,19.3252C14.4113,19.3252 14.462,19.3252 14.462,19.3252C14.462,19.3252 14.462,19.3252 14.462,19.3252C14.5127,19.3252 14.5634,19.2736 14.614,19.2736C14.614,19.2736 14.614,19.2736 14.6647,19.2736C14.7154,19.2736 14.7661,19.2221 14.7661,19.2221C14.7661,19.2221 14.8168,19.1706 14.8168,19.1706C14.8168,19.1706 14.8674,19.119 14.8674,19.119C14.8674,19.119 14.9181,19.0675 14.9181,19.0675C14.9181,19.0675 14.9688,19.016 14.9688,18.9644C14.9688,18.9644 14.9688,18.9129 15.0195,18.9129C15.0195,18.8613 15.0702,18.8613 15.0702,18.8098C15.0702,18.8098 15.0702,18.7583 15.0702,18.7583C15.0702,18.7067 15.0702,18.7067 15.1209,18.6552C15.1209,18.6552 15.1209,18.6037 15.1209,18.6037C15.1209,18.5521 15.1209,18.5521 15.1209,18.5006C15.1209,18.5006 15.9318,3.19509 15.9318,3.19509C15.9318,2.78282 16.0838,2.37055 16.3879,2.11288C16.692,1.80368 17.0974,1.64908 17.5029,1.64908C17.5029,1.64908 18.0097,1.64908 18.0097,1.64908C18.8713,1.64908 19.5302,2.37055 19.5302,3.24663C19.5302,3.24663 19.1247,17.8307 19.1247,17.8307C19.1247,17.8307 19.1247,17.8307 19.1247,17.8822C19.1247,17.9337 19.1247,17.9337 19.1247,17.9853C19.1247,18.0368 19.1247,18.0368 19.1247,18.0883C19.1247,18.1399 19.1247,18.1399 19.1247,18.1914C19.1247,18.2429 19.1247,18.2429 19.1754,18.2945C19.1754,18.2945 19.1754,18.346 19.2261,18.346C19.2261,18.346 19.2768,18.3975 19.2768,18.3975C19.2768,18.3975 19.3275,18.4491 19.3275,18.4491C19.3275,18.4491 19.3781,18.5006 19.3781,18.5006C19.3781,18.5006 19.4288,18.5521 19.4288,18.5521C19.4288,18.5521 19.4795,18.6037 19.4795,18.6037C19.4795,18.6037 19.5302,18.6552 19.5302,18.6552C19.5809,18.6552 19.5809,18.7067 19.6315,18.7067C19.6315,18.7067 19.6315,18.7067 19.6822,18.7067C19.6822,18.7067 19.7329,18.7067 19.7329,18.7067C19.7836,18.7067 19.7836,18.7067 19.8343,18.7067C19.885,18.7067 19.885,18.7067 19.9356,18.7067C19.9356,18.7067 19.9863,18.7067 19.9863,18.7067C19.9863,18.7067 20.037,18.7067 20.037,18.7067C20.0877,18.7067 20.0877,18.7067 20.1384,18.7067C20.189,18.7067 20.189,18.7067 20.2397,18.7067C20.2397,18.7067 20.2904,18.7067 20.2904,18.7067C20.3411,18.7067 20.3411,18.7067 20.3918,18.6552C20.3918,18.6552 20.4425,18.6552 20.4425,18.6552C20.4931,18.6552 20.4931,18.6037 20.5438,18.6037C20.5438,18.6037 20.5945,18.6037 20.5945,18.5521C20.6452,18.5521 20.6452,18.5006 20.6959,18.5006C20.6959,18.5006 20.7465,18.4491 20.7465,18.4491C20.7465,18.3975 20.7972,18.3975 20.7972,18.346C20.7972,18.346 20.7972,18.2945 20.8479,18.2945C20.8479,18.2429 20.8986,18.2429 20.8986,18.1914C20.8986,18.1914 20.8986,18.1914 20.8986,18.1399C20.8986,18.1399 24.6997,6.90552 24.6997,6.90552C25.0038,6.08098 25.8654,5.66871 26.6763,5.92638C26.6763,5.92638 27.1325,6.08098 27.1325,6.08098C27.5379,6.23558 27.842,6.49325 27.9941,6.90552C28.1461,7.31779 28.1968,7.73006 28.0447,8.14233C28.0447,8.14233 24.3956,20.6135 24.3956,20.6135C23.3313,25.2515 23.9902,26.746 24.7504,27.1583C25.1052,27.3644 25.5613,27.2613 25.8147,26.9521C25.8147,26.9521 30.7816,21.1288 30.7816,21.1288C30.8322,21.0773 30.8322,21.0258 30.8829,20.9742C31.0857,20.6135 31.4404,20.3558 31.8459,20.2528C32.2513,20.1497 32.6568,20.2012 33.0116,20.4074C33.0116,20.4074 33.4677,20.665 33.4677,20.665C33.8225,20.8712 34.0759,21.2319 34.1773,21.6442C34.2786,22.0564 34.2279,22.4687 34.0252,22.8294L28.0954,31.384C28.0954,31.384 23.23,38.9595 23.23,38.9595C23.1286,39.1141 23.0779,39.2687 23.0779,39.4233C23.0779,39.4233 23.0779,41.1239 23.0779,41.1239C23.0779,41.5877 23.4834,42 23.9395,42C24.3956,42 24.8011,41.5877 24.8011,41.1239L24.8011,39.681L29.5145,32.3632C29.5145,32.3632 35.495,23.8601 35.495,23.8601C35.495,23.8601 35.5457,23.8086 35.5457,23.8086C36.0018,23.0356 36.1032,22.1595 35.9004,21.2834C35.6977,20.4074 35.1402,19.6859 34.38,19.2736C34.38,19.2736 33.9238,19.016 33.9238,19.016C33.1636,18.5521 32.302,18.4491 31.4404,18.6552C30.6295,18.8613 29.92,19.3767 29.5145,20.0982C29.5145,20.0982 25.5613,24.6847 25.5613,24.6847C25.5613,23.7571 25.7641,22.4172 26.0681,21.1804C26.0681,21.1804 29.7172,8.81227 29.7172,8.81227C30.0213,7.98773 29.9707,7.06012 29.5652,6.28712C29.1597,5.51411 28.5516,4.89571 27.69,4.5865C27.69,4.5865 27.2338,4.4319 27.2338,4.4319C25.5613,3.8135 23.6861,4.7411 23.0779,6.44172L21.1013,12.3166C21.1013,12.3166 21.3547,3.34969 21.3547,3.34969C21.3547,1.54601 19.9356,0 18.1618,0C18.1618,0 17.6549,0 17.6549,0C16.7934,0 15.9824,0.309202 15.3236,0.927607C14.7154,1.54601 14.3606,2.37055 14.3606,3.19509L13.9552,11.1313C13.9552,11.1313 12.7895,4.63804 12.7895,4.63804C12.6374,3.8135 12.1813,3.04049 11.4718,2.57669C10.7622,2.06135 9.9513,1.90675 9.14039,2.06135C9.14039,2.06135 8.63357,2.16442 8.63357,2.16442C6.91038,2.47362 5.79538,4.1227 6.09947,5.87485L7.82266,15.254C7.82266,15.254 5.59265,10.9767 5.59265,10.9767C5.33924,10.3067 4.83242,9.79141 4.17356,9.48221C3.51469,9.17301 2.75447,9.17301 2.0956,9.43067C2.0956,9.43067 1.74083,9.58528 1.74083,9.58528C0.321734,10.1521 -0.337131,11.7497 0.169688,13.1411L3.71742,23.4994Z"
+            />
+          </svg>
+          <span style="font-size:15px;">我来推荐一本</span>
+        </span>
+      </router-link>
+    </div>
+    <div class="tabbar">
+      <router-link to="/">
+        <span class="dzy-icon-index"></span>
+        <div class="text">首页</div>
+      </router-link>
+
+      <router-link to="/selling">
+        <span class="dzy-icon-sell"></span>
+        <div class="text">卖书</div>
+      </router-link>
+
+      <router-link to="/cart">
+        <span class="dzy-icon-cart"></span>
+        <div class="text">购物车</div>
+        <v-count v-show="cartCount" :cartCount="cartCount" class="shopping-cart-count"></v-count>
+      </router-link>
+
+      <router-link to="/my">
+        <span class="dzy-icon-user"></span>
+        <div class="text">我的</div>
+      </router-link>
+    </div>
+  </div>
+</template>
+<script>
+import VCount from '@/components/count/CartCount';
+import { mapGetters, mapActions} from 'vuex';
+
+export default {
+  name: "openCollection",
+  data() {
+    return {
+      conat: null,
+      collectionsBooks: null,
+      imgAgency: "https://images.weserv.nl/?url=",
+      books: [],
+      loading: false,
+      page: 1,
+      bookScorll: null,
+      noMore: false
+    };
+  },
+  methods: {
+    ...mapActions(["getHasStockCartCount"]),
+    routerBook(id){
+      this.$router.push({
+        name: "book",
+        params: {
+          id: id
+        }
+      });
+    },
+    //获取滚动条高度
+    getScorllHeight() {
+      this.$nextTick(function() {
+        let ele = this.$refs.particular;
+        let firstElTop = ele.offsetTop;
+        this.bookScorll = ele.scrollHeight;
+      });
+    },
+    //当前滚动条位置
+    scrollHander() {
+      let ele = this.$refs.particular;
+      if (ele.scrollTop + ele.clientHeight >= this.bookScorll - 5) {
+        this.loading = true;
+        this.refresh(this.page+ 1);
+      }
+    },
+    //刷新数据
+    async refresh(page) {
+      if(Math.ceil(this.total/5) >=  page){
+        this.$http.get("/collection/book/id?id=" + this.$route.params.id + "&page=" + page).then(res => {res.data.data.map(d => this.books.push(d))})
+        console.info(this.books)
+        this.page +=1;
+        this.getScorllHeight()
+        this.loading = false
+      }else{
+        this.loading = false
+        this.noMore=true
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(["cartCount"]),
+  },
+  async created() {
+    let data =  await this.$http.get("/collection/id?id=" + this.$route.params.id)
+    this.collectionsBooks = data.data
+    data = await this.$http.get("/collection/book/id?id=" + this.$route.params.id + "&page=" + this.page)
+    this.books = data.data.data
+    this.total = data.data.total
+    await this.getScorllHeight()
+  },
+  components: {
+    VCount
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.particular {
+  max-width: 600px;
+  margin: 0px auto;
+  overflow: scroll;
+  height: calc(100vh - 50px);
+  background-color: white;
+
+  .particular-evenBetween {
+    padding: 0px 15px;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    flex-direction: column;
+
+    .header {
+      display: block;
+      text-align: left;
+      .header-size {
+        margin-bottom: 12px;
+
+        font-size: 30px;
+        font-weight: 500;
+      }
+      .header-test {
+        line-height: 1.6;
+      }
+    }
+    .Flex--alignCenter {
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+
+      .flex-avatars {
+        display: flex;
+        .flex-avatar {
+          display: block;
+          margin-right: -5.5px;
+        }
+        .flex-root {
+          display: inline-block;
+          vertical-align: top;
+          box-sizing: border-box;
+          width: 30px;
+          height: 30px;
+          background: rgb(242, 242, 242);
+          border-width: 1px;
+          border-style: solid;
+          border-color: rgb(242, 242, 242);
+          border-image: initial;
+          border-radius: 99px;
+          overflow: hidden;
+
+          .flex-img {
+            display: block;
+            width: 100%;
+          }
+        }
+      }
+    }
+    .Flex--evenBetween {
+      -webkit-justify-content: space-between;
+      justify-content: space-between;
+    }
+  }
+  .loading {
+    padding-bottom: 40px;
+  }
+  .ocs {
+    padding: 0px 16px;
+    background-color: white;
+    white-space: 50px;
+
+    .oc-item {
+      margin-top: 30px;
+      .bookItem {
+        .img-par {
+          box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 16px 0px;
+          width: 90px;
+          height: 128px;
+          margin-right: 12px;
+        }
+      }
+      .bookItem-text {
+        .bookImage-content {
+          font-size: 14px;
+          color: rgb(170, 170, 170);
+        }
+        .bookItem-meta {
+          display: -webkit-flex;
+          -webkit-align-items: center;
+          align-items: center;
+          margin-top: 4px;
+          color: rgb(214, 186, 140);
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .contribs-wrap {
+    position: relative;
+
+    .contrib-for-list {
+      padding: 16px 16px 26px;
+      border-bottom: 0.5px solid rgb(230, 230, 230);
+
+      .full-text {
+        font-size: 15px;
+        line-height: 1.6;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        user-select: initial;
+
+        .folding-toggle {
+          width: 6em;
+          position: absolute;
+          bottom: -1px;
+          right: 0px;
+          text-align: right;
+
+          background: linear-gradient(
+            to left,
+            rgb(255, 255, 255),
+            rgb(255, 255, 255) 45%,
+            rgba(255, 255, 255, 0) 100%
+          );
+
+          .Button {
+            display: inline-block;
+            box-sizing: border-box;
+            padding: 8px 1.5em 8px;
+            font-size: 15px;
+            text-align: center;
+            text-decoration: none;
+            white-space: nowrap;
+            border: 0.5px solid rgb(242, 242, 242);
+            border-radius: 999px;
+            pointer-events: auto;
+            cursor: pointer;
+          }
+          .Button--cleanText.Button--primary {
+            color: rgb(24, 195, 170);
+            background: none;
+          }
+          .Button--cleanText {
+            padding: 0;
+            font-size: inherit;
+            border: none;
+            border-radius: 0;
+          }
+        }
+      }
+      .full-conceal {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+        overflow: hidden;
+        position: relative;
+      }
+    }
+    .contrib-footer {
+      display: flex;
+      flex-direction: row;
+      -webkit-box-align: center;
+      align-items: center;
+      margin-top: 1em;
+      font-size: 14px;
+      color: rgb(170, 170, 170);
+      white-space: nowrap;
+      width: 100%;
+
+      .contrib-flex {
+        display: flex;
+        align-items: center;
+        flex: 1 1 0%;
+        min-width: 0px;
+        margin-right: 4px;
+        color: rgb(170, 170, 170);
+
+        .contrib-small {
+          display: inline-block;
+          vertical-align: top;
+          box-sizing: border-box;
+          width: 20px;
+          height: 20px;
+          background: rgb(242, 242, 242);
+          border-width: 1px;
+          border-style: solid;
+          border-color: rgb(242, 242, 242);
+          border-image: initial;
+          border-radius: 99px;
+          overflow: hidden;
+        }
+
+        .contrib-text {
+          margin-left: 4px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+    .flex-alignCenter {
+      align-items: center;
+      display: flex;
+
+      .interact-actions {
+        display: flex;
+        flex-direction: row;
+        -webkit-box-align: center;
+        align-items: center;
+        font-size: 13px;
+        color: rgb(170, 170, 170);
+
+        .comment-item {
+          margin-right: 30px;
+        }
+        .action-item {
+          display: flex;
+          flex-direction: row;
+          -webkit-box-align: center;
+          align-items: center;
+          font-size: 13px;
+          font-weight: normal;
+          line-height: 1.23;
+        }
+      }
+    }
+  }
+
+  .img {
+    border-style: none;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+    font: inherit;
+  }
+
+  .AnnoyingButton {
+    position: fixed;
+    left: 50vw;
+    transform: translate(-50%, 0);
+    bottom: calc(66px + env(safe-area-inset-bottom));
+    bottom: 66px;
+    .Button {
+      color: rgb(102, 102, 102);
+      background: #fff;
+      border: 0.5px solid rgb(223, 223, 223);
+      box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.08);
+      display: inline-block;
+      box-sizing: border-box;
+      padding: 8px 1.5em 8px;
+      font-size: 18px;
+      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
+      border-radius: 999px;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+  }
+  .tabbar {
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1002;
+    border-top: 0.5px solid rgb(223, 223, 223);
+
+    a {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      color: #666;
+      text-decoration: none;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+
+      [class*="dzy-icon-"] {
+        width: 23px;
+        height: 23px;
+        display: inline-block;
+        font-size: 23px;
+      }
+
+      .text {
+        margin-top: 4px;
+        font-size: 12px;
+      }
+
+      .shopping-cart-count {
+        position: absolute;
+        top: -3px;
+        left: 50%;
+        // margin-left: 5px;
+        // box-sizing: border-box;
+        // height: 18px;
+        // color: #fff;
+        // font-size: 12px;
+        // font-weight: 400;
+        // line-height: 18px;
+        // text-align: center;
+        // background: rgb(242, 129, 129);
+        // border-radius: 9px;
+        // transition: transform 0.2s;
+        // transform-origin: center;
+        // padding: 0 0.66em;
+      }
+
+      &.active {
+        color: #18c3aa;
+      }
+    }
+  }
+}
+</style>

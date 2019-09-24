@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1801.spring.dzy.mapper.BalanceDetailMapper">
+    <insert id="addBalanceDetail" useGeneratedKeys="true" keyProperty="id" parameterType="BalanceDetail">
+     INSERT INTO balance_statement_tb (user_id, order_id, `type`, fee) values(#{balanceDetail.userId}, #{balanceDetail.orderId},
+      #{balanceDetail.type}, #{balanceDetail.fee})
+    </insert>
+
+    <select id="getUserById" resultType="balanceDetail">
+        SELECT id, user_id, order_id, `type`, fee, create_time, update_time FROM balance_statement_tb where user_id=#{user_id} order by update_time desc
+    </select>
+
+</mapper>

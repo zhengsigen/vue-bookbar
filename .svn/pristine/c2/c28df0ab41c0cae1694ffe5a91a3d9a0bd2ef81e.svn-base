@@ -1,0 +1,367 @@
+<template>
+    <div>
+        <div class="scuess-root">
+            <div class="recoommend-img">
+                <div class="recommend-root">
+                    <div class="recommend-bookList">
+                        <div class="book-heng" style="margin-top: 24px;margin-left: -3px;">书单 · {{recommendIntro.bookCollectionPack.contributorsCount}}人推荐了{{recommendIntro.bookCollectionPack.itemsCount}}本书</div>
+                        <h1 class="recommend-bookName" style="margin-top: 0px;">建筑是分割空间的艺术</h1>
+                    </div>
+                    <div class="recommend-book" @click="recommendBookList(recommendIntro.bookCollectionPack.id)">去看看</div>
+                </div>
+            </div>
+            <div class="book-intro" >
+                <div class="book-intros" @click="bookIntro(id)">
+                    <img :src="recommendIntro.book.cover" class="intro-img">
+                    <div class="intro">
+                        <h3 class="intro-name">{{recommendIntro.book.name}}</h3>
+                        <div class="intro-autho">{{recommendIntro.book.author}}</div>
+                    </div>
+                </div>
+                
+                <div class="user">
+                    <div>
+                        <div class="intro">
+                            <div>
+                                <div class="user-intro">
+                                    <img :src="recommendIntro.user.cover" class="user-headImg">
+                                    <div class="user-name" style="margin-left: 10px;">
+                                        {{recommendIntro.user.name}}推荐
+                                    </div>
+                                    <svg viewBox="0 0 75 50" width="35" style="fill: rgba(170, 170, 170, 0.1); transform: scaleY(-1); position: absolute; top: 1em; right: 1em;"><path d="M58.4132,31.7594C70.0423,32.1141 75,25.8333 75,16.6667C75,7.5 67.35,0 58,0C48.65,0 41,7.5 41,16.6667C41,35.0833 56.215,50 75,50C75,50 64.1932,44.3427 58.4132,31.7594ZM34,16.6667C34,7.5 26.35,0 17,0C7.65,0 0,7.5 0,16.6667C0,35.0833 15.215,50 34,50C34,50 22.78,44.5206 17,31.9373C28.8051,32.2007 34,25.8333 34,16.6667Z"></path></svg>
+                                </div>
+                            </div>
+                            <p class="book-pinglun">{{recommendIntro.recommendBook.comment}}</p>
+                            <div class="other">
+                                <div class="share">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 17" style="color: rgb(170, 170, 170);"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-width="1.2" transform="translate(2 1)"><path d="M13 1L8 6M14 6L14 .87668517C14 .392545599 13.6070711 0 13.1237445 0L8 0M3.83953916 0C1.71931875 0 0 1.74525424 0 3.89745763L0 10.1025424C0 12.2547458 1.71931875 14 3.83953916 14L10.1604608 14C12.2806812 14 14 12.2547458 14 10.1025424L14 9.96491525"></path></g></svg>
+                                    <span class="other-share">分享</span>
+                                </div>
+                                <div class="good" @click="goodUpdate" >
+                                    
+                                    <div class="dianzan" v-if="goodCount" >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 19 18"><g fill="none" fill-rule="evenodd" stroke="#AAA" stroke-width="1.2" transform="translate(1 1)"><path stroke-linecap="round" stroke-linejoin="round" d="M2.74290235,5.6549 L1.32674307,5.9209 C0.564288721,6.0539 2.27373675e-13,6.8189 2.27373675e-13,7.7199 L2.27373675e-13,11.9069 C2.27373675e-13,13.4389 0.575163664,14.7399 2.35502937,14.7399 L3.1924,14.7529"></path><path stroke-linecap="square" d="M3.5568,12.0065 L3.5568,5.5265 C3.5568,5.0625 3.66704045,4.6065 3.87715685,4.1995 L5.02667263,1.4615 C5.30368708,0.8025 6.22518415,0.2695 6.762253,0.7125 C7.33983756,1.1885 7.68751897,1.9135 7.71107462,2.6895 L7.71672798,2.9035 C7.74876366,3.9715 8.57321145,4.8195 9.58045109,4.8195 L15.0557266,4.8195 C16.6047462,4.8195 17.320838,6.4245 16.8638584,7.9955 L15.6361379,12.4075 C14.9680996,14.2355 13.3097818,15.4405 11.4630187,15.4405 L6.79240423,15.4405 C5.00500143,15.4405 3.5568,13.9025 3.5568,12.0065 Z"></path></g></svg>
+                                    </div>
+                                    
+                                    <div class="dianzanCount" v-else>
+                                        <svg width="18" height="18" viewBox="0 0 19 16"><g fill="none" fill-rule="evenodd"><g transform="translate(0 4.39)"><mask id="zanle-b" fill="#fff"><polygon id="zanle-a" points="0 .941 3.5 .941 3.5 10.339 0 10.339"></polygon></mask><path fill="#D6BA8C" d="M3.4998,10.3395 L2.3548,10.3315 C0.5748,10.3315 -0.0002,9.0175 -0.0002,7.4695 L-0.0002,3.2405 C-0.0002,2.3295 0.5638,1.5575 1.3268,1.4225 L3.2778,0.9405 L3.4998,10.3395" mask="url(#zanle-b)"></path></g><path fill="#D6BA8C" d="M4.4665,11.7066 L4.4665,5.2266 C4.4665,4.7626 4.5765,4.3066 4.7865,3.8996 L5.9365,1.1616 C6.2135,0.5026 7.1345,-0.0304 7.6715,0.4126 C8.2495,0.8886 8.5975,1.6136 8.6205,2.3896 L8.6265,2.6036 C8.6585,3.6716 9.4825,4.5196 10.4905,4.5196 L15.9655,4.5196 C17.5145,4.5196 18.2305,6.1246 17.7735,7.6956 L16.5455,12.1076 C15.8775,13.9356 14.2195,15.1406 12.3725,15.1406 L7.7025,15.1406 C5.0625,15.1406 4.4665,13.6026 4.4665,11.7066"></path><path stroke="#D6BA8C" stroke-linecap="square" stroke-width=".5" d="M4.4665,11.7066 L4.4665,5.2266 C4.4665,4.7626 4.5765,4.3066 4.7865,3.8996 L5.9365,1.1616 C6.2135,0.5026 7.1345,-0.0304 7.6715,0.4126 C8.2495,0.8886 8.5975,1.6136 8.6205,2.3896 L8.6265,2.6036 C8.6585,3.6716 9.4825,4.5196 10.4905,4.5196 L15.9655,4.5196 C17.5145,4.5196 18.2305,6.1246 17.7735,7.6956 L16.5455,12.1076 C15.8775,13.9356 14.2195,15.1406 12.3725,15.1406 L7.7025,15.1406 C5.0625,15.1406 4.4665,13.6026 4.4665,11.7066 Z"></path></g></svg>
+                                        <span class="count">1</span>
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <div class="muchTime"> 3 分钟前 ·</div>
+                                    <div class="deleteButton">删除</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thanksIntro" style="margin-top: 78px;height: 30vh; text-align: center; font-size: 13px; color: rgb(170, 170, 170); line-height: 2;">
+                    感谢你的投稿 
+                    <br />
+                    鱼编会选择有趣的推荐展示在书单里
+                </div>
+            </div>
+        </div>
+        <div class="tabbar">
+            <router-link to="/">
+            <span class="dzy-icon-index"></span>
+            <div class="text">首页</div>
+            </router-link>
+
+            <router-link to="/selling">
+            <span class="dzy-icon-sell"></span>
+            <div class="text">卖书</div>
+            </router-link>
+
+            <router-link to="/shop">
+            <span class="dzy-icon-cart"></span>
+            <div class="text">购物车</div>
+            </router-link>
+
+            <router-link to="/my">
+            <span class="dzy-icon-user"></span>
+            <div class="text">我的</div>
+            </router-link>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    data(){
+        return{
+            recommendIntro : {},
+            goodCount : true,
+        }
+    }, 
+    created(){
+
+        this.$http.get("collection/recommend?id="+this.$route.params.ScuessId).then(res=>{
+            if(res.code == 0){
+                this.recommendIntro = res.data
+                console.info(this.recommendIntro)
+            }
+        })
+
+    },
+    methods:{
+        recommendBookList(id){    
+            if(id == null || id==''){
+                cosnole.info("ID为null或者为空")
+            }else{
+                this.$router.push({
+                    name: "open-collections",
+                    params: {
+                        id: id
+                    }
+                });
+            }
+        },
+        bookIntro(id){
+            if(id == null || id==''){
+                cosnole.info("ID为null或者为空")
+            }else{
+                this.$router.push({
+                    name: "book",
+                    params: {
+                        id: id
+                    }
+                });
+            }
+        },
+        goodUpdate(){
+            goodCount = !goodCount;
+        }
+    }
+}
+</script>
+<style lang="scss" scoped>
+    .scuess-root{
+        box-sizing: border-box;
+        padding-bottom: 50px;
+        min-height: 100vh;
+        background-color: rgb(255, 255, 255);
+        flex-direction: column;
+        display: flex;
+        .recoommend-img{
+            height: 92px;
+            padding: 0px 15px;
+            color: white;
+            font-size: 11px;
+            background-image: linear-gradient(rgb(139, 184, 191) 29%, rgba(139, 184, 191, 0.8));
+            background-size: cover;
+            background-position: center top;
+            align-items: center;
+            justify-content: space-between;
+            .recommend-root{
+                flex-direction: column;
+                display: flex;
+                position: relative;
+                .recommend-bookList{
+                    .book-heng{
+                        padding-right: .25em;
+                        padding-left: .25em;
+                    }
+                    .recommend-bookName{
+                        font-size: 18px;
+                        font-weight: 500;
+                        margin-bottom: 0px;
+                    }
+                }
+                .recommend-book{
+                    padding: 3.5px 7.5px;
+                    border: 1px solid rgb(255, 255, 255);
+                    border-radius: 4px;
+                    position: absolute;
+                    right: 0;
+                    bottom: 4px;
+                }
+            }
+        }
+        .book-intro{
+            margin-top: 25px;
+            padding: 0px 15px;
+            position: relative;
+            .book-intros{
+                margin-left: 16px;
+                border-bottom: none;
+                background: #fff;
+                display: flex;
+                .intro-img{
+                    width: 90px;
+                    height: 128px;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    display: block;
+                }
+                .intro{
+                    display: block;     
+                    margin-left: 6px;
+                    margin-top: -22px;
+                    .intro-name{
+                        font-size: 18px;
+                        font-weight: 400;
+                        margin-bottom: 6px;
+                    }
+                    .intro-autho{
+                        font-size: 14px;
+                        color: rgb(170, 170, 170);
+                    }
+                }
+            }
+            .book-pinglun{
+                font-size: 15px;
+                line-height: 1.6;
+                overflow-wrap: break-word;
+                word-break: break-word;
+                user-select: initial;
+            }
+            .user{
+                position: relative;
+                .intro{
+                    padding: 16px;
+                    border-bottom: 0.5px solid rgb(230, 230, 230);
+
+                    .user-intro{
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 10px;
+                        .user-headImg{
+                            color: inherit;
+                            text-decoration: none;
+                            height: 28px;
+                            widows: 28px;
+                            border-radius: 999px;
+                            .user-name{
+                                max-width: 60%;
+                                color: inherit;
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                    .other{
+                        margin-top: 1em;
+                        font-size: 14px;
+                        color: rgb(170, 170, 170);
+                        position: relative;
+                        .share{
+                            align-items: center;
+                            display: flex;
+                            .other-share{
+                                margin: 0px 24px 0px 4px;
+                            }
+                        }
+                        .good{
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            font-size: 13px;
+                            color: rgb(170, 170, 170);
+                            position: absolute;
+                            left: 74px;
+                            bottom: 0px;
+                            .dianzan{
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                font-size: 13px;
+                                font-weight: normal;
+                                line-height: 1.23;
+                            }
+                            .dianzanCount{
+                                display: flex;
+                                flex-direction: row;
+                                align-items: center;
+                                font-size: 13px;
+                                font-weight: normal;
+                                line-height: 1.23;
+                                .count{
+                                    margin-left: 6px;
+                                }
+                            }
+                        }
+                        .muchTime{
+                            position: absolute;
+                            right: 44px;
+                            bottom: 0px;
+                        }
+                        .muchTimeDian{
+                            padding: 0px 0.5em;
+                        }
+                        .deleteButton{
+                            position: absolute;
+                            right: 6px;
+                            bottom: 0px;
+                        }
+                    }
+                }
+                
+            }
+        }
+
+    }
+    .tabbar {
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    border-top: 0.5px solid rgb(223, 223, 223);
+
+    a {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      color: #666;
+      text-decoration: none;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+
+      [class*="dzy-icon-"] {
+        width: 23px;
+        height: 23px;
+        display: inline-block;
+        font-size: 23px;
+      }
+
+      .text {
+        margin-top: 4px;
+        font-size: 12px;
+      }
+
+      .count {
+        position: absolute;
+        top: -3px;
+        left: 50%;
+        margin-left: 5px;
+        box-sizing: border-box;
+        height: 18px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        text-align: center;
+        background: rgb(242, 129, 129);
+        border-radius: 9px;
+        transition: transform 0.2s;
+        transform-origin: center;
+        padding: 0 0.66em;
+      }
+      &.active {
+        color: #18c3aa;
+      }
+    }
+  }
+</style>

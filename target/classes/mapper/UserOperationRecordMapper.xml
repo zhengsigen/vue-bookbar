@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1801.spring.dzy.mapper.UserOperationRecordController">
+    <select id="IsUserHasCategory" resultType="Category">
+        SELECT id temp_id, user_id, category_id id, create_time, update_time
+	    FROM user_operation_record_tb where user_id=#{userId} and category_id=#{categoryId}
+    </select>
+
+    <insert id="UserRecordAdd">
+        INSERT INTO user_operation_record_tb
+        (user_id, category_id)
+        VALUES (#{userId}, #{categoryId})
+    </insert>
+</mapper>

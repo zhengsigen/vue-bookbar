@@ -1,0 +1,696 @@
+<template>
+  <div v-if="user">
+    <div class="top">
+      <div class="user">
+        <div class="logout">
+          <div class="btn-logout" @click="logoutUser">登出账号</div>
+        </div>
+        <div class="info">
+          <img :src="user.cover" />
+          <div>
+            <span>{{user.wxName}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="lists">
+        <div class="list">
+          <router-link to="/my/balance" tag="div">
+            <div>
+              <svg width="15px" height="17px" viewBox="0 0 30 34" version="1.1">
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g
+                    id="Artboard-Copy-29"
+                    transform="translate(-81.000000, -554.000000)"
+                    fill-rule="nonzero"
+                    fill="#FFFFFF"
+                  >
+                    <g id="Group-6" transform="translate(0.000000, 520.000000)">
+                      <g id="Group-2" transform="translate(81.000000, 34.000000)">
+                        <path
+                          d="M0,1 L0,33 L0,33 C6.76353751e-17,33.5522847 0.44771525,34 1,34 L29,34 L29,34 C29.5522847,34 30,33.5522847 30,33 L30,1 L30,1 C30,0.44771525 29.5522847,-1.01453063e-16 29,0 L1,0 L1,0 C0.44771525,1.01453063e-16 -6.76353751e-17,0.44771525 0,1 Z M1.77762983,32.1109632 L1.77762983,1.88903684 L28.229028,1.88903684 L28.229028,11.1269419 L24.713715,11.1269419 C21.6746781,11.1269419 19.2110519,13.7548098 19.2110519,16.9964492 C19.2110519,20.2380886 21.6746781,22.8659565 24.713715,22.8659565 L28.229028,22.8659565 L28.229028,32.1109632 L1.77762983,32.1109632 Z M28.229028,13.0159787 L28.229028,20.969818 L24.713715,20.969818 C22.6545975,20.969818 20.9853529,19.1892904 20.9853529,16.9928984 C20.9853529,14.7965063 22.6545975,13.0159787 24.713715,13.0159787 L28.229028,13.0159787 Z"
+                          id="Shape"
+                        />
+                        <ellipse id="Oval" cx="25.5" cy="16.9937439" rx="1.5" ry="1.59375" />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span>余额</span>
+          </router-link>
+        </div>
+
+        <div class="list">
+          <router-link to="/my/orders" tag="div">
+            <div>
+              <svg width="14.5px" height="18px" viewBox="0 0 29 36" version="1.1">
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g
+                    id="Artboard-Copy-29"
+                    transform="translate(-266.000000, -553.000000)"
+                    fill-rule="nonzero"
+                    fill="#FFFFFF"
+                  >
+                    <g id="Group-6" transform="translate(0.000000, 520.000000)">
+                      <path
+                        d="M274.955888,33 C273.553054,33 272.397065,34.1088818 272.397065,35.4545455 L272.397065,35.8636364 L266.852949,35.8636364 C266.826309,35.8624373 266.799626,35.8624373 266.772986,35.8636364 C266.333418,35.9033761 265.998104,36.258299 266.000008,36.6818182 L266.000008,68.1818182 C266.000055,68.6336688 266.381902,68.9999549 266.852949,69 L294.147059,69 C294.618106,68.9999549 294.999953,68.6336688 295,68.1818182 L295,36.6818182 C294.999953,36.2299675 294.618106,35.8636815 294.147059,35.8636364 L288.602943,35.8636364 L288.602943,35.4545455 C288.602943,34.1088818 287.446954,33 286.04412,33 L274.955888,33 Z M274.955888,34.7659091 L286.04412,34.7659091 C286.531402,34.7659091 286.897061,35.1444361 286.897061,35.6488636 L286.897061,38.2977273 C286.897061,38.8021548 286.531402,39.1806818 286.04412,39.1806818 L274.955888,39.1806818 C274.468606,39.1806818 274.102947,38.8021548 274.102947,38.2977273 L274.102947,35.6488636 C274.102947,35.1444361 274.468606,34.7659091 274.955888,34.7659091 Z M267.70589,37.85625 L272.397065,37.85625 L272.397065,38.2574829 C272.397065,39.5772984 273.553054,40.6648802 274.955888,40.6648802 L286.04412,40.6648802 C287.446954,40.6648802 288.602943,39.5772984 288.602943,38.2574829 L288.602943,37.85625 L293.294118,37.85625 L293.294118,67.1462509 L267.70589,67.1462509 L267.70589,37.85625 Z M271.761854,45.64375 C271.480444,45.6584756 271.227425,45.8404185 271.098128,46.1210267 C270.968832,46.4016349 270.982907,46.7382654 271.13505,47.0040832 C271.287193,47.269901 271.554283,47.4245108 271.835688,47.4096591 L289.162101,47.4096591 C289.446124,47.4141601 289.710307,47.2468613 289.85349,46.9718241 C289.996673,46.6967868 289.996673,46.3566223 289.85349,46.081585 C289.710307,45.8065478 289.446124,45.6392489 289.162101,45.64375 L271.835688,45.64375 C271.81109,45.642456 271.786452,45.642456 271.761854,45.64375 L271.761854,45.64375 Z M271.761854,51.6653409 C271.480444,51.6800665 271.227425,51.8620094 271.098128,52.1426176 C270.968832,52.4232258 270.982907,52.7598563 271.13505,53.0256741 C271.287193,53.2914919 271.554283,53.4461018 271.835688,53.43125 L289.162101,53.43125 C289.446124,53.4357511 289.710307,53.2684522 289.85349,52.993415 C289.996673,52.7183777 289.996673,52.3782132 289.85349,52.1031759 C289.710307,51.8281387 289.446124,51.6608399 289.162101,51.6653409 L271.835688,51.6653409 C271.81109,51.6640469 271.786452,51.6640469 271.761854,51.6653409 Z M271.761854,57.6869318 C271.480444,57.7016574 271.227425,57.8836003 271.098128,58.1642085 C270.968832,58.4448167 270.982907,58.7814472 271.13505,59.047265 C271.287193,59.3130828 271.554283,59.4676927 271.835688,59.4528409 L289.162101,59.4528409 C289.446124,59.457342 289.710307,59.2900431 289.85349,59.0150059 C289.996673,58.7399686 289.996673,58.3998041 289.85349,58.1247668 C289.710307,57.8497296 289.446124,57.6824308 289.162101,57.6869318 L271.835688,57.6869318 C271.81109,57.6856378 271.786452,57.6856378 271.761854,57.6869318 Z"
+                        id="Shape"
+                      />
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span>订单</span>
+          </router-link>
+        </div>
+        <div class="list">
+          <div>
+            <svg width="15px" height="18.5px" viewBox="0 0 30 37" version="1.1">
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g
+                  id="Artboard-Copy-29"
+                  transform="translate(-455.000000, -554.000000)"
+                  fill-rule="nonzero"
+                  fill="#FFFFFF"
+                >
+                  <g id="Group-6" transform="translate(0.000000, 520.000000)">
+                    <path
+                      d="M459.409917,34 C456.980519,34 455,36.0013893 455,38.4468507 L455,66.5669134 C455,69.0074612 456.982079,70.999911 459.409917,70.999911 L484.105455,70.999911 C484.42353,71.0044329 484.719387,70.8364439 484.879737,70.5602703 C485.040088,70.2840968 485.040088,69.9425261 484.879737,69.6663526 C484.719387,69.390179 484.42353,69.22219 484.105455,69.2267119 L459.409917,69.2267119 C457.928805,69.2267119 456.763967,68.0557817 456.763967,66.5669134 L456.763967,66.275998 C456.78223,66.2265406 456.796066,66.1755436 456.80531,66.1236137 C457.012242,64.8589805 458.078952,63.9071149 459.409917,63.9071149 L484.105455,63.9071149 C484.592541,63.9070659 484.98739,63.5101505 484.987438,63.0205154 L484.987438,34.8865995 C484.98739,34.3969644 484.592541,34.000049 484.105455,34 L459.409917,34 Z M459.409917,35.773199 L483.223471,35.773199 L483.223471,62.1339159 L459.409917,62.1339159 C458.411934,62.1339159 457.505062,62.4973512 456.763967,63.0620747 L456.763967,38.4468507 C456.763967,36.9499409 457.930365,35.773199 459.409917,35.773199 Z M459.327231,65.6803139 C459.012084,65.6951003 458.728731,65.8777943 458.583933,66.1595609 C458.439136,66.4413274 458.454898,66.7793476 458.625281,67.0462628 C458.795664,67.3131779 459.094776,67.468426 459.409917,67.4535129 L484.105455,67.4535129 C484.42353,67.4580348 484.719387,67.2900459 484.879737,67.0138723 C485.040088,66.7376987 485.040088,66.3961281 484.879737,66.1199545 C484.719387,65.843781 484.42353,65.675792 484.105455,65.6803139 L459.409917,65.6803139 C459.382371,65.6790146 459.354778,65.6790146 459.327231,65.6803139 Z"
+                      id="Shape"
+                    />
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <span>买卖的书</span>
+        </div>
+        <div class="list">
+          <div>
+            <svg width="16px" height="19px" viewBox="0 0 32 38" version="1.1">
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g
+                  id="Artboard-Copy-29"
+                  transform="translate(-639.000000, -552.000000)"
+                  fill-rule="nonzero"
+                  fill="#FFFFFF"
+                >
+                  <g id="Group-6" transform="translate(0.000000, 520.000000)">
+                    <path
+                      d="M668.052632,56.9955556 C668.052632,56.9533333 668.052632,56.9533333 668.052632,56.9111111 L668.052632,49.3955556 C668.052632,46.1444444 666.831579,43.02 664.6,40.6555556 C663.042105,38.9666667 661.021053,37.7844444 658.831579,37.1511111 C658.957895,36.7711111 659,36.3911111 659,36.0111111 C659,33.8155556 657.189474,32 655,32 C652.810526,32 651,33.8155556 651,36.0111111 C651,36.3911111 651.042105,36.7711111 651.168421,37.1511111 C648.978947,37.7844444 646.957895,38.9666667 645.4,40.6555556 C643.168421,43.02 641.947368,46.1444444 641.947368,49.3955556 L641.947368,56.9111111 C641.947368,56.9533333 641.947368,56.9955556 641.947368,56.9955556 C640.263158,57.3755556 639,58.8955556 639,60.7111111 C639,62.8222222 640.684211,64.5111111 642.789474,64.5111111 L649.947368,64.5111111 C649.947368,64.6377778 649.947368,64.8066667 649.947368,64.9333333 C649.947368,67.72 652.221053,70 655,70 C657.778947,70 660.052632,67.72 660.052632,64.9333333 C660.052632,64.8066667 660.052632,64.6377778 660.052632,64.5111111 L667.210526,64.5111111 C669.315789,64.5111111 671,62.8222222 671,60.7111111 C671,58.8955556 669.736842,57.3755556 668.052632,56.9955556 Z M655,33.6888889 C656.263158,33.6888889 657.315789,34.7444444 657.315789,36.0111111 C657.315789,36.2644444 657.273684,36.5177778 657.189474,36.7711111 C656.810526,36.7288889 656.431579,36.6866667 656.010526,36.6444444 C655.968421,36.6444444 655.884211,36.6444444 655.842105,36.6444444 L655.336842,36.6444444 L654.621053,36.6444444 L654.157895,36.6444444 C654.115789,36.6444444 654.031579,36.6444444 653.989474,36.6444444 C653.610526,36.6444444 653.189474,36.6866667 652.810526,36.7711111 C652.726316,36.5177778 652.684211,36.2644444 652.684211,36.0111111 C652.684211,34.7444444 653.736842,33.6888889 655,33.6888889 Z M643.631579,49.3955556 C643.631579,46.5666667 644.684211,43.8644444 646.621053,41.8377778 C648.684211,39.6 651.631579,38.3333333 654.663158,38.3333333 L655.378947,38.3333333 C658.410526,38.3333333 661.315789,39.6 663.421053,41.7955556 C665.357895,43.8644444 666.410526,46.5244444 666.410526,49.3533333 L666.410526,56.9111111 L643.631579,56.9111111 L643.631579,49.3955556 Z M655,68.3111111 C653.147368,68.3111111 651.631579,66.7911111 651.631579,64.9333333 C651.631579,64.8066667 651.631579,64.6377778 651.673684,64.5111111 L658.326316,64.5111111 C658.326316,64.6377778 658.368421,64.8066667 658.368421,64.9333333 C658.368421,66.7911111 656.852632,68.3111111 655,68.3111111 Z M667.210526,62.8222222 L642.789474,62.8222222 C641.610526,62.8222222 640.684211,61.8933333 640.684211,60.7111111 C640.684211,59.5288889 641.610526,58.6 642.789474,58.6 L667.210526,58.6 C668.389474,58.6 669.315789,59.5288889 669.315789,60.7111111 C669.315789,61.8933333 668.389474,62.8222222 667.210526,62.8222222 Z"
+                      id="Shape"
+                    />
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <span>通知</span>
+        </div>
+      </div>
+      <div class="items">
+        <div class="item">
+          动态 0
+          <div class="icon">
+            <svg width="20" height="10" viewBox="0 0 43 22" version="1.1" fill="#fff">
+              <g stroke="none" stroke-width="1" fill-rule="evenodd">
+                <g transform="translate(-523.000000, -616.000000)">
+                  <path
+                    d="M544.5,616 C544.5,629.453613 561.976562,638.038818 566,638 L523,638 C527.013428,638 544.5,629.447266 544.5,616 Z"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="item">书架 0</div>
+      </div>
+    </div>
+    <div class="my-dynamic-state">
+      <div class="reading-notes">
+        <div class="write-reading-notes">
+          <div class="write-reading-note">
+            <div class="reading-note">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              <span class="reading-note-content">写读书笔记</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dynamic-state">
+        <div class="dynamic-state-content">
+          <div class="dynamic-state-body">
+            <div class="header">
+              <router-link to="/">
+                <div class="head-portrait">
+                  <img 
+                   :src="user.cover"
+                    class="head-portrait-img"
+                  />
+                </div>
+              </router-link>
+              <div class="name">
+                <div class="username">{{user.name}}</div>
+                <div class="recommend">
+                  <span class="recommend-item">推荐这本书</span>
+                </div>
+              </div>
+            </div>
+            <div class="body">
+              <div class="body-item">
+                <a href>
+                  <div class="body-content">
+                    <div class="book-cover">
+                      <img
+                        src="../../assets/img/fdff05ea5bb411e782be00163e063441.jpeg"
+                        class="img"
+                      />
+                    </div>
+                    <div class="book-message">
+                      <div class="book-name">剑桥倚天屠龙史</div>
+                      <div class="name">新垣平</div>
+                      <span class="book-grade">豆瓣评分 8.4</span>
+                    </div>
+                  </div>
+                </a>
+                <div class="recommend-content">
+                  <p class="name">我喜欢看这本书，这本书好看</p>
+                </div>
+              </div>
+            </div>
+            <div class="footer">
+              <div class="footer-left">
+                <div class="reply">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 17"
+                  >
+                    <g
+                      fill="none"
+                      fill-rule="evenodd"
+                      stroke="#AAA"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.2"
+                      transform="translate(1 1)"
+                    >
+                      <path
+                        d="M12.169348,0 L3.83065199,0 C1.71493085,0 0,1.79029667 0,3.9989971 L0,9.14005968 C0,11.3369741 1.69686706,13.1154847 3.79678239,13.135521 L4.46740051,14.4319833 C4.79706463,15.0684285 5.62009596,15.1945389 6.11120519,14.6853828 L7.60259667,13.1390568 L12.169348,13.1390568 C14.2850692,13.1390568 16,11.3487601 16,9.14005968 L16,3.9989971 C16,1.79029667 14.2850692,0 12.169348,0 Z"
+                      />
+                      <path
+                        d="M4.47615044 4.65C9.4446895 4.65 11.928959 4.65 11.928959 4.65M5.59750752 8.65L9.51801392 8.65"
+                      />
+                    </g>
+                  </svg>
+                </div>
+                <div class="like">
+                  <svg width="18" height="18" viewBox="0 0 19 16">
+                    <g fill="none" fill-rule="evenodd">
+                      <g transform="translate(0 4.39)">
+                        <mask id="zanle-b" fill="#fff">
+                          <polygon id="zanle-a" points="0 .941 3.5 .941 3.5 10.339 0 10.339" />
+                        </mask>
+                        <path
+                          fill="#D6BA8C"
+                          d="M3.4998,10.3395 L2.3548,10.3315 C0.5748,10.3315 -0.0002,9.0175 -0.0002,7.4695 L-0.0002,3.2405 C-0.0002,2.3295 0.5638,1.5575 1.3268,1.4225 L3.2778,0.9405 L3.4998,10.3395"
+                          mask="url(#zanle-b)"
+                        />
+                      </g>
+                      <path
+                        fill="#D6BA8C"
+                        d="M4.4665,11.7066 L4.4665,5.2266 C4.4665,4.7626 4.5765,4.3066 4.7865,3.8996 L5.9365,1.1616 C6.2135,0.5026 7.1345,-0.0304 7.6715,0.4126 C8.2495,0.8886 8.5975,1.6136 8.6205,2.3896 L8.6265,2.6036 C8.6585,3.6716 9.4825,4.5196 10.4905,4.5196 L15.9655,4.5196 C17.5145,4.5196 18.2305,6.1246 17.7735,7.6956 L16.5455,12.1076 C15.8775,13.9356 14.2195,15.1406 12.3725,15.1406 L7.7025,15.1406 C5.0625,15.1406 4.4665,13.6026 4.4665,11.7066"
+                      />
+                      <path
+                        stroke="#D6BA8C"
+                        stroke-linecap="square"
+                        stroke-width=".5"
+                        d="M4.4665,11.7066 L4.4665,5.2266 C4.4665,4.7626 4.5765,4.3066 4.7865,3.8996 L5.9365,1.1616 C6.2135,0.5026 7.1345,-0.0304 7.6715,0.4126 C8.2495,0.8886 8.5975,1.6136 8.6205,2.3896 L8.6265,2.6036 C8.6585,3.6716 9.4825,4.5196 10.4905,4.5196 L15.9655,4.5196 C17.5145,4.5196 18.2305,6.1246 17.7735,7.6956 L16.5455,12.1076 C15.8775,13.9356 14.2195,15.1406 12.3725,15.1406 L7.7025,15.1406 C5.0625,15.1406 4.4665,13.6026 4.4665,11.7066 Z"
+                      />
+                    </g>
+                  </svg>
+                  <span style="margin-left: 6px;">1</span>
+                </div>
+              </div>
+              <div class="middle"></div>
+              <span class="date">7 月 31 日</span>
+            </div>
+            <div class="close">
+              <svg
+                viewBox="19 19 22 22"
+                stroke-linecap="round"
+                width="10"
+                height="10"
+                stroke="rgb(170, 170, 170)"
+              >
+                <g transform="translate(21.000000, 21.000000)">
+                  <path d="M0.333333333,0.333333333 L17.4148373,17.4148373" />
+                  <path
+                    d="M0.333333333,0.333333333 L17.4148373,17.4148373"
+                    transform="translate(9.000000, 9.000000) scale(-1, 1) translate(-9.000000, -9.000000)"
+                  />
+                </g>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="dynamic-state-bottom">
+          <div class="content">
+            <div class="straight-line"></div>
+            <svg
+              width="12"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              class="svg"
+            >
+              <rect x="4" y="4" width="16" height="16" class />
+            </svg>
+            <div class="straight-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tabbar">
+      <router-link to="/">
+        <span class="dzy-icon-index"></span>
+        <div class="text">首页</div>
+      </router-link>
+      <router-link to="/selling" >
+        <span class="dzy-icon-sell"></span>
+        <div class="text">卖书</div>
+      </router-link>
+      <a href="#1">
+        <span class="dzy-icon-cart"></span>
+        <div class="text">购物车</div>
+        <span class="count">0</span>
+      </a>
+      <router-link to="/my">
+        <span class="dzy-icon-user"></span>
+        <div class="text">我的</div>
+      </router-link>
+    </div>
+  </div>
+</template>
+
+<script>
+import { mapGetters, mapActions } from "vuex";
+export default {
+  name: "my",
+  data() {
+    return {};
+  },
+  created() {
+    this.getUserInfo();
+  },
+  methods: {
+    ...mapActions(["getUserInfo"]),
+    logoutUser() {
+      this.$router.push("/");
+      this.$http.get("/user/logout");
+      localStorage.setItem("token","");
+    }
+  },
+  computed: {
+    ...mapGetters(["user"])
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+a {
+  text-decoration: none;
+}
+.top {
+  background: #d09487;
+  height: 304px;
+  text-align: center;
+  .user {
+    position: relative;
+    height: 175px;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.6);
+    .logout {
+      position: absolute;
+      right: 0px;
+      .btn-logout {
+        border: 1px solid #fff;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 400;
+        background: #d09487;
+        border-radius: 999px;
+        margin: 15px;
+        padding: 6px 12px;
+      }
+    }
+    .info {
+      padding-top: 32px;
+      img {
+        border-radius: 99px;
+        border: 3px solid #fff;
+        width: 80px;
+        height: 80px;
+      }
+      span {
+        font-size: 20px;
+        font-weight: 400;
+        color: #fff;
+        padding-top: 12px;
+      }
+    }
+  }
+  .lists {
+    display: flex;
+    width: 100%;
+    height: 72px;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.6);
+    .list {
+      flex: 1;
+      padding-top: 15px;
+      span {
+        color: #fff;
+        font-weight: 300;
+        font-size: 15px;
+        line-height: 1.4;
+      }
+      div svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  .items {
+    display: flex;
+    width: 100%;
+    height: 56px;
+    text-align: center;
+    color: #fff;
+    .item {
+      flex: 1;
+      font-weight: 400;
+      font-size: 16px;
+      padding-top: 20px;
+      .icon {
+        position: relative;
+        bottom: -2px;
+      }
+    }
+  }
+}
+.my-dynamic-state {
+  padding-bottom: 60px;
+  background-color: rgb(255, 255, 255);
+  .reading-notes {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    .write-reading-notes {
+      position: absolute;
+      top: -108px;
+      left: 50%;
+      transform: translateX(-50%);
+      .write-reading-note {
+        display: flex;
+        flex-direction: row;
+        height: 44px;
+        background-color: rgb(255, 255, 255);
+        box-shadow: rgba(0, 0, 0, 0.08) 3px 4px 8px;
+        border-radius: 100px;
+        border-width: 0.5px;
+        border-style: solid;
+        border-color: rgb(230, 230, 230);
+        border-image: initial;
+        .reading-note {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          white-space: nowrap;
+          padding: 0px 22px;
+          .reading-note-content {
+            padding-left: 0.25em;
+          }
+        }
+      }
+    }
+  }
+  .dynamic-state {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    .dynamic-state-content {
+      background-color: rgb(242, 242, 242);
+      .dynamic-state-body {
+        margin-bottom: 0px;
+        position: relative;
+        padding: 23px 15px;
+        background: rgb(255, 255, 255);
+        .header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          .head-portrait {
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            vertical-align: top;
+            box-sizing: border-box;
+            background: rgb(242, 242, 242);
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgb(242, 242, 242);
+            border-image: initial;
+            border-radius: 99px;
+            overflow: hidden;
+            .head-portrait-img {
+              display: block;
+              width: 100%;
+              height: 38px;
+            }
+          }
+          .name {
+            flex-grow: 1;
+            margin: 0px 20px 0px 10px;
+            .username {
+              font-size: 16px;
+              font-weight: normal;
+              line-height: 1.25;
+            }
+            .recommend {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              font-size: 13px;
+              font-weight: 300;
+              line-height: normal;
+              color: rgb(170, 170, 170);
+            }
+          }
+        }
+        .body {
+          margin-top: 18px;
+          .body-content {
+            display: flex;
+            flex-direction: row;
+            .book-cover {
+              width: 60px;
+              height: 90px;
+              position: relative;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+              .img {
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+                background-position: center center;
+                background-repeat: no-repeat;
+                display: block;
+                max-width: 100%;
+                max-height: 100%;
+              }
+            }
+            .book-message {
+              margin-left: 10px;
+              .book-name {
+                font-size: 15px;
+                font-weight: normal;
+                line-height: normal;
+              }
+              .name {
+                margin-top: 4px;
+                font-size: 13px;
+                font-weight: 300;
+                line-height: 1.38;
+                color: rgb(170, 170, 170);
+              }
+              .book-grade {
+                display: block;
+                margin-top: 4px;
+                font-size: 13px;
+                font-weight: 300;
+                line-height: 1.38;
+                color: rgb(214, 186, 140);
+              }
+            }
+          }
+          .recommend-content {
+            margin-top: 15px;
+            .name {
+              font-size: 15px;
+              line-height: 1.6;
+              overflow-wrap: break-word;
+              word-break: break-word;
+              user-select: initial;
+            }
+          }
+        }
+        .footer {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-top: 18px;
+          font-size: 13px;
+          color: rgb(170, 170, 170);
+          padding: 21px 0px 0px 15px;
+          border-top: 0.5px solid rgb(230, 230, 230);
+          .footer-left {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font-size: 13px;
+            color: rgb(170, 170, 170);
+            .reply {
+              margin-right: 40px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              font-size: 13px;
+              font-weight: normal;
+              line-height: 1.23;
+            }
+            .reply {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              font-size: 13px;
+              font-weight: normal;
+              line-height: 1.23;
+            }
+          }
+          .middle {
+            flex-grow: 1;
+          }
+        }
+        .close {
+          position: absolute;
+          right: 0px;
+          top: 30px;
+          width: 30px;
+          padding: 0;
+          border: 0 none;
+        }
+      }
+    }
+    .dynamic-state-bottom {
+      display: flex;
+      justify-content: center;
+      height: 19px;
+      color: rgb(102, 102, 102);
+      font-size: 14px;
+      line-height: 19px;
+      padding: 30px 0px;
+      margin-bottom: 100px;
+      .content {
+        display: flex;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.1);
+        .straight-line {
+          height: 1px;
+          width: 42px;
+          content: "_____";
+          border-top: 0.5px solid currentcolor;
+        }
+        .svg {
+          transform: rotate(45deg);
+          margin: 0px 9px;
+        }
+      }
+    }
+  }
+}
+.tabbar {
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1002;
+  border-top: 0.5px solid #dfdfdf;
+  a {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    color: #666;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    .text {
+      margin-top: 4px;
+      font-size: 12px;
+    }
+    .count {
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      margin-left: 5px;
+      box-sizing: border-box;
+      height: 18px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 18px;
+      text-align: center;
+      background: #f28181;
+      border-radius: 9px;
+      transform-origin: center;
+      padding: 0 0.66em;
+    }
+  }
+  a [class*="dzy-icon-"] {
+    width: 23px;
+    height: 23px;
+    display: inline-block;
+    font-size: 23px;
+  }
+  a.active {
+    color: #18c3aa;
+  }
+}
+</style>

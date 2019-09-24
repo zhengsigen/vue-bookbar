@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c1801.spring.dzy.mapper.OrderBookMapper">
+
+    <insert id="addOrderBook"  parameterType="java.util.List">
+        INSERT INTO order_books_tb
+        (order_id, book_id,`condition`, discount)
+        VALUES
+        <foreach collection="bookId" item="item" index="index" open="" close="" separator=",">
+            (#{orderId,jdbcType=INTEGER},#{item,jdbcType=INTEGER},0,2.0)
+        </foreach>
+    </insert>
+
+    <select id="queryOrderBookByOrderId" resultType="Book">
+        SELECT id, isbn10, isbn13, name, cover, author, price, publisher, pub_date, douban_rate, gist, binding, create_date, update_date
+        FROM books_tb where id in (SELECT book_id FROM order_books_tb where order_id = #{orderId})
+    </select>
+
+</mapper>

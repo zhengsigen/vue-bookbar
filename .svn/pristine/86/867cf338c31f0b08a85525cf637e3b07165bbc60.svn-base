@@ -1,0 +1,802 @@
+<template>
+  <div class="orderInfo">
+    <div class="content">
+      <div class="sell-order">
+        <div class="sell-order-info">
+          <div class="sell-order-header">填写发件人信息</div>
+          <div class="sell-order-content">
+            <div class="sell-order-address">平台预约顺丰快递上门，请准确填写取件地址</div>
+            <div class="item">
+              <span class="item-name">姓名：</span>
+              <input class="input" value v-model="form.name" />
+            </div>
+            <div class="item">
+              <span class="item-name">电话：</span>
+              <input type="tel" class="input" value v-model="form.phone" />
+            </div>
+            <div class="item">
+              <span class="item-name">地址：</span>
+              <input class="input area" value v-model="value" @click="showArea()" />
+              <li
+                class="J_icon_id_1306465"
+                p-id="4199"
+                id="mx_n_1567994777493"
+                style="text-align: center;
+                width: 50px;
+                list-style-type: none;"
+                @click="getLocation()"
+              >
+                <div class="icon-twrap" p-id="4200">
+                  <svg
+                    class="icon"
+                    style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;"
+                    viewBox="0 0 1024 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="4202"
+                  >
+                    <path
+                      d="M511.588175 1022.287674l-32.382474-36.392352c-36.016651-40.47448-351.879433-401.175644-351.879433-600.202865C127.326268 173.804727 299.70767 1.416101 511.588175 1.416101c211.88773 0 384.269131 172.381401 384.269131 384.276356 0 199.019996-315.870006 559.728385-351.886658 600.202865l-32.382473 36.392352z m0-934.164284c-164.072645 0-297.561843 133.489198-297.561843 297.576292 0 126.372568 191.896141 379.890778 297.561843 505.107345 105.672927-125.216567 297.569068-378.734777 297.569068-505.107345 0-164.087095-133.481973-297.576293-297.569068-297.576292z"
+                      fill="#000000"
+                      p-id="4203"
+                    />
+                    <path
+                      d="M511.588175 553.551005c-85.341763 0-154.766838-69.432301-154.766839-154.774063 0-85.334538 69.425076-154.759613 154.766839-154.759613s154.766838 69.425076 154.766838 154.759613c0 85.341763-69.425076 154.774063-154.766838 154.774063z m0-222.833613c-37.533902 0-68.066775 30.532872-68.066775 68.05955 0 37.533902 30.540097 68.066775 68.066775 68.066775s68.066775-30.540097 68.066775-68.066775c0-37.526677-30.532872-68.05955-68.066775-68.05955z"
+                      fill="#000000"
+                      p-id="4204"
+                    />
+                  </svg>
+                </div>
+                <span class="icon-name" title="定位" p-id="4205">
+                  <span p-id="4206">定位</span>
+                </span>
+                <div class="icon-cover" p-id="4207">
+                  <span
+                    mx-click="car({id:1306465,index:16})"
+                    data-spm-click="gostr=/alimama.30;locaid=ddfb588f4"
+                    title="添加入库"
+                    class="cover-item iconfont cover-item-line icon-gouwuche1"
+                    p-id="4208"
+                  ></span>
+                  <span
+                    data-login
+                    mx-click="toggleFavor({id:1306465,index:16})"
+                    data-spm-click="gostr=/alimama.30;locaid=d3a0b439c"
+                    title="收藏"
+                    class="cover-item iconfont cover-item-line icon-shoucang1"
+                    p-id="4209"
+                  ></span>
+                  <span
+                    data-login="true"
+                    mx-click="downloadIcon({id:1306465,index:16})"
+                    data-spm-click="gostr=/alimama.30;locaid=dac7baec5"
+                    title="下载图标"
+                    class="cover-item iconfont cover-item-line icon-xiazai"
+                    p-id="4210"
+                  ></span>
+                </div>
+              </li>
+            </div>
+            <div class="item" @click="searchSwitch = true">
+              <span class="item-name"></span>
+              <textarea class="input" placeholder="详细地址，街道、小区、单元、门牌号" v-model="street"></textarea>
+            </div>
+            <div
+              class="item"
+              style="margin-bottom: 0px; background-color: rgb(255, 255, 255); border-top: 0.5px solid rgb(242, 242, 242); padding: 20px 0px;"
+            >
+              <span class="item-name">时间：</span>
+              <div class="timeRange-wrapper">
+                <input
+                  class="input"
+                  readonly
+                  placeholder="快递上门时间"
+                  value="周六（8 月 10 日） 12:00 - 13:00"
+                />
+              </div>
+            </div>
+            <div class="address" v-show="searchAddress.length > 0">
+              <div
+                class="address-name"
+                v-for="sd in searchAddress"
+                :key="sd.id"
+                @click="upStreet(sd)"
+              >
+                {{sd.name}}
+                <span class="address-name-span">{{sd.district}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="anonymity">
+          <div class="anonymity-info">
+            <div class="anonymity-desc">
+              <div class="title">匿名卖书</div>
+              <div class="tip">开启后其他人不会知道你</div>
+            </div>
+            <div class="checkbox" @click="isAnonymity = !isAnonymity" v-if="!isAnonymity"></div>
+            <i class="el-icon-success" @click="isAnonymity = !isAnonymity" v-if="isAnonymity"></i>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div class="title">
+            <h3>预定券进度预测</h3>
+            <svg
+              viewBox="0 0 24 24"
+              fill="transparent"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              xmlns="http://www.w3.org/2000/svg"
+              class="Icon"
+              width="14"
+              height="14"
+              style="padding-left: 3px;"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12" y2="8" />
+            </svg>
+          </div>
+          <div class="progress">
+            <div class="progress-feature">
+              <img src="../../assets/img/cat.png" alt />
+            </div>
+            <div class="bar"></div>
+          </div>
+        </div>
+        <div class="sell-books-info">
+          <div>
+            <div class="sell-info">
+              <div class="sell-items" v-for="(book,i) in this.books" :key="i">
+                <div class="sell-name">
+                  <span class="text">{{book.name}}</span>
+                </div>
+                <div class="sell-price">
+                  <span class="price">￥{{book.price * book.maxDiscount / 10 | numeral('0,0.00')}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="sell-info">
+              <div class="sell-items">
+                <div class="sell-name">
+                  <span class="text">总价</span>
+                </div>
+                <div class="sell-price">
+                  <span class="price">￥{{sellTotalPrice | numeral('0,0.00')}}</span>
+                </div>
+              </div>
+              <div class="sell-items">
+                <div class="sell-name">
+                  <span class="text">运费</span>
+                </div>
+                <div class="sell-price">
+                  <span class="price">￥0.00</span>
+                </div>
+              </div>
+            </div>
+            <div class="sell-footer">
+              <div>
+                最高可卖：
+                <span class="max-price">
+                  <span class="price">￥{{sellTotalPrice | numeral('0,0.00')}}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="estimate-price">
+            预估价格区间
+            <span class="price">￥{{sellMinPrice | numeral('0,0.00')}}</span>~
+            <span class="price">￥{{sellTotalPrice | numeral('0,0.00')}}</span>
+            <svg
+              viewBox="0 0 24 24"
+              fill="transparent"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              xmlns="http://www.w3.org/2000/svg"
+              class="Icon"
+              width="12"
+              height="12"
+              style="padding-left: 3px;"
+              @click="jumpQualityAudit"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12" y2="8" />
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="fixed" @click="submitOrder()">
+            <div class="button">提交订单</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom" v-if="show">
+      <div class="areas">
+        <div class="header">
+          <div class="header-left" @click="showArea()">取消</div>
+          <div class="header-title">选择城市</div>
+          <div class="header-right" @click="updateArea()">确定</div>
+        </div>
+        <mt-picker :slots="myAddressSlots" @change="onMyAddressChange"></mt-picker>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import { mapGetters } from "vuex";
+import myaddress from "../../../address.json";
+import axios from "axios";
+export default {
+  name: "orderInfo",
+  data() {
+    return {
+      isAnonymity: false,
+      isShowAddress: false,
+      myAddressSlots: [
+        {
+          flex: 1,
+          defaultIndex: 0,
+          values: Object.keys(myaddress), //省份数组
+          className: "slot1",
+          textAlign: "center"
+        },
+        {
+          divider: true,
+          content: "-",
+          className: "slot2"
+        },
+        {
+          flex: 1,
+          values: [],
+          className: "slot3",
+          textAlign: "center"
+        },
+        {
+          divider: true,
+          content: "-",
+          className: "slot4"
+        },
+        {
+          flex: 1,
+          values: [],
+          className: "slot5",
+          textAlign: "center"
+        }
+      ],
+      province: "",
+      city: "",
+      district: "",
+      show: false,
+      error: {},
+      books: [],
+      form: {},
+      value: "",
+      street:'',
+      searchAddress: [],
+      searchSwitch: false
+    };
+  },
+  //初始化书籍列表
+  async created() {
+    let data = await this.$http.get("/sell");
+    if (data.code === 0) {
+      this.books = data.data;
+    } else {
+      console.info(data.desc);
+    }
+
+    let addrData = await this.$http.get("/addr");
+    if (addrData.code === 0) {
+      // if(addrData.data === null) return this.getLocation()
+      this.form = addrData.data || {
+        name: "",
+        phone: "",
+        street: "",
+        province: "",
+        city: "",
+        district: ""
+      };
+      this.street = this.form.street
+      this.value = this.form.province + this.form.city + this.form.district;
+    } else {
+      console.info(addrData.desc);
+    }
+  },
+  computed: {
+    ...mapGetters({ user: "user" }),
+    sellTotalPrice() {
+      let total = 0;
+      for (let i = 0; i < this.books.length; i++) {
+        total += (this.books[i].price * this.books[i].maxDiscount) / 10;
+      }
+      return total;
+    },
+    sellMinPrice() {
+      let total = 0;
+      for (let i = 0; i < this.books.length; i++) {
+        total += (this.books[i].price * this.books[i].minDiscount) / 10;
+      }
+      return total;
+    }
+  },
+  methods: {
+    upStreet(sd) {
+      this.street = sd.name
+      this.value = sd.district
+      this.searchAddress = []
+      this.searchSwitch = false
+    },
+    getLocation() {
+      let seft = this;
+      AMap.plugin("AMap.Geolocation", function() {
+        var geolocation = new AMap.Geolocation({
+          // 是否使用高精度定位，默认：true
+          enableHighAccuracy: true,
+          useNative: true,
+          // 设置定位超时时间，默认：无穷大
+          timeout: 100
+        });
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, "complete", onComplete);
+        AMap.event.addListener(geolocation, "error", onError);
+        function onComplete(data) {
+          // data是具体的定位信息
+          console.log("定位成功信息：", data);
+          console.info(data.addressComponent.province);
+          seft.form.province = data.addressComponent.province;
+          seft.$http
+            .get("/freight/" + seft.form.province)
+            .then(res => {
+              seft.freight = res.data;
+              console.info(res.data);
+            })
+            .catch(res => {
+              console.info(res);
+            });
+          seft.form.city = data.addressComponent.city;
+          seft.form.district = data.addressComponent.district;
+          seft.value =
+            data.addressComponent.province +
+            data.addressComponent.city +
+            data.addressComponent.district;
+          seft.street = data.addressComponent.township + data.addressComponent.street + data.addressComponent.streetNumber;
+        }
+
+        function onError(data) {
+          // 定位出错
+          console.log("定位失败错误：", data);
+        }
+      });
+    },
+     in(timeout, val) {
+      if (timeout !== null) clearTimeout(timeout);
+      if (val == this.street) {
+        axios
+          .get(
+            "/v3/assistant/inputtips?key=4771c3e9da26cd402892560bd030605c&keywords=" +
+              val +
+              "&city=" +
+              this.form.city
+          )
+          .then(res => this.searchAddress = res.data.tips);
+      }
+    },
+    updateArea() {
+      this.show = !this.show;
+      this.value = this.province + this.city + this.district;
+      this.form.province = this.province;
+      this.form.city = this.city;
+      this.form.district = this.district;
+    },
+    onMyAddressChange(picker, values) {
+      if (myaddress[values[0]]) {
+        picker.setSlotValues(1, Object.keys(myaddress[values[0]])); // Object.keys()会返回一个数组，当前省的数组
+        picker.setSlotValues(2, myaddress[values[0]][values[1]]); // 区/县数据就是一个数组
+        this.province = values[0];
+        this.city = values[1];
+        this.district = values[2];
+      }
+    },
+    showArea() {
+      this.show = !this.show;
+      if (this.value == "") {
+        this.myAddressSlots[0].defaultIndex = 0;
+        return;
+      }
+      for (let i = 0; i < this.myAddressSlots[0].values.length; i++) {
+        if (this.myAddressSlots[0].values[i] == this.form.province) {
+          this.myAddressSlots[0].defaultIndex = i;
+          break;
+        }
+      }
+      this.myAddressSlots[2].values = Object.keys(
+        myaddress[this.form.province]
+      );
+      for (let i = 0; i < this.myAddressSlots[2].values.length; i++) {
+        if (this.myAddressSlots[2].values[i] == this.form.city) {
+          this.myAddressSlots[2].defaultIndex = i;
+          break;
+        }
+      }
+      this.myAddressSlots[4].values =
+        myaddress[this.form.province][this.form.city];
+      for (let i = 0; i < this.myAddressSlots[4].values.length; i++) {
+        if (this.myAddressSlots[4].values[i] == this.form.district) {
+          this.myAddressSlots[4].defaultIndex = i;
+          break;
+        }
+      }
+    },
+    jumpQualityAudit() {
+      this.$router.push("/audit");
+    },
+    async submitOrder() {
+      if (
+        this.form.name.trim().length < 2 ||
+        this.form.name.trim().length > 20
+      ) {
+        this.$message({
+          message: "名字长度必须在2-20位之间",
+          type: "error"
+        });
+        return;
+      }
+      if (!this.form.phone.match(/^1([38]\d|5[0-35-9]|7[3678])\d{8}$/)) {
+        this.$message({
+          message: "手机号码必须是11位,且以1开头",
+          type: "error"
+        });
+        return;
+      }
+      if (this.value == "") {
+        this.$message({
+          message: "请输入您所在的地址",
+          type: "error"
+        });
+        return;
+      }
+      if (this.street.length <= 0) {
+        this.$message({
+          message: "请输入您所处的街道",
+          type: "error"
+        });
+        return;
+      }
+      this.form.street = this.street;
+      let formData = this.form;
+      // let user = JSON.stringify({
+      //           "address":formData,
+      //           "userId":this.user.id,
+      //       });
+      // let adminInfo=JSON.parse(JSON.stringify(user));
+
+      let data = await this.$http.post("/order", formData, {
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8"
+        }
+      });
+
+      if (data.code === 0) {
+        let orderId = data.data.id;
+        this.$router.push("/order/succeed/" + orderId);
+      } else {
+        console.info(data.desc);
+      }
+    }
+  },
+  watch: {
+    street: function(val) {
+      let timeout = null;
+      timeout = setTimeout(() => {
+        if (this.searchSwitch) {
+          this.in(timeout, val);
+        }
+      }, 1000);
+    }
+  }
+};
+</script>
+<style lang="scss" scoped>
+.sell-order {
+  padding-bottom: 51px;
+  background-color: rgb(242, 242, 242);
+  .sell-order-info {
+    padding: 15px 15px 0px;
+    overflow: auto;
+    background: rgb(255, 255, 255);
+    .sell-order-header {
+      font-size: 15px;
+      text-align: left;
+      line-height: 20.8px;
+    }
+    .sell-order-content {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 0.5px solid rgb(242, 242, 242);
+      .sell-order-address {
+        margin-bottom: 15px;
+        padding: 0.4em;
+        color: rgb(242, 129, 129);
+        font-size: 13px;
+        line-height: 17.6px;
+        text-align: center;
+        background: rgba(242, 129, 129, 0.1);
+        border-radius: 5px;
+      }
+      .item {
+        .el-cascader {
+          width: 100%;
+        }
+      }
+      .error {
+        color: red;
+        margin-left: 53px;
+        font-size: 13px;
+      }
+      .item {
+        display: flex;
+        margin-bottom: 15px;
+        align-items: center;
+        .item-name {
+          flex-shrink: 0;
+          width: 52px;
+        }
+        .timeRange-wrapper {
+          width: 293.2px;
+        }
+        .area {
+          text-align: left;
+        }
+        .input {
+          display: inline-block;
+          box-sizing: border-box;
+          width: 100%;
+          margin: 0;
+          padding: 9px;
+          color: inherit;
+          font: inherit;
+          font-size: 14px;
+          line-height: 20px;
+          background: rgb(247, 247, 247);
+          border: 1px solid rgb(247, 247, 247);
+          border-radius: 5px;
+          appearance: none;
+          outline: none;
+        }
+      }
+      .address {
+        top:334px;
+        position: absolute;
+        left: 64px;
+        z-index: 1024;
+        background-color: #fefefe;
+        width: 100%;
+        border: 1px solid #d1d1d1;
+        .address-name {
+          white-space: nowrap;
+          font-size: 12px;
+          cursor: pointer;
+          padding: 4px;
+          .address-name-span {
+            color: #c1c1c1;
+            padding-left: 4px;
+          }
+        }
+      }
+    }
+  }
+  .anonymity {
+    height: 64px;
+    margin: 15px 0px;
+    padding: 0px 15px;
+    background: rgb(255, 255, 255);
+    .anonymity-info {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: space-between;
+      .anonymity-desc {
+        .title {
+          margin: 0;
+          font: inherit;
+        }
+        .tip {
+          font-size: 12px;
+          line-height: 1.8;
+          color: rgb(170, 170, 170);
+        }
+      }
+      .checkbox {
+        width: 25px;
+        height: 25px;
+        background: #fff;
+        border: 1px solid rgb(24, 195, 170);
+        border-radius: 999px;
+      }
+      .el-icon-success {
+        font-size: 32px;
+        color: rgb(24, 195, 170);
+      }
+    }
+  }
+  .progress-bar {
+    margin: 15px 0px;
+    padding: 14px 15px 20px;
+    background: rgb(255, 255, 255);
+    .title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 14px;
+      h3 {
+        margin: 0px;
+        font: inherit;
+      }
+    }
+    .progress {
+      width: 98%;
+      margin-left: 2px;
+      .progress-feature {
+        position: relative;
+        height: 40px;
+        max-height: 6vh;
+        img {
+          width: 42px;
+          height: 40px;
+          left: -3%;
+          z-index: 1;
+        }
+      }
+      .bar {
+        position: relative;
+        width: 100%;
+        height: 8px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(230, 230, 230);
+        border-image: initial;
+        border-radius: 99px;
+        overflow: hidden;
+      }
+    }
+  }
+  .sell-books-info {
+    padding: 0px 15px;
+    background: white;
+    .sell-info {
+      padding: 14px 0px;
+      border-bottom: 0.5px solid rgb(242, 242, 242);
+      .sell-items:first-child {
+        margin-top: 0px;
+      }
+      .sell-items {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 7.5px;
+        .sell-name {
+          display: flex;
+          flex-grow: 1;
+          flex-direction: row;
+          align-items: center;
+          margin-right: 1em;
+          overflow: hidden;
+          .name {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+        }
+
+        .sell-price {
+          flex-shrink: 0;
+          font-weight: 400;
+          line-height: 1;
+        }
+      }
+    }
+    .sell-footer {
+      display: flex;
+      justify-content: flex-end;
+      padding: 14px 0px;
+      border-bottom: none;
+      .max-price {
+        font-size: 1.33em;
+        font-weight: 400;
+        color: rgb(242, 129, 129);
+      }
+    }
+    .estimate-price {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: -10px;
+      padding-bottom: 20px;
+      font-size: 12px;
+      color: rgb(170, 170, 170);
+    }
+  }
+  .fixed {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    .button {
+      display: block;
+      width: 100%;
+      height: 49px;
+      color: #fff;
+      background: rgb(24, 195, 170);
+      border-color: rgb(24, 195, 170);
+      box-sizing: border-box;
+      padding: 8px 1.5em 8px;
+      font-size: 18px;
+      line-height: 30px;
+      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+  }
+}
+.bottom {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.4);
+  .areas {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 279px;
+    background-color: white;
+    .header {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      .header-left {
+        font-size: 17px;
+        padding: 9px 15px;
+        height: 42px;
+        box-sizing: border-box;
+        color: rgb(24, 195, 170);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .header-right {
+        font-size: 17px;
+        padding: 9px 15px;
+        height: 42px;
+        box-sizing: border-box;
+        color: rgb(24, 195, 170);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .header-title {
+        flex: 1;
+        text-align: center;
+        font-size: 17px;
+        padding: 9px 15px;
+        height: 42px;
+        box-sizing: border-box;
+        color: rgb(51, 51, 51);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+</style>

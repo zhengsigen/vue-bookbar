@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c1801.spring.dzy.mapper.CommentApplaudMapper">
+
+    <delete id="cancleApplaud">
+        DELETE FROM comment_applaud_tb WHERE comment_id = #{commentId} and user_id = #{userId}
+    </delete>
+    <insert id="addApplaud">
+        INSERT INTO comment_applaud_tb
+	        (user_id,comment_id)
+	    VALUES (#{userId}, #{commentId})
+    </insert>
+    <select id="isApplaud" resultType="Integer">
+         select count(1) from comment_applaud_tb cat  WHERE cat.user_id = #{userId} and cat.comment_id = #{commentId};
+    </select>
+
+</mapper>

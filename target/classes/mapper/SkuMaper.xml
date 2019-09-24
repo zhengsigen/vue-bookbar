@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c1801.spring.dzy.mapper.SkuMapper">
+    <insert id="addSku">
+        insert book_sku_tb(book_id, `condition`) value(#{sku.bookId}, #{sku.condition})
+    </insert>
+    <update id="updateSku">
+        update book_sku_tb
+        <set>
+            <if test="sku.status != null">
+                status=#{sku.status},
+            </if>
+            <if test="sku.isFree != null">
+                is_free=#{sku.isFree},
+            </if>
+            <if test="sku.discount != null">
+                discount=#{sku.discount}
+            </if>
+        </set>
+        where id=#{sku.id}
+    </update>
+    <delete id="delSku">
+        delete from book_sku_tb where id=#{id}
+    </delete>
+    <update id="addStock">
+        update book_sku_tb set stock = stock+1 where book_id= #{sku.bookId} and `condition` = #{sku.condition}
+    </update>
+</mapper>

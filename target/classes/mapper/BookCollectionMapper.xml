@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1801.spring.dzy.mapper.BookCollectionMapper">
+
+    <select id="queryBookCollection" resultType="BookCollection">
+      SELECT id, name, intro, background_image, background_color, state, sort, expiration_date,
+        create_date, update_date FROM book_collection_tb
+    </select>
+
+
+    <select id="getBookCollection" resultType="BookCollection">
+      SELECT id, name,sort,  update_date,intro, background_image, background_color, state,  expiration_date, create_date
+	  FROM book_collection_tb ORDER by sort DESC ,update_date DESC limit 0,5
+    </select>
+
+    <insert id="addBookCollection" useGeneratedKeys="true" keyProperty="id" parameterType="BookCollection">
+      INSERT INTO book_collection_tb
+	    (name, intro, background_image, background_color, state, sort, expiration_date)
+        VALUES (#{data.name}, #{data.intro}, #{data.backgroundImage},
+         #{data.backgroundColor}, #{data.state}, #{data.sort}, #{data.expirationDate});
+    </insert>
+
+    <resultMap type="BookCollection" id="Collection">
+        <id column="id" property="id"/>
+        <result column="collectionName" property="name"/>
+        <result column="intro" property="intro"/>
+        <result column="background_image" property="backgroundImage"/>
+        <result column="background_color" property="backgroundColor"/>
+        <result column="state" property="state"/>
+        <result column="sort" property="sort"/>
+        <result column="expiration_date" property="expirationDate"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <!--property属性名 ofType哪个类-->
+        <!--书单书籍-->
+        <collection property="list" ofType="BookCollectionList">
+            <id column="bcl_id" property="id"/>
+            <result column="book_id" property="bookID"/>
+            <result column="book_name" property="name"/>
+            <result column="author" property="author"/>
+            <result column="comment" property="comment"/>
+            <result column="cover" property="cover"/>
+            <result column="price" property="price"/>
+            <result column="bcl_create" property="createDate"/>
+        </collection>
+    </resultMap>
+
+    <resultMap type="BookCollectionList" id="CollectionList">
+        <id column="id" property="id"/>
+        <result column="book_id" property="bookID"/>
+        <result column="name" property="name"/>
+        <result column="u_name" property="userName"/>
+        <result column="wx_name" property="wxName"/>
+        <result column="author" property="author"/>
+        <result column="cover" property="cover"/>
+        <result column="comment" property="comment"/>
+        <result column="douban_rate" property="doubanRate"/>
+        <result column="bcl_create" property="createDate"/>
+    </resultMap>
+    <select id="queryBookCollectionByID" resultMap="Collection">
+      SELECT
+        bc.id, bc.name as collectionName, intro, background_image, background_color, state, sort, expiration_date, bc.create_date,bc.update_date,
+        b.id as book_id, b.name as book_name, b.cover, b.author, b.price,
+        bcl.id as bcl_id, bcl.user_id as bcl_user_id,`comment`,bcl.create_date as bcl_create
+        FROM book_collection_tb bc,book_collection_list_tb bcl,books_tb b
+        where bcl.collection_id=bc.id and b.id= bcl.book_id and bc.id=#{id}
+    </select>
+
+
+    <select id="getBookCollectionBookByID" resultMap="CollectionList">
+        SELECT bcl.id,bcl.book_id,b.name,b.cover,b.author,b.douban_rate,`comment`,u.name as u_name , u.cover
+            FROM book_collection_list_tb bcl,users_tb u,books_tb b
+            where bcl.collection_id=#{id} and u.id=bcl.user_id and b.id=bcl.book_id
+            limit #{page},5;
+    </select>
+
+    <select id="queryRecommendBook" resultType="RecommendBook">
+        SELECT id, collection_id, book_id, user_id, `comment`, create_date, update_date
+	    FROM book_collection_list_tb where collection_id = #{collection_id} and book_id=#{bookId}
+    </select>
+
+    <insert id="addRecommendBook" useGeneratedKeys="true" keyProperty="id" parameterType="RecommendBook">
+        INSERT INTO book_collection_list_tb
+        (collection_id, book_id, user_id, `comment`)
+        VALUES (#{collectionId}, #{bookId}, #{userId}, #{comment})
+    </insert>
+
+    <select id="queryRecommendBookById" resultType="RecommendBook">
+        SELECT id, collection_id, book_id, user_id, `comment`, create_date, update_date
+	    FROM book_collection_list_tb where id = #{id}
+    </select>
+
+
+    <!--    根据推荐id获取到，书单详情，书籍详情，用户详情，推荐详情-->
+    <select id="queryRecommendAccountById" resultMap="queryRecommendAccountByIdMap">
+        SELECT bclt.id, bclt.collection_id, bclt.book_id, bclt.user_id, bclt.`comment`,
+        bclt.create_date, bclt.update_date,bt.isbn10, bt.isbn13, bt.name, bt.cover,
+        bt.author, bt.price, bt.publisher, bt.pub_date, bt.douban_rate, bt.gist,
+        bt.binding, ut.name userName, ut.wx_name, ut.cover userphoto, ut.balance,bct.name bctName, bct.intro,
+        bct.background_image, bct.background_color, bct.state, bct.sort, bct.expiration_date
+        FROM book_collection_list_tb bclt
+        left join books_tb bt on bt.id = bclt.book_id
+        left join users_tb ut on ut.id = bclt.user_id
+        left join book_collection_tb bct on bct.id = bclt.collection_id
+        where bclt.id = #{id}
+    </select>
+
+    <resultMap type="RecommendAccount" id="queryRecommendAccountByIdMap">
+        <association column="book_id" property="book" autoMapping="true">
+            <id column="book_id" property="id"/>
+        </association>
+        <association column="collection_id" property="bookCollectionPack" autoMapping="true">
+            <id column="collection_id" property="id"/>
+            <result column="bctName" property="name"/>
+        </association>
+        <association column="user_id" property="user" autoMapping="true">
+            <id column="user_id" property="id"/>
+            <result column="userName" property="name"/>
+            <result column="userphoto" property="cover"/>
+        </association>
+        <association column="id" property="recommendBook" autoMapping="true">
+            <id column="id" property="id"/>
+        </association>
+    </resultMap>
+
+    <select id="queryCountByCollectionId" resultType="BookCollectionPack">
+        SELECT count(DISTINCT book_id)itemsCount,count(DISTINCT user_id)contributorsCount
+        FROM book_collection_list_tb where collection_id = #{id}
+    </select>
+    <select id="queryBookCollectionApplaudTotal" resultType="Integer">
+        SELECT count(*) FROM book_collection_list_tb b,applaud_tb a where b.id=a.recommend_id and b.id=#{id} group by b.collection_id;
+    </select>
+
+    <select id="getBookCollectionTotal" resultType="Integer">
+        select count(*) from book_collection_tb
+    </select>
+
+    <select id="getBookCollectionBookTotal" resultType="HashMap">
+        SELECT count(distinct user_id) as userTotal, count(distinct book_id) as bookTotal FROM book_collection_list_tb where collection_id=#{id}
+    </select>
+
+    <select id="getBookCollectionDetailed" resultType="HashMap">
+        SELECT * FROM book_collection_tb where id=#{id}
+    </select>
+
+    <select id="getBookCOllectionImage" resultType="List">
+        SELECT distinct u.cover,u.id,bcl.create_date  FROM book_collection_list_tb bcl,users_tb u where collection_id=#{id} and bcl.user_id=u.id order by  create_date asc limit 5
+
+    </select>
+
+
+    <update id="updateBookCollectionState">
+        UPDATE book_collection_tb SET state=#{state} WHERE  id=#{id}
+    </update>
+
+    <!--<update id="updateBookCollectionSort">
+        UPDATE book_collection_tb SET sort=#{sort} WHERE  id=#{id}
+    </update>-->
+
+    <update id="updateBookCollection">
+        UPDATE book_collection_tb
+            SET `name`=#{name}, intro=#{intro}, background_image=#{backgroundImage},
+                background_color=#{backgroundColor}, sort=#{sort}, expiration_date=#{expirationDate}
+            WHERE  id=#{id};
+    </update>
+
+    <!--点赞-->
+    <insert id="applaudBook">
+        INSERT INTO `applaud_tb` (`user_id`, `book_id`, `book_collection_id`) VALUES (#{id}, #{bookID}, #{collectionID});
+    </insert>
+    <!--取消点赞-->
+    <delete id="cancelApplaudBook">
+      DELETE FROM applaud_tb WHERE user_id=#{id} and book_id =#{bookID} and book_collection_id =#{collectionID};
+    </delete>
+    <!--点赞状态-->
+    <select id="queryApplaudBookByUser" resultType="Integer">
+        SELECT book_id	FROM applaud_tb where  user_id = 16 and book_collection_id = 1
+    </select>
+
+
+    <select id="getBookCollectionPack" resultMap="getBookCollectionPackMap">
+         SELECT
+         distinct ut.id   user_id,ut.wx_name wxName,ut.name userName,ut.cover,msg.id,msg.name collectionName, msg.intro, msg.background_image,
+          msg.background_color, msg.state, msg.sort,
+         msg.expiration_date, msg.create_date, msg.update_date
+         FROM (SELECT * FROM book_collection_tb bct WHEre state = 1 and expiration_date >= now())msg
+         left join book_collection_list_tb bclt on bclt.collection_id = msg.id
+         left join users_tb ut on ut.id = bclt.user_id
+          order by sort desc ,update_date desc
+    </select>
+
+    <resultMap id="getBookCollectionPackMap" type="BookCollectionPack">
+        <id column="id" property="id"/>
+        <result column="collectionName" property="name"/>
+        <result column="intro" property="intro"/>
+        <result column="background_image" property="backgroundImage"/>
+        <result column="background_color" property="backgroundColor"/>
+        <result column="state" property="state"/>
+        <result column="sort" property="sort"/>
+        <result column="expiration_date" property="expirationDate"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <collection property="contributors" ofType="User">
+            <id column="user_id" property="id"/>
+            <result column="wxName" property="wxName"/>
+            <result column="userName" property="name"/>
+            <result column="cover" property="cover"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="getCountByCollectionIds" resultType="BookCollectionPack">
+        SELECT count(DISTINCT book_id)itemsCount,count(DISTINCT user_id)contributorsCount,collection_id id
+        FROM book_collection_list_tb where collection_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+         group by collection_id
+    </select>
+</mapper>

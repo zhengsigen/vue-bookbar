@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1801.spring.dzy.mapper.AdminMapper">
+
+
+    <insert id="addAdmin">
+        insert admin_users_tb(name,password) values(#{admin.name},#{admin.password})
+    </insert>
+
+    <delete id="delAdmin">
+        delete from admin_users_tb where id=#{id}
+    </delete>
+
+    <update id="updateAdmin">
+        update admin_users_tb
+        <set>
+            <if test="admin.name !=null and admin.name != ''">
+                name=#{admin.name},
+            </if>
+            <if test="admin.password !=null and admin.password != ''">
+                password=#{admin.password},
+            </if>
+            <if test="admin.cover !=null and admin.cover != ''">
+                cover=#{admin.cover},
+            </if>
+        </set>
+        where id=#{admin.id}
+    </update>
+
+    <select id="getAdminById" resultType="admin">
+        select id, name, password, cover, create_date, login_date
+        from admin_users_tb
+        where id=#{id}
+    </select>
+
+    <!--    条件查询分页-->
+    <select id="queryAdminListOfPage" resultType="admin">
+        select id, name, password, cover, create_date as createDate, login_date as loginDate
+        from admin_users_tb
+        <where>
+            <if test="name != null and name !=''">
+                name like concat("%", #{name}, "%")
+            </if>
+            <if test="minDate != null and minDate != ''">
+                and DATE_FORMAT(create_date,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{minDate},'%Y-%m-%d')
+            </if>
+            <if test="maxDate != null and maxDate !=''">
+                and DATE_FORMAT(create_date,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{maxDate},'%Y-%m-%d')
+            </if>
+        </where>
+    </select>
+    <select id="adminLogin" resultType="Admin">
+        select id, name, password, create_date as createDate,login_date as loginDate
+        from admin_users_tb
+        where name = #{name} and password =#{password}
+    </select>
+
+</mapper>

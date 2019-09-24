@@ -1,0 +1,276 @@
+<template>
+  <div style="max-width: 600px;
+    margin: 0px auto;">
+    <div class="root">
+      <div class="root-alignTop" style="flex-wrap: wrap;">
+        <div
+          class="open-collection-card"
+          :style="{'background': 'linear-gradient( to top,rgba(35, 67, 135, 0.3) 35%,rgb(35, 67, 135) 69%) center top / auto no-repeat, url('+require('../../assets/img/3f6630c4364511e8ada600163e04f327_l.jpeg')+') center center / cover no-repeat'}"
+        >
+          <div
+            href
+            style="display: block; box-sizing: border-box; width: 100%; height: 100%; padding: 16px; position: relative;"
+          >
+            <span class="inner">
+              <h3 class="inner-size" style="font-size: 16px; font-weight: 600;">新鲜上架的好书</h3>
+              <span class="inner-text" style="vertical-align: middle; font-size: 12px;">
+                <div class="inner-pe">1486 人推荐了1011 本书</div>
+              </span>
+              <div
+                class="avatars"
+                style="position: absolute; bottom: 16px; right: 16px; flex-flow: row-reverse;"
+              >
+                <span class="avatar">
+                  <span class="rot">
+                    <img
+                      alt
+                      src="../../assets/img/6f9a5284b7c211e9951902420ac8023e.jpeg"
+                      class="picture"
+                    />
+                  </span>
+                </span>
+                <span class="avatar">
+                  <span class="rot">
+                    <img
+                      alt
+                      src="../../assets/img/8a47bbb4b79311e9ae9302420ac8023e.jpeg"
+                      class="picture"
+                    />
+                  </span>
+                </span>
+                <span class="avatar">
+                  <span class="rot">
+                    <img
+                      alt
+                      src="../../assets/img/6f9a5284b7c211e9951902420ac8023e.jpeg"
+                      class="picture"
+                    />
+                  </span>
+                </span>
+              </div>
+            </span>
+          </div>
+        </div>
+        <div class="open-collection-card"
+            :style="{'background': 'linear-gradient( to top,rgba(35, 67, 135, 0.3) 35%,rgb(35, 67, 135) 69%) center top / auto no-repeat, url('+require('../../assets/img/3f6630c4364511e8ada600163e04f327_l.jpeg')+') center center / cover no-repeat'}"
+        >
+          <a
+            href
+            style="display: block; box-sizing: border-box; width: 100%; height: 100%; padding: 16px; position: relative;"
+          >
+            <span class="inner">
+              <h3 class="inner-size" style="font-size: 16px; font-weight: 600;">新鲜上架的好书</h3>
+              <span class="inner-text" style="vertical-align: middle; font-size: 12px;">
+                <div class="inner-pe">1486 人推荐了1011 本书</div>
+              </span>
+              <div
+                class="avatars"
+                style="position: absolute; bottom: 16px; right: 16px; flex-flow: row-reverse;"
+              >
+                <span class="avatar">
+                  <span class="rot">
+                    <img
+                      alt
+                      src="../../assets/img/8a47bbb4b79311e9ae9302420ac8023e.jpeg"
+                      class="picture"
+                    />
+                  </span>
+                </span>
+                <span class="avatar">
+                  <span class="rot">
+                    <img
+                      alt
+                      src="../../assets/img/8a47bbb4b79311e9ae9302420ac8023e.jpeg"
+                      class="picture"
+                    />
+                  </span>
+                </span>
+                <span class="avatar">
+                  <span class="rot">
+                    <img
+                      alt
+                      src="../../assets/img/8a47bbb4b79311e9ae9302420ac8023e.jpeg"
+                      class="picture"
+                    />
+                  </span>
+                </span>
+              </div>
+            </span>
+          </a>
+        </div>
+        <div class="open-collection-card" :style="{'background': 'linear-gradient( to top,rgba(35, 67, 135, 0.3) 35%,rgb(35, 67, 135) 69%) center top / auto no-repeat, url('+require('../../assets/img/3f6630c4364511e8ada600163e04f327_l.jpeg')+') center center / cover no-repeat'}">
+          <a
+            href
+            style="display: block; box-sizing: border-box; width: 100%; height: 100%; padding: 16px; position: relative;"
+          >
+            <span class="inner">
+              <h3 class="inner-size" style="font-size: 16px; font-weight: 600;">新鲜上架的好书</h3>
+              <span class="inner-text" style="vertical-align: middle; font-size: 12px;">
+                <div class="inner-pe">1486 人推荐了1011 本书</div>
+              </span>
+              <div
+                class="avatars"
+                style="position: absolute; bottom: 16px; right: 16px; flex-flow: row-reverse;"
+              >
+                <span class="avatar">
+                  <span class="rot">
+                    <img
+                      alt
+                      src="../../assets/img/8a47bbb4b79311e9ae9302420ac8023e.jpeg"
+                      class="picture"
+                    />
+                  </span>
+                </span>
+                <span class="avatar">
+                  <span class="rot">
+                    <img
+                      alt
+                      src="../../assets/img/8a47bbb4b79311e9ae9302420ac8023e.jpeg"
+                      class="picture"
+                    />
+                  </span>
+                </span>
+                <span class="avatar">
+                  <span class="rot">
+                    <img
+                      alt
+                      src="../../assets/img/8a47bbb4b79311e9ae9302420ac8023e.jpeg"
+                      class="picture"
+                    />
+                  </span>
+                </span>
+              </div>
+            </span>
+          </a>
+        </div>
+        <div class="open-collection-card" :style="{'background': 'linear-gradient( to top,rgba(35, 67, 135, 0.3) 35%,rgb(35, 67, 135) 69%) center top / auto no-repeat, url('+require('../../assets/img/3f6630c4364511e8ada600163e04f327_l.jpeg')+') center center / cover no-repeat'}">
+          <a
+            href
+            style="display: block; box-sizing: border-box; width: 100%; height: 100%; padding: 16px; position: relative;"
+          >
+            <span class="inner">
+              <h3 class="inner-size" style="font-size: 16px; font-weight: 600;">新鲜上架的好书</h3>
+              <span class="inner-text" style="vertical-align: middle; font-size: 12px;">
+                <div class="inner-pe">1486 人推荐了1011 本书</div>
+              </span>
+              <div
+                class="avatars"
+                style="position: absolute; bottom: 16px; right: 16px; flex-flow: row-reverse;"
+              >
+                <span class="avatar">
+                  <span class="rot">
+                    <img
+                      alt
+                      src="../../assets/img/8a47bbb4b79311e9ae9302420ac8023e.jpeg"
+                      class="picture"
+                    />
+                  </span>
+                </span>
+                <span class="avatar">
+                  <span class="rot">
+                    <img
+                      alt
+                      src="../../assets/img/8a47bbb4b79311e9ae9302420ac8023e.jpeg"
+                      class="picture"
+                    />
+                  </span>
+                </span>
+                <span class="avatar">
+                  <span class="rot">
+                    <img
+                      alt
+                      src="../../assets/img/8a47bbb4b79311e9ae9302420ac8023e.jpeg"
+                      class="picture"
+                    />
+                  </span>
+                </span>
+              </div>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+<style lang="scss" scoped>
+.root {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0%;
+
+  .root-alignTop {
+    align-items: flex-start;
+    display: flex;
+    .open-collection-card {
+      width: calc((100% - 45px) / 2);
+      height: 229px;
+      margin-left: 15px;
+      margin-top: 16px;
+      color: rgb(238, 238, 238);
+      border-radius: 5px;
+      background-position: center top, center center;
+      background-repeat: no-repeat, no-repeat;
+
+      .inner {
+        color: #eeeeee;
+        text-align: left;
+
+        .inner-size {
+          margin: 0px;
+          color: #eeeeee;
+          margin-bottom: 6px;
+          font-size: 18px;
+        }
+        .inner-text {
+          .inner-pe {
+            text-align: left;
+          }
+        }
+        .avatars {
+          display: flex;
+
+          .avatar {
+            margin-right: 0px;
+            display: block;
+            display: block;
+            margin-right: -5.5px;
+            .rot {
+              display: inline-block;
+              vertical-align: top;
+              box-sizing: border-box;
+              width: 30px;
+              height: 30px;
+              background: rgb(242, 242, 242);
+              border-width: 1px;
+              border-style: solid;
+              border-color: rgb(242, 242, 242);
+              border-image: initial;
+              border-radius: 99px;
+              overflow: hidden;
+              .picture {
+                display: block;
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+    @media (min-width: 480px) {
+      .open-collection-card {
+        width: calc((100% - 60px) / 3);
+      }
+    }
+    .a {
+      color: inherit;
+      text-decoration: none;
+      background: transparent;
+      outline: none;
+    }
+  }
+}
+</style>

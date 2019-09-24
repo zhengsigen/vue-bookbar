@@ -1,0 +1,698 @@
+<template>
+  <div class="bg-color" ref="client">
+    <div class="search" ref="home">
+      <div class="search-wrap">
+        <div class="text">
+          <input
+            type="search"
+            class="inputFind"
+            @keyup.enter="getIsbn()"
+            placeholder="书名 / 作者 / 分类"
+            v-model="name"
+            @click="closeList()"
+          />
+          <div class="cleanInput" v-show="!clean">
+            <svg viewBox="19 19 22 22" stroke-linecap="round" class="Search-removeIcon">
+              <g transform="translate(21.000000, 21.000000)">
+                <path d="M0.333333333,0.333333333 L17.4148373,17.4148373" />
+                <path
+                  d="M0.333333333,0.333333333 L17.4148373,17.4148373"
+                  transform="translate(9.000000, 9.000000) scale(-1, 1) translate(-9.000000, -9.000000)"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tags-list" v-if="bookList" >
+      <h2 class="tags-title">你可以试试搜</h2>
+      <div class="tags-labels">
+        <span class="tags-label" href>中国文学</span>
+        <span href class="tags-label">散文</span>
+        <span href class="tags-label">文学</span>
+        <span href class="tags-label">中国</span>
+        <span href class="tags-label">邓小平</span>
+        <span href class="tags-label">计算机</span>
+        <span href class="tags-label">梁实秋</span>
+        <span href class="tags-label">随笔</span>
+        <span href class="tags-label">编程</span>
+        <span href class="tags-label">软件开发</span>
+        <span href class="tags-label">小说</span>
+        <span href class="tags-label">软件工程</span>
+      </div>
+    </div>
+    <div class="books" v-else>
+        <div class="book" v-for="(book,i) in noStockoutBook" :key="i" @click="entrance(book.id)" >
+            <div class="cover" style="height: 70px;width: 50px;" >
+              <img :src="book.cover" alt style="height: 70px;width: 50px;" />
+            </div>
+            <div class="content">
+              <div class="header">
+                <div class="left">
+                  <h3 class="title">{{book.name}}</h3>
+                  <div
+                    class="authors"
+                    style="color: rgb(170, 170, 170);font-size: 12px;"
+                  >{{book.author}}/{{book.publisher}}/豆瓣评分{{book.doubanRate}}</div>
+                </div>
+              </div>
+              <div class="summary">
+                <div class="price">
+                  <span class="market">
+                    ￥{{book.price * book.discount / 10 | numeral}}
+                    <span class="suffix">起</span>
+                  </span>
+                </div>
+                <div class="addCart">
+                  <div class="shoopingCart">加入购物车</div>
+                </div>
+              </div>
+          </div>
+        </div>
+      <!-- <div class="evenMore" @click="evenMoreBookList()" >
+        查看更多有货书籍
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          xmlns="http://www.w3.org/2000/svg"
+          class="Icon"
+          width="20"
+          height="20"
+          style="margin-left: 5px;"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </div> -->
+      <div class="stockoutBooklist" > 
+        <div class="stockout-margintop" style="margin-bottom: 34px;" > 
+          <div class="stockout-header" v-if="noStockoutBook.length === 0" >
+            以下书暂时无货，点击「到货提醒」有货了通知你
+            <div class="stockout-connect">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="rgb(51, 51, 51)"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                xmlns="http://www.w3.org/2000/svg"
+                class="Icon"
+                width="13"
+                height="13"
+                style="margin-left: 1px;margin-top: 4px;"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12" y2="8" />
+              </svg>
+            </div>
+          </div>
+          <div @click="entrance(book.id)">
+            <div class="stockout-booklist" v-for="(book,i) in stockoutBook" :key="i">
+              <div class="stockout-bookImg">
+                <img :src="book.cover" alt style="height: 70px;width: 50px;" />
+                <div class="stopOut">
+                  <p>暂时无货</p>
+                </div>
+              </div>
+              <div class="stockout-right" style="margin-left: 16px;">
+                <h2 class="stockout-title">{{book.name}}</h2>
+                <div class="stockout-intro">
+                  <div>
+                    <div class="publishing">{{book.author}}/{{book.publisher}}</div>
+                    <div class="lastTime">
+                      <span class="time">
+                        上次到货
+                        <span>2018-10-17</span>
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      class="remind-button"
+                      style="position:  absolute;right: 16px;bottom: 16px;"
+                    >
+                      <span>到货提醒</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="base">
+      <div class="base-bases">
+        <div class="bases">
+          <span class="bases-title">没搜到想找的书？向我们反馈</span>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="rgb(24, 195, 170)"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            xmlns="http://www.w3.org/2000/svg"
+            class="Icon"
+            style="height: 21px;width: 21px;"
+          >
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script >
+export default {
+  data() {
+    return {
+      code: false,
+      books: {},
+      name: null,
+      clean: true,
+      bookList: true,
+      // skus : [],
+      stockoutBook:[],
+      noStockoutBook:[],
+      pager: {
+        pageNum: 1,
+        pageSize: 3,
+        total: 0,
+        pages: -1,
+        lastPage: false
+      },
+      bookScorll : null,
+    };
+  },
+  // async created() {
+  //   this.getScorllHeight();
+  //   this.refresh(this.pager.pageNum);
+  // },
+  methods: {
+    async getIsbn() {
+      if (this.name.trim().length === 0) {
+        return;
+      }
+      console.info(this.name);
+      this.stockoutBook = [],
+      this.noStockoutBook = []
+      let data = await this.$http.get("/book?name=" + this.name)
+      console.info(data.code);
+      if (data.code === 0) {
+        this.bookList = false;
+        this.books = data.data.list;
+        console.info("获取折扣：",this.books.discount)
+        console.info("this.books:",this.books)
+        //过滤缺货列表
+        let total = 0;
+        for(var i=0;i<this.books.length;i++){  
+          
+          // for(var z=0;z<this.books[i].skus.length;z++){
+          //   total += this.books[i].skus[z].stock; 
+          // }
+        total += this.books[i].stock;
+
+          // console.info(total);
+          if(total <= 0){
+            console.info("总库存 <= 0",total)
+            this.stockoutBook.push(this.books[i]);
+            console.info("总数小于或者等于0的书籍信息：",this.stockoutBook)
+            total = 0;
+          }else{
+            console.info("总库存大于0：",total)
+            this.noStockoutBook.push(this.books[i]);
+            console.info("总数大于0的书籍信息：",this.noStockoutBook)
+            total = 0;
+          }
+        }
+      } else {
+        console.info(data.desc);
+      }
+    },
+    closeList() {
+      this.book = "";
+      this.bookList = true;
+    },
+    evenMoreBookList() {
+      console.info("点击显示更多数据，一次显示十条，条件是模糊搜索。");
+    },
+    entrance(id) {
+      console.info(id);
+      this.$router.push({
+        // path: "/book/:id",
+        name: "book",
+        params: {
+          id: id
+        }
+      });
+    },
+    //获取滚动条高度
+    getScorllHeight() {
+      this.$nextTick(function() {
+        let ele = this.$refs.home;
+        console.info(ele);
+        let firstElTop = ele.offsetTop;
+        console.info(firstElTop);
+        this.bookScorll = ele.scrollHeight;
+        //数据不够继续请求
+        if(this.bookScorll <= this.$refs.client.clientHeight) {
+          this.refresh(this.pager.pageNum+1);
+        }
+      });
+    },
+    //当前滚动条位置
+    scrollHander() {
+      let ele = this.$refs.home;
+      if (ele.scrollTop + ele.clientHeight >= this.bookScorll - 5) {
+        this.refresh(this.pager.pageNum + 1);
+      }
+    },
+    //刷新数据
+    async refresh(pageNum) {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true; // 加载图标
+      let pageSize = this.pager.pageSize;
+      let pages = this.pager.pages;
+      // 是否是最一页
+      if (this.pager.lastPage) {
+        this.loading = false;
+        return;
+      }
+
+      pageNum = pageNum <= 0 ? 1 : pageNum;
+
+      let data = await this.$http.get("/book", {
+        params: {
+          pageSize,
+          pageNum
+        }
+      });
+      console.info(data.data);
+      let pager = data.data;
+      if (data.code === 0) {
+        //有数据返回追加
+        console.info(pager)
+        if (pager.list.length) {
+          this.books.push(...pager.list);
+          let {pageNum,pageSize,pages,total,lastPage} = pager;
+          this.pager = {pageNum,pageSize,pages,total,lastPage};
+          this.getScorllHeight();
+        }
+        
+      }
+      this.loading = false;
+      
+    }
+  
+  }, 
+
+
+};
+</script>
+
+<style lang="scss" scoped>
+.bg-color {
+  background: #f2f2f2;
+  min-height: 100vh;
+  .search {
+    background: #fff;
+    padding: 16px 13px;
+    padding-top: 15px;
+    color: #aaa;
+    .search-wrap {
+      background: #f2f2f2;
+      border-radius: 999px;
+      height: 36px;
+      display: flex;
+      font-size: 14px;
+      align-content: center;
+      justify-content: left;
+      [class*="dzy-icon-"],
+    .text {
+        flex: 1;
+        align-self: center;
+        .inputFind {
+          display: block;
+          box-sizing: border-box;
+          width: 100%;
+          font: inherit;
+          font-size: 14px;
+          line-height: 24px;
+          padding: 6px 16px;
+          background: rgb(242, 242, 242);
+          border: none;
+          border-radius: 999px;
+          outline: none;
+        }
+        .cleanInput {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          position: relative;
+          .Search-removeIcon {
+            width: 16px;
+            stroke: currentColor;
+            stroke-width: 1px;
+            position: absolute;
+            right: 12px;
+            top: -25px;
+          }
+          svg:not(:root) {
+            overflow: hidden;
+          }
+          svg {
+            stroke-linecap: round;
+          }
+          html|* > svg {
+            transform-origin: 50% 50% 0px;
+          }
+        }
+      }
+    }
+  }
+
+  .tags-list {
+    padding: 15px;
+    background: #fff;
+    margin-top: 16px;
+    .tags-title {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 300;
+      white-space: pre;
+      justify-content: flex-start;
+      height: auto;
+      margin-bottom: 12px;
+      color: rgb(170, 170, 170);
+    }
+    .tags-labels {
+      margin: -5px;
+      .tags-label {
+        display: inline-flex;
+        align-items: center;
+        box-sizing: border-box;
+        height: 30px;
+        margin: 5px;
+        padding: 0 9px;
+        color: rgb(102, 102, 102);
+        font: inherit;
+        font-size: 15px;
+        background: none;
+        border: 1px solid rgb(242, 242, 242);
+        border-radius: 5px;
+      }
+    }
+  }
+  .books {
+    min-height: 100vh;
+    background: #fff;
+    background: #f2f2f2;
+    margin-top: 16px;
+    .book {
+      display: flex;
+      padding: 25px 15px;
+      background: #fff;
+      border-bottom: 0.5px solid rgb(242, 242, 242);
+      .cover {
+        width: 90px;
+        height: 128px;
+        img {
+          width: 90px;
+          height: 128px;
+        }
+      }
+      .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin-left: 12px;
+        .header {
+          display: flex;
+          flex: 1;
+          justify-content: space-between;
+          .left {
+            .category {
+              margin-bottom: 10px;
+              display: inline-block;
+              font-size: 10px;
+              line-height: 1.4;
+              padding: 2px 4px;
+              border-radius: 2px;
+              color: rgb(144, 202, 200);
+              background: rgba(144, 202, 200, 0.2);
+            }
+            .title {
+              margin: 0;
+              margin: -0.1em 0 0;
+              font-size: 16px;
+              font-weight: 400;
+            }
+            .authors {
+              color: rgb(170, 170, 170);
+              margin-top: 4px;
+              align-items: center;
+              margin-top: 4px;
+              color: rgb(102, 102, 102);
+              font-size: 12px;
+            }
+            .rating {
+              color: rgb(214, 186, 140);
+              margin-top: 5px;
+              font-size: 12px;
+            }
+          }
+          .right {
+            position: relative;
+            box-sizing: border-box;
+            width: 45px;
+            height: 45px;
+            padding-left: 15px;
+            display: flex;
+            justify-content: flex-end;
+            margin-right: -3px;
+            svg {
+              width: 18px;
+              height: 18px;
+              vertical-align: middle;
+              fill: #18c3aa;
+              overflow: hidden;
+            }
+            img {
+              display: inline-block;
+              vertical-align: top;
+              box-sizing: border-box;
+              width: 30px;
+              height: 30px;
+              background: rgb(242, 242, 242);
+              border-width: 1px;
+              border-style: solid;
+              border-color: rgb(242, 242, 242);
+              border-image: initial;
+              border-radius: 99px;
+              overflow: hidden;
+            }
+          }
+        }
+        .summary {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 5px;
+          .price {
+            margin: 2px 0px;
+            display: flex;
+            align-items: center;
+            .market {
+              font-size: 18px;
+              font-weight: normal;
+              .suffix {
+                font-size: 13px;
+                margin-left: 3px;
+                font-weight: 300;
+              }
+            }
+            .discount {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              box-sizing: border-box;
+              height: 18px;
+              padding: 0 6px;
+              color: rgb(214, 186, 140);
+              font-weight: 400;
+              border: 0.5px solid rgb(214, 186, 140);
+              border-radius: 4px;
+              white-space: nowrap;
+              margin-left: 6px;
+              margin-right: 6px;
+              color: rgb(242, 129, 129);
+              border-color: rgb(242, 129, 129);
+              font-size: 12px;
+            }
+          }
+          .addCart {
+            display: flex;
+            align-items: flex-end;
+            .shoopingCart {
+              font-size: 12px;
+              font-weight: 400;
+              padding: 6px 12px;
+              border: none;
+              box-shadow: none;
+              transition: box-shadow 0.2s;
+              color: #fff;
+              background-color: rgb(242, 129, 129);
+              border-radius: 999px;
+            }
+          }
+          .close {
+            display: flex;
+            align-content: flex-end;
+            justify-content: center;
+          }
+        }
+      }
+    }
+    .evenMore {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      font-size: 14px;
+      font-weight: 400;
+      background-color: rgb(255, 255, 255);
+      border-top: 0.5px solid rgb(230, 230, 230);
+    }
+  }
+  .stockoutBooklist {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0%;
+    .stockout-margintop {
+      margin-top: 16px;
+      .stockout-header {
+        margin-top: 8px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 14px 15px 12px;
+        background: #fff;
+        font-size: 13px;
+        border-bottom: 0.5px solid rgb(242, 242, 242);
+        .stockout-connect {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+      }
+    }
+    .stockout-booklist {
+      position: relative;
+      padding: 15px;
+      color: inherit;
+      font-size: 14px;
+      text-decoration: none;
+      background: #fff;
+      display: flex;
+      .stockout-bookImg {
+        width: 50px;
+        height: 70px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        .stopOut {
+          height: 24px;
+          position: absolute;
+          bottom: 0px;
+          right: 0px;
+          left: 0px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: rgb(255, 255, 255);
+          font-size: 11px;
+          font-weight: 400;
+          background: rgba(0, 0, 0, 0.5);
+        }
+      }
+      .stockout-right {
+        flex-grow: 1;
+        justify-content: space-between;
+        flex-direction: column;
+        .stockout-title {
+          margin: 0 0 4px;
+          font-size: inherit;
+          font-weight: 400;
+        }
+        .stockout-intro {
+          flex-grow: 1;
+          display: flex;
+          .publishing {
+            color: rgb(170, 170, 170);
+            font-size: 12px;
+          }
+          .lastTime {
+            display: flex;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            min-height: 30px;
+            margin-right: 3px;
+            .time {
+              font-size: 12px;
+              margin-right: 5px;
+              margin: 2px 0;
+            }
+          }
+          .remind-button {
+            font-size: 12px;
+            font-weight: 400;
+            padding: 6px 12px;
+            border: none;
+            box-shadow: none;
+            color: #fff;
+            background: rgb(24, 195, 170);
+            border-radius: 999px;
+          }
+        }
+      }
+    }
+  }
+  .base {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    .base-bases {
+      max-width: 600px;
+      margin: 0px auto;
+      .bases {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        background-color: rgb(247, 247, 247);
+        cursor: pointer;
+        .bases-title {
+          color: rgb(24, 195, 170);
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}
+</style>

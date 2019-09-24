@@ -1,0 +1,78 @@
+<template>
+  <div class="checkbox" :class="{'checked': isChecked || checked}" @click="changeCheck">
+    <svg
+      width="14.5"
+      height="11"
+      viewBox="11 14 29 22"
+      stroke="#FFFFFF"
+      stroke-width="4"
+      fill="none"
+    >
+      <polyline points="13.2427972 23.7361617 21.8111153 32.3044798 38 16.1155951" />
+    </svg>
+  </div>
+</template>
+<script>
+export default {
+  name: 'checkbox',
+  props: ['checks', 'value', 'checked'],
+  data () {
+    return {
+      item: '',
+      checkItems: []
+    }
+  },
+  created () {
+    this.item = this.value
+    this.checkItems = JSON.parse(JSON.stringify(this.checks) || '[]')
+  },
+  methods: {
+    changeCheck () {
+      let index = this.checkItems.indexOf(this.item)
+      if (this.item) {
+        if (index === -1) {
+          this.checkItems.push(this.item)
+        } else {
+          this.checkItems.splice(index, 1)
+        }
+      }
+      this.$emit('update', JSON.parse(JSON.stringify(this.checkItems)))
+    }
+  },
+  computed: {
+    isChecked () {
+      return this.checkItems.includes(this.item)
+    }
+  },
+  watch: {
+    checks: {
+      immediate: true,
+      handler () {
+        this.checkItems = JSON.parse(JSON.stringify(this.checks) || '[]')
+      }
+    },
+    value: {
+      immediate: true,
+      handler () {
+        this.item = this.value
+      }
+    }
+  }
+}
+</script>
+<style lang="scss" scoped>
+.checkbox {
+  margin-right: 12px;
+  align-self: center;
+  border: 1px solid rgb(24, 195, 170);
+  border-radius: 999px;
+  font-size: 18px;
+  text-align: center;
+  width: 23px;
+  height: 23px;
+
+  &.checked {
+    background: rgb(24, 195, 170);
+  }
+}
+</style>

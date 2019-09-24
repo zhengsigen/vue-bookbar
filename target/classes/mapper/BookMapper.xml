@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c1801.spring.dzy.mapper.BookMapper">
+
+    <select id="queryBookByIBSN" resultType="Book">
+        SELECT id, isbn10, isbn13, name, cover, author, price, publisher, pub_date, douban_rate, gist, binding, create_date, update_date
+	    FROM books_tb where isbn10= #{isbn} or isbn13 = #{isbn}
+    </select>
+
+
+
+    <select id="queryBookById" resultType="Book">
+        SELECT id, isbn10, isbn13, name, cover, author, price, publisher, pub_date, douban_rate, gist, binding, create_date, update_date
+	    FROM books_tb where id = #{bookId}
+    </select>
+
+
+    <select id="getBooksNotInCategory" resultType="Book">
+        SELECT id, isbn10, isbn13, name, cover, author, price, publisher, pub_date, douban_rate, gist, binding, create_date, update_date
+	    FROM books_tb where id not in(SELECT book_id
+	    FROM book_category_tb where category_id = #{categoryId})
+    </select>
+
+    <select id="queryBookInfoList" resultType="bookInfo">
+        select distinct b.id as id,isbn10, isbn13, name, cover, author, price, publisher, pub_date, douban_rate , gist, binding, b.create_date as createDate, b.update_date as updateDate,
+        sum(stock) as stock, sum(sale) as sale,sum(status) as status
+        from books_tb b right join book_sku_tb s on b.id=s.book_id
+        <where>
+            <if test="name!=null and name!=''">
+                name like concat("%", #{name}, "%")
+            </if>
+            <if test="author!=null and author!=''">
+                and author like concat("%", #{author}, "%")
+            </if>
+        </where>
+        group by b.id
+        <if test="minStock!= null or maxStock!=null or minSale!=null or maxSale!=null or minStatus!=null or maxStatus!=null ">
+            having
+            <if test="minStock!=null">
+                stock <![CDATA[ >= ]]> #{minStock}
+            </if>
+            <if test="maxStock!=null">
+                and stock <![CDATA[ <= ]]> #{maxStock}
+            </if>
+            <if test="minSale!=null">
+                and sale <![CDATA[ >= ]]> #{minSale}
+            </if>
+            <if test="maxSale!=null">
+                and sale <![CDATA[ <= ]]> #{maxSale}
+            </if>
+            <if test="minStatus!=null">
+                and status <![CDATA[ >= ]]> #{minStatus}
+            </if>
+            <if test="maxStatus!=null">
+                and status <![CDATA[ <= ]]> #{maxStatus}
+            </if>
+
+        </if>
+
+        <if test=" nameStatus != null ">
+            order by
+            <if test="nameStatus == 1 ">
+                name
+                <if test="totalStatus == 0 ">
+                    asc
+                </if>
+                <if test="totalStatus == 1 ">
+                    desc
+                </if>
+            </if>
+
+            <if test="nameStatus == 2 ">
+                douban_rate
+                <if test="totalStatus == 0 ">
+                    asc
+                </if>
+                <if test="totalStatus == 1 ">
+                    desc
+                </if>
+            </if>
+
+            <if test="nameStatus == 3 ">
+                price
+                <if test="totalStatus == 0 ">
+                    asc
+                </if>
+                <if test="totalStatus == 1 ">
+                    desc
+                </if>
+            </if>
+
+        </if>
+
+    </select>
+
+
+
+    <insert id="addBook" useGeneratedKeys="true" keyProperty="id" parameterType="Book">
+        INSERT INTO books_tb
+        (isbn10, isbn13, name, cover, author, price, publisher,
+        <if test="pubDate!=null">
+            pub_date,
+        </if>
+        douban_rate, gist, binding)
+        VALUES (#{ISBN10}, #{ISBN13},#{name}, #{cover},#{author}, #{price},
+        #{publisher},
+        <if test="pubDate!=null">
+            #{pubDate},
+        </if>
+        #{doubanRate},#{gist},#{binding})
+    </insert>
+
+
+
+</mapper>

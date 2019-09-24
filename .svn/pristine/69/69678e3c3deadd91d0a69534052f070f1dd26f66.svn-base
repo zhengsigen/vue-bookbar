@@ -1,0 +1,1114 @@
+<template>
+  <div class="orderInfo">
+    <div class="content">
+      <div class="sell-order">
+        <div class="sell-order-info">
+          <div class="sell-order-header">填写收件人信息</div>
+          <div class="sell-order-content">
+            <div class="sell-order-address" @click="rules">使用中通 / EMS 等快递发货，了解具体发货规则？</div>
+            <div class="item">
+              <span class="item-name">姓名：</span>
+              <input class="input" value v-model="form.name" />
+            </div>
+            <div class="item">
+              <span class="item-name">电话：</span>
+              <input type="tel" class="input" value v-model="form.phone" />
+            </div>
+            <div class="item">
+              <span class="item-name">地址：</span>
+              <input class="input area" value v-model="value" @click="showArea()" />
+            </div>
+            <div class="item">
+              <span class="item-name"></span>
+              <textarea class="input" placeholder="详细地址，街道、小区、单元、门牌号" v-model="street"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="anonymity">
+          <div class="anonymity-info">
+            <div class="anonymity-desc">
+              <div class="title">匿名买书</div>
+              <div class="tip">开启后其他人不会知道你买了这些</div>
+            </div>
+            <div class="checkbox" @click="isAnonymity = !isAnonymity" v-if="!isAnonymity"></div>
+            <i class="el-icon-success" @click="isAnonymity = !isAnonymity" v-if="isAnonymity"></i>
+          </div>
+        </div>
+
+        <div class="sell-books-info">
+          <div>
+            <div class="sell-info">
+              <div class="sell-items">
+                <div class="sell-name">
+                  <span class="text">杀死一个程序员</span>
+                </div>
+                <div class="sell-price">
+                  <span class="price">￥13.90</span>
+                </div>
+              </div>
+            </div>
+            <div class="sell-info">
+              <div class="sell-items">
+                <div class="sell-name">
+                  <span class="text">总价</span>
+                </div>
+                <div class="sell-price">
+                  <span class="price">￥13.90</span>
+                </div>
+              </div>
+              <div class="sell-items">
+                <div class="sell-name">
+                  <span class="text">运费（不参与优惠）</span>
+                  <div class style="margin-left: 6px;" @click="carriage">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="#fff"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="Icon"
+                      width="14"
+                      height="14"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="16" x2="12" y2="12" />
+                      <line x1="12" y1="8" x2="12" y2="8" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="sell-price">
+                  <span class="price">￥9.00</span>
+                </div>
+              </div>
+              <div class="discount-coupon">
+                <div class="coupon" @click="coupon=true">
+                  <div class="content">
+                    <span class="text">优惠卷</span>
+                  </div>
+                  <div class="desc">
+                    无可用的卷
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="icon"
+                    >
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sell-footer">
+              <div>
+                下单支付：
+                <span class="max-price">
+                  <span class="price">￥22.90</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fixed">
+          <div style="max-width: 600px;margin: 0px auto;">
+            <div style="padding: 20px;background: rgb(247, 247, 247);">
+              <div class="button" @click="mask=true">去支付</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pay" v-if="mask">
+      <div class="pay-layer">
+        <div class="pay-item">
+          <div class="pay-body">
+            <div class="header">
+              <h2 class="title" style="margin-top: 0px;">支付</h2>
+              <div class="desc">请在 30 分钟内完成支付</div>
+            </div>
+            <div class="middle">
+              <div class="pay-middle">
+                <div class="pay-middle-info">
+                  <div class="pay-middle-row">
+                    <div class="pay-middle-png">
+                      <img src="../../assets/img/logo_small.png" alt style="width:28px;height:16px" />
+                    </div>
+                    <div class="pay-balance-info">
+                      <div class="pay-balance-title">
+                        <span class="pay-method-title">余额支付</span>
+                        <span class="label" style="margin-left: 8px;">8.8 折</span>
+                      </div>
+                      <div class="user-balance">账户余额 ￥0.00</div>
+                    </div>
+                    <div class="balance-inactive">余额不足，卖书可得余额</div>
+                  </div>
+                </div>
+              </div>
+              <div class="pay-middle">
+                <div class="pay-middle-info">
+                  <div class="pay-middle-row">
+                    <div class="pay-middle-png">
+                      <svg width="26px" height="26px" viewBox="0 0 26 26">
+                        <g
+                          id="Page-1"
+                          stroke="none"
+                          stroke-width="1"
+                          fill="none"
+                          fill-rule="evenodd"
+                        >
+                          <g
+                            id="微信支付"
+                            transform="translate(1.000000, 2.000000)"
+                            fill="#09BB07"
+                            fill-rule="nonzero"
+                          >
+                            <path
+                              d="M8.71607143,13.3526786 C8.60625,13.4089286 8.49375,13.4357143 8.35714286,13.4357143 C8.05178571,13.4357143 7.80267857,13.2696429 7.66339286,13.0205357 L7.60714286,12.9107143 L5.41875,8.14285714 C5.39196429,8.08660714 5.39196429,8.03303571 5.39196429,7.97678571 C5.39196429,7.75446429 5.55803571,7.58839286 5.78035714,7.58839286 C5.86339286,7.58839286 5.94642857,7.61517857 6.02946429,7.67142857 L8.60625,9.50089286 C8.79910714,9.61071429 9.02142857,9.69375 9.27053571,9.69375 C9.40982143,9.69375 9.54642857,9.66696429 9.68571429,9.61071429 L21.76875,4.23482143 C19.6071429,1.68482143 16.0339286,0.0214285714 11.9866071,0.0214285714 C5.39196429,0.0214285714 0.0160714286,4.48392857 0.0160714286,9.99642857 C0.0160714286,12.9883929 1.62321429,15.7044643 4.14375,17.5339286 C4.33660714,17.6732143 4.47589286,17.9223214 4.47589286,18.1714286 C4.47589286,18.2544643 4.44910714,18.3375 4.41964286,18.4205357 C4.22678571,19.1678571 3.89196429,20.3892857 3.89196429,20.4428571 C3.86517857,20.5258929 3.83571429,20.6357143 3.83571429,20.7482143 C3.83571429,20.9705357 4.00178571,21.1366071 4.22410714,21.1366071 C4.30714286,21.1366071 4.39017857,21.1098214 4.44642857,21.0535714 L7.05,19.5294643 C7.24285714,19.4196429 7.46517857,19.3366071 7.6875,19.3366071 C7.79732143,19.3366071 7.93660714,19.3633929 8.04642857,19.3928571 C9.26517857,19.7517857 10.5964286,19.9473214 11.9544643,19.9473214 C18.5491071,19.9473214 23.925,15.4848214 23.925,9.97232143 C23.925,8.30892857 23.4267857,6.73125 22.5669643,5.34375 L8.79910714,13.2964286 L8.71607143,13.3526786 L8.71607143,13.3526786 Z"
+                              id="Path"
+                            />
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                    <div class="pay-balance-info">
+                      <div class="pay-balance-title">
+                        <span class="pay-method-title">微信支付</span>
+                      </div>
+                    </div>
+                    <svg width="18px" height="18px" viewBox="0 0 20 20" version="1.1">
+                      <g
+                        id="Page-1"
+                        stroke="none"
+                        stroke-width="1"
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <polyline
+                          id="Path-6"
+                          stroke="#18C3AA"
+                          stroke-width="2.90909091"
+                          points="2 9.70728325 7.53750321 15 18 5"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fixed">
+              <div style="max-width: 600px;margin: 0px auto;">
+                <div style="padding: 20px;background: rgb(247, 247, 247);">
+                  <div class="button" @click="jump">微信支付￥22.90</div>
+                </div>
+              </div>
+            </div>
+            <button class="close-btn" @click="mask=false">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 12 12"
+                stroke="rgb(170, 170, 170)"
+              >
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  transform="translate(1 1)"
+                >
+                  <path d="M10 0L0 10M0 0L10 10" />
+                </g>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom" v-if="show">
+      <div class="areas">
+        <div class="header">
+          <div class="header-left" @click="showArea()">取消</div>
+          <div class="header-title">选择城市</div>
+          <div class="header-right" @click="updateArea()">确定</div>
+        </div>
+        <mt-picker :slots="myAddressSlots" @change="onMyAddressChange"></mt-picker>
+      </div>
+    </div>
+    <div class="counpons" v-if="coupon===true">
+      <div class="counpons-layer">
+        <div class="counpons-item">
+          <div class="counpons-body">
+            <div class="body">
+              <div class="heade">
+                <h2 class="counpons-title">1 张优惠券</h2>
+              </div>
+              <div class="middle">
+                <div class="content">
+                  <div class="left">
+                    <div class="name">买书包邮券</div>
+                    <div class="desc">
+                      <div class="date">2019.09.04 到期</div>
+                      <div class="dot"></div>
+                      <div class="rule">无门槛</div>
+                    </div>
+                  </div>
+                  <div class="right">
+                    <span class="counpons-desc">免运费</span>
+                  </div>
+                </div>
+              </div>
+              <div class="bottoms">
+                <div class="buttons-inner" @click="coupon=false">好的</div>
+              </div>
+            </div>
+            <button class="close-btn" @click="coupon=false">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 12 12"
+                stroke="rgb(170, 170, 170)"
+              >
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  transform="translate(1 1)"
+                >
+                  <path d="M10 0L0 10M0 0L10 10" />
+                </g>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>r
+<script>
+import { mapGetters } from "vuex";
+import myaddress from "../../../address.json";
+import { constants } from "crypto";
+export default {
+  name: "orderInfo",
+  data() {
+    return {
+      isAnonymity: false,
+      isShowAddress: false,
+      myAddressSlots: [
+        {
+          flex: 1,
+          defaultIndex: 0,
+          values: Object.keys(myaddress), //省份数组
+          className: "slot1",
+          textAlign: "center"
+        },
+        {
+          divider: true,
+          content: "-",
+          className: "slot2"
+        },
+        {
+          flex: 1,
+          values: [],
+          className: "slot3",
+          textAlign: "center"
+        },
+        {
+          divider: true,
+          content: "-",
+          className: "slot4"
+        },
+        {
+          flex: 1,
+          values: [],
+          className: "slot5",
+          textAlign: "center"
+        }
+      ],
+      province: "",
+      city: "",
+      district: "",
+      show: false,
+      error: {},
+      books: [],
+      form: {},
+      value: "",
+      street: "",
+      mask: false,
+      coupon: false
+    };
+  },
+  //初始化用户地址
+  // created() {
+  //   this.$http
+  //     .get("/addr")
+  //     .then(res => {
+  //       this.form = res.data;
+  //       console.info(res.data);
+  //       this.value = this.form.province + this.form.city + this.form.district;
+  //     })
+  //     .catch(res => {
+  //       console.info(res);
+  //     });
+  // },
+
+  methods: {
+    getLocation() {
+      let seft = this;
+      AMap.plugin("AMap.Geolocation", function() {
+        var geolocation = new AMap.Geolocation({
+          // 是否使用高精度定位，默认：true
+          enableHighAccuracy: true,
+          useNative:true,
+          // 设置定位超时时间，默认：无穷大
+          timeout: 10000
+        });
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, "complete", onComplete);
+        AMap.event.addListener(geolocation, "error", onError);
+
+        function onComplete(data) {
+          // data是具体的定位信息
+          console.log("定位成功信息：", data);
+          console.info(data.addressComponent);
+          
+          seft.form.province = data.addressComponent.province
+          seft.form.city = data.addressComponent.city
+          seft.form.district = data.addressComponent.district
+          seft.value =
+            data.addressComponent.province +
+            data.addressComponent.city +
+            data.addressComponent.district;
+          seft.street = data.addressComponent.township
+        }
+
+        function onError(data) {
+          // 定位出错
+          console.log("定位失败错误：", data);
+        }
+      });
+    },
+    updateArea() {
+      this.show = !this.show;
+      this.value = this.province + this.city + this.district;
+      this.form.province = this.province;
+      this.form.city = this.city;
+      this.form.district = this.district;
+    },
+    onMyAddressChange(picker, values) {
+      if (myaddress[values[0]]) {
+        picker.setSlotValues(1, Object.keys(myaddress[values[0]])); // Object.keys()会返回一个数组，当前省的数组
+        picker.setSlotValues(2, myaddress[values[0]][values[1]]); // 区/县数据就是一个数组
+        this.province = values[0];
+        this.city = values[1];
+        this.district = values[2];
+      }
+    },
+    showArea() {
+      this.show = !this.show;
+      if (this.value == "") {
+        this.myAddressSlots[0].defaultIndex = 0;
+        return;
+      }
+      for (let i = 0; i < this.myAddressSlots[0].values.length; i++) {
+        if (this.myAddressSlots[0].values[i] == this.form.province) {
+          this.myAddressSlots[0].defaultIndex = i;
+          break;
+        }
+      }
+      this.myAddressSlots[2].values = Object.keys(
+        myaddress[this.form.province]
+      );
+      for (let i = 0; i < this.myAddressSlots[2].values.length; i++) {
+        if (this.myAddressSlots[2].values[i] == this.form.city) {
+          this.myAddressSlots[2].defaultIndex = i;
+          break;
+        }
+      }
+      this.myAddressSlots[4].values =
+        myaddress[this.form.province][this.form.city];
+      for (let i = 0; i < this.myAddressSlots[4].values.length; i++) {
+        if (this.myAddressSlots[4].values[i] == this.form.district) {
+          this.myAddressSlots[4].defaultIndex = i;
+          break;
+        }
+      }
+    },
+    jump() {
+      this.$router.push("/pay");
+    },
+    carriage() {
+      this.$router.push("/carriage");
+    },
+    rules() {
+      this.$router.push("/rules");
+    },
+    in(timeout, val) {
+      this.streets = [];
+      if (timeout !== null) clearTimeout(timeout);
+      if (val == this.street) {
+        this.$http
+          .get(
+            "/v3/assistant/inputtips?key=4771c3e9da26cd402892560bd030605c&keywords=" +
+              val+'&city='+this.form.city
+          )
+          .then(res => console.info(res));
+      }
+    }
+    // async submitOrder() {
+    //   if (
+    //     this.form.name.trim().length < 2 ||
+    //     this.form.name.trim().length > 20
+    //   ) {
+    //     this.$message({
+    //       message: "名字长度必须在2-20位之间",
+    //       type: "error"
+    //     });
+
+    //     return;
+    //   }
+    //   if (!this.form.phone.match(/^1([38]\d|5[0-35-9]|7[3678])\d{8}$/)) {
+    //     this.$message({
+    //       message: "手机号码必须是11位,且以1开头",
+    //       type: "error"
+    //     });
+    //     return;
+    //   }
+    //   if (this.value == "") {
+    //     this.$message({
+    //       message: "请输入您所在的地址",
+    //       type: "error"
+    //     });
+    //     return;
+    //   }
+    //   if (this.form.street.length <= 0) {
+    //     this.$message({
+    //       message: "请输入您所处的街道",
+    //       type: "error"
+    //     });
+    //     return;
+    //   }
+    //   let formData = this.form;
+    //   let data = await this.$http.post("/order", formData, {
+    //     headers: {
+    //       "Content-Type": "application/json;charset=UTF-8"
+    //     }
+    //   });
+    //   console.info(data);
+    //   // if (book.stock == 0) {
+    //   //   this.$message({
+    //   //     message: "该书籍已缺货",
+    //   //     type: "error"
+    //   //   });
+    //   //   return;
+    //   // }
+    //   // if (book.status == 0) {
+    //   //   this.$message({
+    //   //     message: "该书籍已下架",
+    //   //     type: "error"
+    //   //   });
+    //   //   return;
+    //   // }
+    //   this.mask = true;
+    // }
+  },
+  created() {
+    this.getLocation();
+  },
+  watch: {
+    street: function(val) {
+      let timeout = null;
+      timeout = setTimeout(() => {
+        this.in(timeout, val);
+      }, 1000);
+    }
+  }
+};
+</script>
+<style lang="scss" scoped>
+.sell-order {
+  padding-bottom: 51px;
+  background-color: rgb(242, 242, 242);
+  .sell-order-info {
+    padding: 15px 15px 0px;
+    overflow: auto;
+    background: rgb(255, 255, 255);
+    .sell-order-header {
+      font-size: 15px;
+      text-align: left;
+      line-height: 20.8px;
+    }
+    .sell-order-content {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 0.5px solid rgb(242, 242, 242);
+      .sell-order-address {
+        margin-bottom: 15px;
+        padding: 0.4em;
+        color: rgb(242, 129, 129);
+        font-size: 13px;
+        line-height: 17.6px;
+        text-align: center;
+        background: rgba(242, 129, 129, 0.1);
+        border-radius: 5px;
+      }
+      .item {
+        .el-cascader {
+          width: 100%;
+        }
+      }
+      .error {
+        color: red;
+        margin-left: 53px;
+        font-size: 13px;
+      }
+      .item {
+        display: flex;
+        margin-bottom: 15px;
+        align-items: center;
+        .item-name {
+          flex-shrink: 0;
+          width: 52px;
+        }
+        .timeRange-wrapper {
+          width: 293.2px;
+        }
+        .area {
+          text-align: left;
+        }
+        .input {
+          display: inline-block;
+          box-sizing: border-box;
+          width: 100%;
+          margin: 0;
+          padding: 9px;
+          color: inherit;
+          font: inherit;
+          font-size: 14px;
+          line-height: 20px;
+          background: rgb(247, 247, 247);
+          border: 1px solid rgb(247, 247, 247);
+          border-radius: 5px;
+          appearance: none;
+          outline: none;
+        }
+      }
+    }
+  }
+  .anonymity {
+    height: 64px;
+    margin: 15px 0px;
+    padding: 0px 15px;
+    background: rgb(255, 255, 255);
+    .anonymity-info {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: space-between;
+      .anonymity-desc {
+        .title {
+          margin: 0;
+          font: inherit;
+        }
+        .tip {
+          font-size: 12px;
+          line-height: 1.8;
+          color: rgb(170, 170, 170);
+        }
+      }
+      .checkbox {
+        width: 25px;
+        height: 25px;
+        background: #fff;
+        border: 1px solid rgb(24, 195, 170);
+        border-radius: 999px;
+      }
+      .el-icon-success {
+        font-size: 32px;
+        color: rgb(24, 195, 170);
+      }
+    }
+  }
+  .progress-bar {
+    margin: 15px 0px;
+    padding: 14px 15px 20px;
+    background: rgb(255, 255, 255);
+    .title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 14px;
+      h3 {
+        margin: 0px;
+        font: inherit;
+      }
+    }
+    .progress {
+      width: 98%;
+      margin-left: 2px;
+      .progress-feature {
+        position: relative;
+        height: 40px;
+        max-height: 6vh;
+        img {
+          width: 42px;
+          height: 40px;
+          left: -3%;
+          z-index: 1;
+        }
+      }
+      .bar {
+        position: relative;
+        width: 100%;
+        height: 8px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(230, 230, 230);
+        border-image: initial;
+        border-radius: 99px;
+        overflow: hidden;
+      }
+    }
+  }
+  .sell-books-info {
+    padding: 0px 15px;
+    background: white;
+    margin-bottom: 50px;
+    .sell-info {
+      padding: 14px 0px;
+      border-bottom: 0.5px solid rgb(242, 242, 242);
+      .sell-items:first-child {
+        margin-top: 0px;
+      }
+      .sell-items {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 7.5px;
+        .sell-name {
+          display: flex;
+          flex-grow: 1;
+          flex-direction: row;
+          align-items: center;
+          margin-right: 1em;
+          overflow: hidden;
+          .name {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+        }
+
+        .sell-price {
+          flex-shrink: 0;
+          font-weight: 400;
+          line-height: 1;
+        }
+      }
+      .discount-coupon {
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 0.5px solid rgb(242, 242, 242);
+        .coupon {
+          margin-top: 0px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          .content {
+            display: flex;
+            flex-grow: 1;
+            flex-direction: row;
+            align-items: center;
+            margin-right: 1em;
+            overflow: hidden;
+            .text {
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+            }
+          }
+          .desc {
+            flex-shrink: 0;
+            font-weight: 400;
+            line-height: 1;
+            color: rgb(170, 170, 170);
+            .icon {
+              width: 1.4em;
+              vertical-align: -0.3em;
+            }
+          }
+        }
+      }
+    }
+    .sell-footer {
+      display: flex;
+      justify-content: flex-end;
+      padding: 14px 0px;
+      border-bottom: none;
+      .max-price {
+        font-size: 1.33em;
+        font-weight: 400;
+        color: rgb(242, 129, 129);
+      }
+    }
+    .estimate-price {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: -10px;
+      padding-bottom: 20px;
+      font-size: 12px;
+      color: rgb(170, 170, 170);
+    }
+  }
+  .fixed {
+    position: fixed;
+    bottom: 0px;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    .button {
+      display: block;
+      width: 100%;
+      height: 43px;
+      color: #fff;
+      background-color: rgb(242, 129, 129);
+      border-radius: 999px;
+      box-sizing: border-box;
+      padding: 8px 1.5em 8px;
+      font-size: 18px;
+      line-height: 30px;
+      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+  }
+  .mask {
+    display: none;
+  }
+}
+.pay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.3);
+  .pay-layer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    .pay-item {
+      max-width: 600px;
+      margin: 0px auto;
+      .pay-body {
+        position: relative;
+        padding: 20px;
+        background: rgb(255, 255, 255);
+        border-radius: 10px 10px 0px 0px;
+        .header {
+          padding-bottom: 16px;
+          border-bottom: 0.5px solid rgb(230, 230, 230);
+          .title {
+            font-size: 18px;
+            font-weight: 500;
+          }
+          .desc {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgb(170, 170, 170);
+          }
+        }
+        .middle {
+          margin: 0px;
+          padding: 0px;
+          margin-bottom: 60px;
+          .pay-middle {
+            height: 64px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border-bottom: 0.5px solid rgb(230, 230, 230);
+            .pay-middle-info {
+              flex-grow: 1;
+              .pay-middle-row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                .pay-middle-png {
+                  width: 28px;
+                  line-height: 0;
+                  text-align: center;
+                  padding: 0px 10px 0px 5px;
+                }
+                .pay-balance-info {
+                  flex-grow: 1;
+                  .pay-balance-title {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    .pay-method-title {
+                      font-size: 16px;
+                      font-weight: 400;
+                    }
+                    .label {
+                      color: rgb(242, 129, 129);
+                      border-color: rgb(242, 129, 129);
+                      box-sizing: border-box;
+                      display: inline-flex;
+                      align-items: center;
+                      height: 18px;
+                      padding: 0 6px;
+                      font-size: 12px;
+                      font-weight: 400;
+                      border: 0.5px solid rgb(214, 186, 140);
+                      border-radius: 4px;
+                      white-space: nowrap;
+                    }
+                  }
+                  .user-balance {
+                    font-size: 12px;
+                    color: rgb(214, 186, 140);
+                  }
+                }
+                .balance-inactive {
+                  font-size: 13px;
+                  text-align: right;
+                  color: rgb(170, 170, 170);
+                }
+              }
+            }
+          }
+        }
+        .fixed {
+          position: fixed;
+          bottom: 0px;
+          right: 0;
+          left: 0;
+          z-index: 1;
+          .button {
+            display: block;
+            width: 100%;
+            height: 43px;
+            color: #fff;
+            background-color: rgb(242, 129, 129);
+            border-radius: 999px;
+            box-sizing: border-box;
+            padding: 8px 1.5em 8px;
+            font-size: 18px;
+            line-height: 30px;
+            text-align: center;
+            text-decoration: none;
+            white-space: nowrap;
+          }
+        }
+        .close-btn {
+          width: 50px;
+          height: 50px;
+          position: absolute;
+          right: 0px;
+          top: 0px;
+          background: #fff;
+          border: 0px;
+        }
+      }
+    }
+  }
+}
+.bottom {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.4);
+  .areas {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 279px;
+    background-color: white;
+    .header {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      .header-left {
+        font-size: 17px;
+        padding: 9px 15px;
+        height: 42px;
+        box-sizing: border-box;
+        color: rgb(24, 195, 170);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .header-right {
+        font-size: 17px;
+        padding: 9px 15px;
+        height: 42px;
+        box-sizing: border-box;
+        color: rgb(24, 195, 170);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .header-title {
+        flex: 1;
+        text-align: center;
+        font-size: 17px;
+        padding: 9px 15px;
+        height: 42px;
+        box-sizing: border-box;
+        color: rgb(51, 51, 51);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+.counpons {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.3);
+  .counpons-layer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 888;
+    .counpons-item {
+      max-width: 600px;
+      margin: 0px auto;
+      .counpons-body {
+        position: relative;
+        padding: 20px;
+        background: rgb(255, 255, 255);
+        border-radius: 10px 10px 0px 0px;
+        .body {
+          box-sizing: border-box;
+          width: 100%;
+          .heade {
+            .counpons-title {
+              margin-right: 30px;
+              margin-bottom: 20px;
+              font-size: 18px;
+              font-weight: 500;
+              color: rgb(51, 51, 51);
+            }
+          }
+          .middle {
+            max-height: 276px;
+            margin-top: 16px;
+            margin-bottom: 12px;
+            overflow: scroll;
+            .content {
+              border-color: rgb(214, 186, 140);
+              border-width: 2px;
+              padding: 0px;
+              margin-bottom: 0px;
+              display: flex;
+              box-sizing: border-box;
+              height: 72px;
+              flex-direction: row;
+              align-items: center;
+              background-color: rgba(214, 186, 140, 0.06);
+              border-radius: 4px;
+              border-style: solid;
+              border-image: initial;
+              .left {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: 67%;
+                height: 100%;
+                padding: 0px 10px 0px 17px;
+                border-right: 1px solid rgba(214, 186, 140, 0.2);
+                overflow: hidden;
+                .name {
+                  font-size: 15px;
+                  font-weight: normal;
+                }
+                .desc {
+                  display: flex;
+                  align-items: center;
+                  font-size: 12px;
+                  color: rgb(170, 170, 170);
+                  margin-top: 3px;
+                  .dot {
+                    width: 2px;
+                    height: 2px;
+                    background-color: rgb(170, 170, 170);
+                    margin: 0px 6px;
+                  }
+                }
+              }
+              .right {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 33%;
+                color: rgb(214, 186, 140);
+                overflow: hidden;
+                .counpons-desc {
+                  font-size: 16px;
+                  font-weight: normal;
+                }
+              }
+            }
+          }
+          .bottoms {
+            border-color: rgb(242, 129, 129);
+            box-shadow: none;
+            height: 40px;
+            font-size: 15px;
+            border-radius: 3px;
+            width: 100%;
+            color: #fff;
+            background-color: rgb(242, 129, 129);
+            .buttons-inner {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100%;
+            }
+          }
+        }
+        .close-btn {
+          width: 55px;
+          height: 79px;
+          position: absolute;
+          right: 0px;
+          top: 0px;
+          background: #fff;
+          border: 0px;
+        }
+      }
+    }
+  }
+}
+</style>

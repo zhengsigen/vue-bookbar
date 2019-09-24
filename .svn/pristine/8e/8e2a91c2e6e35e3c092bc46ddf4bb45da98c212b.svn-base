@@ -1,0 +1,557 @@
+<template>
+  <div>
+    <div class="recommend-root" v-if="closeState">
+      <div class="root-body">
+        <form action="value">
+          <div class="root-head">
+            <div>
+              <h3 class="root-headline">想推荐的书</h3>
+              <div class="head-serach" v-if=" books.id ==null || books.id=='' ">
+                <div @click="bookOrSerach" style="position: relative; width: 100%; height: 48px;">
+                  <!--  @click="bookOrSerach" -->
+                  <input
+                    type="text"
+                    class="serach-input"
+                    placeholder="输入书名"
+                    style="background: transparent;"
+                  />
+                  <i
+                    class="el-icon-search"
+                    style="width: 1em;position: absolute;right: 12px;top: 12px;"
+                  ></i>
+                </div>
+              </div>
+              <div
+                class="root-hidden"
+                v-else
+                style="min-height: 71px; margin-bottom: 32px; padding: 0px; background: none;"
+              >
+                <div @click="entrance(books.id)" style="display: flex;">
+                  <div class="book-img">
+                    <img
+                      :src="books.cover"
+                      alt
+                      class="book-imgs"
+                      style="width: 86px;height: 126px;box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 16px 0px;"
+                    />
+                    <div v-if="stock <= 0">
+                      <div class="img-hidden">
+                        <span class="stockout">暂时无货</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="book-intro">
+                    <h2 class="book-intros" style="font-size: 15px;">{{books.name}}</h2>
+                    <div class="intro-xinxi">
+                      <div class="xinxi-content">
+                        <div
+                          class="content-intro"
+                          style="font-size: 13px; line-height: 1.5; font-size: 12px;color: rgb(147,147,147);"
+                        >
+                          <span>{{books.author}}/{{books.publisher}}/{{books.pubDate | moment('YYYY-MM')}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  @click="bookOrSerach"
+                  class="updateBookIntro Button"
+                  style="position: absolute; bottom: 0px; right: 0px; padding: 7px 21px;"
+                >修改</div>
+              </div>
+            </div>
+          </div>
+          <div class="root-bodies">
+            <h3 class="body-what">为什么推荐这本书？</h3>
+            <div class="body-field">
+              <!-- <textarea class="body-content" name="reason" placeholder="说说你和这本书的故事，鱼编会选择有趣的推荐展示在书单里" style="height: 8em; background: transparent;"></textarea> -->
+              <el-input
+                class="body-content"
+                name="reason"
+                type="textarea"
+                v-model="textarea"
+                maxlength="200"
+                show-word-limit
+                placeholder="说说你和这本书的故事，鱼编会选择有趣的推荐展示在书单里"
+                style="height: 8em; background: transparent;"
+              ></el-input>
+            </div>
+          </div>
+          <div class="root-bodie">
+            <h3 class="bodie-head">推荐到这个书单:</h3>
+            <div
+              class="bodie-book"
+              style="align-items: center; border-top: 0.5px solid rgb(230, 230, 230); border-bottom: 0.5px solid rgb(230, 230, 230); padding: 22px 0px;"
+            >
+              <router-link to style="display: flex;">
+                <img
+                  src="../../assets/img/清明上河图.png"
+                  alt
+                  style="min-width: 50px; width: 50px; height: 50px; border-radius: 6px; margin-right: 10px;"
+                />
+                <!-- style="min-width: 50px; width: 50px; height: 50px; border-radius: 6px; margin-right: 10px;" -->
+                <div class="bodie-intro" style="margin-top: 5px;">
+                  <p
+                    class="bodie-name"
+                    style="color:rgb(0,0,0);font-size: 15px; font-weight: 400;"
+                  >书单名字</p>
+                  <p
+                    class="name-intro"
+                    style="font-size: 13px; color: rgb(170, 170, 170); -webkit-line-clamp: 2; overflow: hidden;"
+                  >书单简介</p>
+                </div>
+              </router-link>
+              <div
+                class="gouzi"
+                style="margin-top: -38px;display:  flex;flex-grow: 1;flex-direction: column;align-items: flex-end;margin-bottom: 15px;"
+              >
+                <i class="el-icon-check" style="color: rgb(24, 195, 170); padding-left: 23px;"></i>
+              </div>
+            </div>
+          </div>
+          <div
+            class="root-buttom"
+            style="background-color: rgb(255, 255, 255); box-shadow: rgba(0, 0, 0, 0.08) 0px -1px 8px 0px; margin: 0px 0px -130px;"
+          >
+            <div class="buttom-button" @click.prevent="updateCloseState()">
+              <div
+                class="recommend-buttom"
+                type="submit"
+                style="width: calc(100% - 106px); font-size: 15px; margin: 17px auto 147px;"
+              >推荐</div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 隐鲹：确认推荐的按钮 -->
+    <div class="recommendation-conceal" v-else>
+      <!-- @click.prevent="updateCloseState()" -->
+      <div class="conceal-div">
+        <div class="conceal-head">
+          <div class="head-body">
+            <div class="body-intro">提交之后内容不可修改</div>
+            <div class="body-botton">
+              <div class="botton-width">
+                <div class="botton-botton">
+                  <div @click.prevent="updateCloseState()" class="botton-left Button button">再检查一下</div>
+                  <div class="botton-right Button button" @click="Confirm(books.id,textarea)">确认提交</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="conceal-bottom">
+          <div class="conceal-close Button button">
+            <div
+              class="close-inner"
+              @click.prevent="updateCloseState()"
+              style="border: .5px solid rgb(242, 242, 242);border-radius: 999px;"
+            >
+              <i class="el-icon-close"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      closeState: true,
+      textarea: "",
+      books: {},
+      stock: "",
+      recommend: {}
+    };
+  },
+  created() {
+    let recommendBookIntro = this.$http.get(
+      "category/recommend" + this.$route.params.RecommendId
+    );
+
+    this.$http.get("/book/" + this.$route.params.BookId).then(res => {
+      this.books = res.data;
+      this.stock = this.books.skus[0].stock;
+    });
+  },
+  methods: {
+    updateCloseState() {
+      this.closeState = !this.closeState;
+      this.$message({
+        message: "大爷，再看看呗！",
+        type: "success"
+      });
+    },
+    bookOrSerach() {
+      this.$router.push({
+        path:
+          "/open-collections/" +
+          this.$route.params.RecommendId +
+          "/RecommendSerach"
+      });
+    },
+    entrance(id) {
+      if (id == null || id == "") {
+        cosnole.info("ID为null或者为空");
+      } else {
+        this.$router.push({
+          name: "book",
+          params: {
+            id: id
+          }
+        });
+      }
+    },
+    Confirm(id, textarea) {
+      let temp = {
+        collectionId: this.$route.params.RecommendId,
+        bookId: id,
+        comment: textarea
+      };
+        console.info(temp)
+      if (id == null || id == "") {
+        this.$message({
+          message: "当前没有选择推荐的书籍,推荐失败",
+          type: "error"
+        });
+      } else {
+        this.$http.post("category/recommend",temp).then(res => {
+          if (res.code == 0) {
+              this.$router.push({
+              path:
+                "/open-collections/" +
+                this.$route.params.RecommendId +
+                "/RecommendScuess/"+res.data.id
+            });
+            
+            /* TEST */
+         //   this.$http.get("/category/recommend?id=" + this.$route.params.ScuessId)
+
+
+            this.$message({
+              message: "推荐成功。大爷，记得常来玩玩啊",
+              type: "success"
+            });
+
+            
+          } else {
+            this.$message({
+              message: res.desc,
+              type: "error"
+            });
+          }
+
+        });
+      }
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.recommend-root {
+  // filter: blur(6px);
+  // width: 100%;
+  min-height: 100vh;
+  background: white;
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+    font: inherit;
+  }
+  .root-body {
+    font-size: 1.25em;
+    padding: 0.8em;
+    .root-headline {
+      margin-bottom: 12px;
+      font-size: 20px;
+      font-weight: 400;
+    }
+    .root-hidden {
+      position: relative;
+      color: inherit;
+      font-size: 14px;
+      text-decoration: none;
+      .updateBookIntro {
+        font-size: 14px;
+        font-weight: 400;
+      }
+      .book-img {
+        width: 90px;
+        height: 128px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-right: 12px;
+        .book-imgs {
+          display: block;
+          max-width: 100%;
+          max-height: 100%;
+        }
+        .img-hidden {
+          height: 24px;
+          position: absolute;
+          bottom: 0px;
+          right: 0px;
+          left: 0px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: rgb(255, 255, 255);
+          font-size: 11px;
+          font-weight: 400;
+          background: rgba(0, 0, 0, 0.5);
+          .stockout {
+            margin: 0;
+            font: inherit;
+          }
+        }
+      }
+      .book-intro {
+        flex-grow: 1;
+        justify-content: space-between;
+        flex-direction: column;
+        .book-intros {
+          margin: 0 0 4px;
+          font-weight: 400;
+          font: inherit;
+          .intro-xinxi {
+            flex-grow: 1;
+            .xinxi-content {
+              justify-content: space-between;
+              flex-direction: column;
+              .content-intro {
+                color: rgb(170, 170, 170);
+                .content-doubanRate {
+                  color: rgb(214, 186, 140);
+                  font-size: 12px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .head-serach {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      .serach-input {
+        background: transparent;
+        display: inline-block;
+        box-sizing: border-box;
+        width: 100%;
+        margin: 0;
+        padding: 9px;
+        color: inherit;
+        font: inherit;
+        font-size: 14px;
+        line-height: 20px;
+        border: 1px solid rgb(247, 247, 247);
+        border-radius: 5px;
+        outline: none;
+      }
+    }
+    .root-bodies {
+      margin-bottom: 32px;
+      .body-what {
+        margin-bottom: 12px;
+        font-size: 20px;
+        font-weight: 400;
+      }
+      .body-field {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        position: relative;
+        .body-content {
+          height: 8em;
+          background: transparent;
+          display: inline-block;
+          box-sizing: border-box;
+          width: 100%;
+          margin: 0;
+          padding: 9px;
+          color: inherit;
+          font: inherit;
+          font-size: 14px;
+          line-height: 20px;
+          border: 1px solid rgb(247, 247, 247);
+          border-radius: 5px;
+          outline: none;
+        }
+        .numberCount {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          font-size: 14px;
+          color: rgb(141, 141, 141);
+        }
+      }
+    }
+    .root-bodie {
+      .bodie-head {
+        margin-bottom: 12px;
+        font-size: 20px;
+        font-weight: 400;
+        .bodie-book {
+          .bodie-intro {
+            flex-direction: column;
+            display: flex;
+          }
+        }
+      }
+    }
+    .root-buttom {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      z-index: 1;
+      .buttom-button {
+        max-width: 600px;
+        margin: 0px auto;
+        .recommend-buttom {
+          color: #fff;
+          background: rgb(24, 195, 170);
+          border-color: rgb(24, 195, 170);
+          box-sizing: border-box;
+          padding: 8px 1.5em 8px;
+          text-align: center;
+          text-decoration: none;
+          white-space: nowrap;
+          border: 0.5px solid rgb(242, 242, 242);
+          border-radius: 999px;
+          pointer-events: auto;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+.recommendation-conceal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.3);
+  .conceal-div {
+    display: flex;
+    height: 100%;
+    margin: 0 1em;
+    flex-direction: column;
+    pointer-events: none;
+    .conceal-head {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .head-body {
+        position: relative;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 340px;
+        background: #fff;
+        border-radius: 10px;
+        overflow-x: hidden;
+        pointer-events: auto;
+        .body-intro {
+          font-size: 16px;
+          text-align: center;
+          white-space: pre-wrap;
+          padding: 0 22px;
+          margin: 27px 0;
+        }
+        .body-botton {
+          display: flex;
+          justify-content: space-around;
+          padding: 0 22px;
+          margin: 27px 0;
+          .botton-width {
+            width: 100%;
+            .botton-botton {
+              display: flex;
+              justify-content: space-around;
+              .botton-left {
+                font-size: 15px;
+                width: 135px;
+                padding: 6px 0;
+                line-height: 21px;
+              }
+              .botton-right {
+                font-size: 15px;
+                width: 135px;
+                padding: 6px 0;
+                line-height: 21px;
+                color: #fff;
+                background: rgb(24, 195, 170);
+                border-color: rgb(24, 195, 170);
+              }
+            }
+            .Button {
+              display: inline-block;
+              box-sizing: border-box;
+              padding: 8px 1.5em 8px;
+              font-size: 18px;
+              text-align: center;
+              text-decoration: none;
+              white-space: nowrap;
+              border: 0.5px solid rgb(242, 242, 242);
+              border-radius: 999px;
+              pointer-events: auto;
+              cursor: pointer;
+            }
+            button {
+              margin: 0;
+              padding: 0;
+              font: inherit;
+              color: inherit;
+              border: none;
+              outline: none;
+              background: none;
+              -webkit-appearance: none;
+              appearance: none;
+              -webkit-user-select: none;
+              user-select: none;
+              pointer-events: auto;
+            }
+          }
+        }
+      }
+    }
+    .conceal-bottom {
+      height: 22vh;
+      display: flex;
+      justify-content: center;
+      .conceal-close {
+        flex-shrink: 0;
+        width: 50px;
+        height: 50px;
+        pointer-events: auto;
+        padding: 0;
+        color: #fff;
+        border-color: #fff;
+        .close-inner {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+</style>

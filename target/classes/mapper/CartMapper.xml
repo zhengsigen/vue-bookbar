@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1801.spring.dzy.mapper.CartMapper">
+
+<!--    添加到购物车-->
+<!--    当前用户购物车中没有这本书 而且有这个品相书籍在售-->
+    <insert id="addShopToCart" flushCache="true">
+        insert carts_tb(user_id, book_id,`condition`)
+        select #{userId},book_id, `condition` from book_sku_tb
+        where book_id = #{bookId} and `condition` = #{condition}  and status = 1 and not exists (select id from carts_tb where user_id = #{userId} and book_id = #{bookId} and in_order = 0)
+        limit 1
+    </insert>
+
+<!--    根据购物车id和用户id删除购物车-->
+    <delete id="delShopFromCart" flushCache="true">
+        delete from carts_tb where id = #{cartId} and user_id = #{userId} and in_order = 0
+    </delete>
+
+<!--    改购物车商品品相-->
+    <update id="updateConditoinOfCart" flushCache="true">
+        update carts_tb set `condition` = #{cart.condition}
+        where id = #{cart.id} and user_id = #{cart.userId} and in_order = 0
+    </update>
+
+<!--    修改是否在订单的状态-->
+    <update id="updateInOrderOfCarts" flushCache="true">
+        update carts_tb set in_order = 1
+        where has_selected = 1 and in_order = 0 and user_id = #{userId}
+    </update>
+    
+<!--    修改是否选中-->
+    <update id="updateSelectedCart" flushCache="true">
+        update carts_tb set has_selected = !has_selected where id = #{cartId} and user_id = #{userId} and in_order = 0
+    </update>
+
+<!--    批量修改是否选中-->
+    <update id="updateSelectedCarts" flushCache="true">
+        update carts_tb set has_selected = #{selected}
+        where id in
+        <foreach collection="list" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        and has_selected != #{selected} and user_id = #{userId} and in_order = 0;
+    </update>
+
+<!--    查询书籍是否在用户购物车中-->
+    <select id="queryBookInCart" resultType="cart">
+        select c.id id, c.book_id bookId, c.`condition` `condition` from carts_tb c left join book_sku_tb bs on c.book_id= bs.book_id and c.`condition` = bs.`condition`
+        where c.user_id = #{userId} and c.book_id = #{bookId} and c.in_order =0 and bs.`status` =1
+    </select>
+
+<!--    查询用户购物车有库存的商品-->
+    <select id="queryHasStockCarts" useCache="true" resultMap="cartMap">
+         select c.id id, c.user_id userId, c.book_id bookId, c.`condition` `condition`, c.has_selected hasSelected, c.in_order inOrder,c.create_date cartCreateDate,c.update_date cartUpdateDate,
+ 			bs.discount discount,if(bs.stock>0,1,0) hasStock,bs.`status` `status`,if((select count(`condition`) from book_sku_tb where c.book_id = book_id and `status` =1) > 1,1,0) hasOtherCondition,
+			 b.name name, b.cover cover, b.isbn13 isbn13, b.isbn10 isbn10, b.author author, b.price price, b.publisher publisher
+        from carts_tb c left join book_sku_tb bs on c.book_id = bs.book_id and c.`condition` = bs.`condition` left join books_tb b on bs.book_id = b.id
+        where user_id = #{userId} and c.in_order =0 and bs.stock >0 and bs.`status` =1
+        <if test="hasSelected != null">
+            and c.has_selected = 1
+        </if>
+        order by cartCreateDate desc
+    </select>
+
+<!--    查询用户购物车缺货商品-->
+    <select id="queryStockoutCarts" useCache="true" resultMap="cartMap">
+        select c.id id, c.user_id userId, c.book_id bookId, c.`condition` `condition`, c.has_selected hasSelected, c.in_order inOrder,c.create_date cartCreateDate,c.update_date cartUpdateDate,
+ 			bs.discount discount,if(bs.stock>0,1,0) hasStock,bs.`status` `status`,if((select count(`condition`) from book_sku_tb where c.book_id = book_id and `status` =1) > 1,1,0) hasOtherCondition,
+			 b.name name, b.cover cover, b.isbn13 isbn13, b.isbn10 isbn10, b.author author, b.price price, b.publisher publisher
+        from carts_tb c left join book_sku_tb bs on c.book_id = bs.book_id and c.`condition` = bs.`condition` left join books_tb b on bs.book_id = b.id
+        where user_id = #{userId} and c.in_order =0 and bs.stock =0 and bs.`status` =1
+        order by cartCreateDate desc
+    </select>
+
+<!--    查询用户购物车商品数量-->
+    <select id="queryUserCartCount" resultType="int">
+        select count(id) from carts_tb where user_id = #{userId}
+    </select>
+
+<!--    查询用户购物车有库存商品数量-->
+    <select id="queryHasStockCartCount" resultType="int">
+        select count(0) from carts_tb c left join book_sku_tb bs on c.book_id = bs.book_id and c.`condition` = bs.`condition`
+        where user_id = #{userId} and c.in_order =0 and bs.stock >0 and bs.`status` =1
+
+    </select>
+
+    
+    <resultMap id="cartMap" type="cart" autoMapping="true" >
+        <id column="id" property="id"/>
+        <result column="bookId" property="bookId"/>
+        <result column="cartCreateDate" property="createDate"/>
+        <result column="cartUpdateDate" property="updateDate"/>
+        <association column="bookId" property="book" autoMapping="true">
+            <id column="bookId" property="id"/>
+        </association>
+    </resultMap>
+
+</mapper>

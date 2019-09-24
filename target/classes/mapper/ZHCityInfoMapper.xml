@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.c1801.spring.dzy.mapper.ZHCityInfoMapper">
+
+    <select id="getProvincial" resultMap="getProvincialList">
+        SELECT id, city_en, city, province_en, province, district_en, district, create_date, updae_date
+	    FROM zh_city_info_tb
+    </select>
+
+    <resultMap type="Provincial" id="getProvincialList">
+        <result column="province" property="value"/>
+        <result column="province" property="label"/>
+        <collection property="children"
+                    ofType="Municipa">
+            <result column="district" property="value"/>
+            <result column="district" property="label"/>
+            <collection property="children"
+                        ofType="District">
+                <result column="city" property="value"/>
+                <result column="city" property="label"/>
+            </collection>
+        </collection>
+    </resultMap>
+</mapper>

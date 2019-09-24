@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c1801.spring.dzy.mapper.CommentMapper">
+    <!--    删除回复的内容-->
+    <delete id="delMessage">
+        DELETE FROM message_tb WHERE id = #{messageId} and user_id = #{userId}
+    </delete>
+    <!--    删除一级评论底下的回复内容-->
+    <delete id="delMessageByCommentId">
+        DELETE FROM message_tb WHERE comment_id = #{commentId}
+    </delete>
+    <!--    删除一级评论内容-->
+    <delete id="delComment">
+        DELETE FROM comment_tb WHERE id = #{commentId} and user_id = #{userId}
+    </delete>
+    <!--    根据书籍id查询评论的第一条-->
+    <select id="queryCommentFirst" resultType="BookComment">
+        select ut.name ,ut.wx_name,ut.cover,ct.id,ct.comment,ct.user_id, ct.create_date,
+        (select count(*) from comment_applaud_tb a where a.comment_id = ct.id) applaudNum,
+        (select count(*) from message_tb mt where mt.comment_id = ct.id) commentNum from users_tb ut
+        LEFT JOIN comment_tb ct ON ut.id = ct.user_id WHERE ct.book_id = #{bookId} order by create_date desc limit 1
+    </select>
+    <!--    根据书籍id查询除了第一条最近时间评论的内容-->
+    <select id="queryComment" resultType="BookComment">
+        select ut.name ,ut.wx_name,ut.cover,ct.id,ct.comment,ct.user_id, ct.create_date,
+        (select count(*) from comment_applaud_tb a where a.comment_id = ct.id) applaudNum,
+        (select count(*) from message_tb mt where mt.comment_id = ct.id) commentNum from users_tb ut
+        LEFT JOIN comment_tb ct ON ut.id = ct.user_id WHERE ct.book_id = #{bookId} and ct.id !=
+        (select a.id from (select ct.id,ct.user_id, ct.create_date from users_tb ut
+        LEFT JOIN comment_tb ct ON ut.id = ct.user_id WHERE ct.book_id = #{bookId}
+        order by create_date desc limit 1)a)  order by applaudNum desc ,create_date desc
+    </select>
+    <!--    根据评论id查询评论内容-->
+    <select id="queryCommentById" resultType="BookComment">
+        select ct.user_id, ut.name ,ut.wx_name,ut.cover,ct.id,ct.comment ,ct.create_date,
+        (select count(*) from comment_applaud_tb a where a.comment_id = #{id}) applaudNum,
+        (select count(*) from message_tb mt where mt.comment_id = #{id}) commentNum
+        from users_tb ut
+        LEFT JOIN comment_tb ct ON ut.id = ct.user_id WHERE  ct.id = #{id}
+    </select>
+    <!--    根据评论id查询评论底下的所有回复内容-->
+    <select id="queryMessageById" resultType="BookMessage">
+        select mt.user_id, ut.name ,ut.wx_name,ut.cover,mt.id,mt.message,mt.create_date from users_tb ut
+        LEFT JOIN message_tb mt ON ut.id = mt.user_id WHERE   mt.comment_id = #{id} order by mt.create_date desc
+    </select>
+    <!--    用户是否回复过此评论-->
+    <select id="isReplied" resultType="Integer">
+         select count(1) from message_tb mt  WHERE mt.user_id = #{userId} and mt.comment_id = #{commentId};
+    </select>
+</mapper>

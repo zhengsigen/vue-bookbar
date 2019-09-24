@@ -1,0 +1,329 @@
+<template>
+    <div>
+        <div class="serach-root" ref="client">
+            <div class="serach-head" ref="home">
+                <div class="head-div">
+                    <div > 
+                        <div class="serach-chaxun"  > 
+                            <input type="text" class="input-serach"   ref="input" placeholder="输入书名" @keyup.enter="getName()" v-model="name" @click="closeList()">
+                            <div class="input-close Button" v-if="name !='' && name != null" >
+                                <i class="el-icon-close" v-show="clean" @click="cleanAll()"></i> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=""></div>
+            <div class="serach-list" v-for="(book,id) in books" :key="id" v-show="!bookList" @click="transfer(book.id)" > <!-- @click="entrance(book.id)" -->
+                <div >
+                    <div class="book-list">
+                        <div  class="book-router" style="min-height: 71px;" >
+                            <div class="book-img">
+                                <img alt class="books-img" :src="book.cover" style="width: 60px;height: 85px;" />
+                                <div v-if="book.stock <= 0">
+                                    <div class="img-hidden" > 
+                                        <span class="stockout" >暂时无货</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="book-intro">
+                                <h2 class="book-name">{{book.name}}</h2>
+                                <div class="book-outer-intro" style="    font-size: 12px;">
+                                    <div class="orter-intro" style="color: rgb(147,147,147);">
+                                        <div class="intro" style="margin-top: 8px;">{{book.author}}</div> <!-- /{{book.pubDate | moment('YYYY-MM') }} -->
+                                        <div class="intro" style="margin-top: 8px;">评分：{{book.doubanRate}}</div>
+                                        <div class="intro" style="margin-top: 8px;">{{book.publisher}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+// import {_debounce} from "@/src/test";
+export default {
+    data(){
+        return{
+            books:{},
+            name:null,
+            bookList : true,
+            clean: true,
+            stockout : false,
+            pager: {
+                pageNum: 1,
+                pageSize: 5,
+                total: 0,
+                pages: -1,
+                lastPage: false
+            },
+            bookScorll : null,
+        }
+    },
+    created(){
+        this.getScorllHeight();
+        this.refresh(this.pager.pageNum);
+    },    
+    mounted() {
+        this.$refs['input'].focus()
+    },
+    methods:{ 
+        async getName() {
+            if (this.name.trim().length === 0) {
+                return;
+            }
+            let data = await this.$http.get("/book?name=" + this.name + "&rate=" + 7.5 ) /*&& "?rate=" + this.doubanRate */
+            if (data.code === 0) {
+
+
+                this.bookList = false;
+                this.books = data.data.list;
+                
+            } else {
+                console.info(data.desc);
+            }
+        },
+
+        closeList() {
+            this.book = "";
+            // this.bookList = true;
+        },
+        
+        /* 传送ID到推荐书单的页面 */
+        transfer(id){
+            console.info("搜索页面要传送的书籍ID：",id)
+
+            let book = this.books.filter(b => b.id == id)
+            console.info(book)
+            if(book[0].doubanRate < 7.5){
+                this.$message({
+                    message: "您推荐的这本书的评分小于7.5。",
+                    type: "error"
+                });
+                return;
+            }else{
+                this.$router.push({
+                    path: "/open-collections/"+this.$route.params.RecommendId+"/Recommend/"+id
+                })
+            }
+        },
+
+        /* 清空输入框 */
+        cleanAll(){
+            this.name = '';
+            this.books = '';
+        },
+
+        /* 测试追加数据 */
+        //获取滚动条高度
+        getScorllHeight() {
+            this.$nextTick(function() {
+                let ele = this.$refs.home; 
+                console.info(ele);
+                let firstElTop = ele.offsetTop; 
+                console.info(firstElTop);
+                this.bookScorll = ele.scrollHeight;
+                //数据不够继续请求
+                if(this.bookScorll <= this.$refs.client.clientHeight) {
+                this.refresh(this.pager.pageNum+1);
+                }
+            });
+        },//当前滚动条位置
+        scrollHander() {
+            let ele = this.$refs.home;
+            if (ele.scrollTop + ele.clientHeight >= this.bookScorll - 5) {
+                this.refresh(this.pager.pageNum + 1);
+            }
+        },
+        // //刷新数据
+        async refresh(pageNum) {
+            if (this.loading) {
+                return;
+            }
+            this.loading = true; // 加载图标
+            let pageSize = this.pager.pageSize;
+            let pages = this.pager.pages;
+            // 是否是最一页
+            if (this.pager.lastPage) {
+                this.loading = false;
+                return;
+            }
+
+            pageNum = pageNum <= 0 ? 1 : pageNum;
+
+            let data = await this.$http.get("/book?name="+ this.name+ "&rate=" + 7.5 , {
+                params: {
+                    pageSize,
+                    pageNum
+                }
+            });
+            console.info(data.data);
+            let pager = data.data;
+            if (data.code === 0) {
+                //有数据返回追加
+                console.info(pager)
+                if (pager.list.length) {
+                this.books.push(...pager.list);
+                let {pageNum,pageSize,pages,total,lastPage} = pager;
+                this.pager = {pageNum,pageSize,pages,total,lastPage};
+                this.getScorllHeight();
+                }
+                
+            }
+            this.loading = false;
+        }
+
+    }
+}
+</script>
+<style lang="scss" scoped>
+    .serach-root{
+        padding-top: 66px;
+        box-sizing: border-box;
+        min-height: 100vh;
+        background-color: rgb(242,242,242);
+        .serach-head{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            background: #fff;
+            box-shadow: 0 0 4px rgba(0, 0, 0, .25);
+            animation: fadeInShadow .2s;
+            .head-div{
+                max-width: 600px;
+                margin: 0px auto;
+                .serach-chaxun{
+                    position: relative;
+                    padding: 15px 13px;
+                    .input-serach{
+                        margin: 0;
+                        color: inherit;
+                        display: block;
+                        box-sizing: border-box;
+                        width: 100%;
+                        font: inherit;
+                        font-size: 14px;
+                        line-height: 24px;
+                        padding: 6px 16px;
+                        background: rgb(242, 242, 242);
+                        border: none;
+                        border-radius: 999px;
+                        outline: none;
+                    }
+                    
+                    .input-close{
+                        padding: 0;
+                        position: absolute;
+                        top: 25px;
+                        right: 18px;
+                        width: 33px;
+                        height: 33px;
+                        border: none;
+                    }
+                    Button {
+                        display: inline-block;
+                        box-sizing: border-box;
+                        padding: 8px 1.5em 8px;
+                        font-size: 18px;
+                        text-align: center;
+                        text-decoration: none;
+                        white-space: nowrap;
+                        border: .5px solid rgb(242, 242, 242);
+                        border-radius: 999px;
+                        pointer-events: auto;
+                        cursor: pointer;
+                    }
+                    button {
+                        margin: 0;
+                        padding: 0;
+                        font: inherit; 
+                        color: inherit;
+                        border: none;
+                        outline: none;
+                        background: none;
+                        -webkit-appearance: none;
+                        appearance: none;
+                        -webkit-user-select: none;
+                        user-select: none;
+                        pointer-events: auto;
+                    }
+                }
+            }
+        }
+        .serach-list{
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 0%;
+            .book-list{
+                margin-top: 16px;
+                .book-router{
+                    position: relative;
+                    padding: 15px;
+                    color: inherit;
+                    font-size: 14px;
+                    text-decoration: none;
+                    background: #fff;
+                    display: flex;
+                    .book-img{
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-shrink: 0;
+                        width: 60px;
+                        height: 90px;
+                        .books-img{
+                            display: block;
+                            max-width: 100%;
+                            max-height: 100%;
+                        }
+                        .img-hidden{
+                            height: 24px;
+                            position: absolute;
+                            bottom: 0px;
+                            right: 0px;
+                            left: 0px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: rgb(255, 255, 255);
+                            font-size: 11px;
+                            font-weight: 400;
+                            background: rgba(0, 0, 0, 0.5);
+                            .stockout{
+                                margin: 0;
+                                font: inherit;
+                            }
+                        }
+                    }
+                    .book-intro{
+                        flex-grow: 1;
+                        justify-content: space-between;
+                        flex-direction: column;
+                        margin-left: 14px;
+                        // display: flex;
+                        .book-name{
+                            margin: 0 0 4px;
+                            font-size: inherit;
+                            font-weight: 400;
+                            .book-outer-intro{
+                                .orter-intro{
+                                    .intro{
+                                        color: rgb(170, 170, 170);
+                                        font-size: 12px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+</style>

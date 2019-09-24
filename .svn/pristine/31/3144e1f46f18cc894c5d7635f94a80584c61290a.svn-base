@@ -1,0 +1,151 @@
+<template>
+  <div class="wchat-pay">
+    <div class="layer">
+      <div class="wchat-pay-items">
+        <div class="items">
+          <div class="content">
+            <div class="header">
+              <img src="../../assets/img/logo_small.png" class="logo" />
+              <h1 class="name" style="font-size: 20px;">多抓猫收银台</h1>
+            </div>
+            <div class="message">
+              <div class="message-left">
+                <div class="order-number">
+                  订单编号：
+                  345207574242663844
+                </div>
+                <div class="Order">
+                  订单类型：
+                  买书订单
+                </div>
+              </div>
+              <div class="message-right">
+                <span class>应付金额：</span>
+                <span class="Price" style="font-size: 20px; font-weight: 500;">￥21.23</span>
+              </div>
+            </div>
+            <div class="body">
+              <img src="../../assets/img/wechat_pay_logo.png" alt="wechat_pay_logo" class="wechat" />
+              <img
+                src="../../assets/img/wechatpay.png"
+                alt="二维码"
+                style="width: 260px; height: 260px;"
+              />
+              <img src="../../assets/img/wechat_pay_guide.png" alt="wechat_pay_guide" class="guide" />
+            </div>
+          </div>
+          <div class="close" @click="order">
+            <svg
+              viewBox="19 19 22 22"
+              stroke-linecap="round"
+              width="10"
+              height="10"
+              stroke="rgb(170, 170, 170)"
+            >
+              <g transform="translate(21.000000, 21.000000)">
+                <path d="M0.333333333,0.333333333 L17.4148373,17.4148373" />
+                <path
+                  d="M0.333333333,0.333333333 L17.4148373,17.4148373"
+                  transform="translate(9.000000, 9.000000) scale(-1, 1) translate(-9.000000, -9.000000)"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "pay",
+  methods: {
+    order() {
+      this.$router.push("/buy/order");
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.wchat-pay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.3);
+  .layer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    .items {
+      padding: 0px;
+      border: none;
+      position: relative;
+      background: rgb(255, 255, 255);
+      border-radius: 10px 10px 0px 0px;
+      .content {
+        top: 0px;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(255, 255, 255);
+        .header {
+          height: 72px;
+          display: flex;
+          align-items: center;
+          padding: 0px 20px;
+          .logo {
+            width: 43px;
+            height: 24px;
+            margin-right: 12px;
+          }
+          .name {
+            font: inherit;
+          }
+        }
+        .message {
+          background-color: rgb(242, 242, 242);
+          height: 100px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0px 20px;
+          .message-left {
+            .order-number {
+              line-height: 28px;
+            }
+          }
+        }
+        .body {
+          display: flex;
+          width: 260px;
+          flex-direction: column;
+          align-items: center;
+          margin: 20px auto;
+          .wechat {
+            width: 140px;
+            height: 38px;
+            margin: 24px;
+          }
+          .guide {
+            margin-top: 24px;
+          }
+        }
+      }
+      .close {
+        width: 30px;
+        position: absolute;
+        right: 0px;
+        top: 20px;
+      }
+    }
+  }
+}
+</style>
+

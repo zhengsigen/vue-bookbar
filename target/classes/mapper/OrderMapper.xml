@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c1801.spring.dzy.mapper.OrderMapper">
+
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="id" parameterType="Order">
+        INSERT INTO orders_tb
+	        (id,user_id, status, type, total, province, city, district, street, user_name, phone)
+	    VALUES (#{id},#{userId}, 0, 0, #{total}, #{province}, #{city}, #{district}, #{street}, #{userName}, #{phone})
+    </insert>
+    <select id="queryOrderListInDate" resultMap="queryOrderAccount">
+        SELECT
+        o.id, ob.book_id,o.user_id, o.`status`, o.`type`, o.total,
+        o.province, o.city, o.district, o.street, o.user_name, o.phone, o.create_time, o.update_time,
+        bt.isbn10, bt.isbn13, bt.name, bt.cover, bt.author, bt.price, bt.publisher, bt.pub_date, bt.douban_rate, bt.gist, bt.binding
+        FROM orders_tb o
+        left join order_books_tb ob on o.id = ob.order_id
+        left join books_tb bt on bt.id = ob.book_id
+        where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= update_time and status = 6
+        order by o.create_time desc
+    </select>
+    <select id="queryOrderAccountByOrderId" resultMap="queryOrderAccount">
+         SELECT
+            o.id, ob.book_id,o.user_id, o.`status`, o.`type`, o.total,
+            o.province, o.city, o.district, o.street, o.user_name, o.phone, o.create_time, o.update_time,
+            bt.isbn10, bt.isbn13, bt.name, bt.cover, bt.author, bt.price, bt.publisher, bt.pub_date, bt.douban_rate,
+            bt.gist, bt.binding,bst.`condition`,sbt.max_discount,sbt.min_discount
+        FROM orders_tb o
+        left join order_books_tb ob on o.id = ob.order_id
+        left join order_book_record_tb bst on  o.id = bst.order_id and bst.book_id = ob.book_id
+        left join books_tb bt on bt.id = ob.book_id
+		left join sell_books_tb sbt on sbt.book_id = bt.id
+		where o.id =#{order_id}
+    </select>
+    <resultMap type="OrderAccount" id="queryOrderAccount">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="status" property="status"/>
+        <result column="type" property="type"/>
+        <result column="total" property="total"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="district" property="district"/>
+        <result column="street" property="street"/>
+        <result column="user_name" property="userName"/>
+        <result column="phone" property="phone"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+
+        <collection property="orderBooksConditions"
+                    ofType="OrderBooksCondition">
+            <id column="book_id" property="id"/>
+            <result column="isbn10" property="ISBN10"/>
+            <result column="isbn13" property="ISBN13"/>
+            <result column="name" property="name"/>
+            <result column="cover" property="cover"/>
+            <result column="author" property="author"/>
+            <result column="price" property="price"/>
+            <result column="publisher" property="publisher"/>
+            <result column="pub_date" property="pubDate"/>
+            <result column="douban_rate" property="doubanRate"/>
+            <result column="gist" property="gist"/>
+            <result column="binding" property="binding"/>
+            <result column="create_date" property="createDate"/>
+            <result column="update_date" property="updateDate"/>
+            <result column="condition" property="condition"/>
+            <result column="max_discount" property="maxDiscount"/>
+            <result column="min_discount" property="minDiscount"/>
+        </collection>
+        <!--        <association column="class_id" property="classes" javaType="cn.zhengsigen.mybatis.Classes">-->
+        <!--            <result column="name" property="name" />-->
+        <!--        </association>-->
+        <!--        <association column="user_id" property="exam" javaType="cn.zhengsigen.mybatis.Exam">-->
+        <!--            <result column="grade" property="grade" />-->
+        <!--            <result column="update_time" property="createTime" />-->
+        <!--        </association>-->
+    </resultMap>
+    <select id="queryOrderAccountByUserId" resultMap="queryOrderAccount">
+        SELECT
+        o.id, ob.book_id,o.user_id, o.`status`, o.`type`, o.total,
+        o.province, o.city, o.district, o.street, o.user_name, o.phone, o.create_time, o.update_time,
+        bt.isbn10, bt.isbn13, bt.name, bt.cover, bt.author, bt.price, bt.publisher, bt.pub_date, bt.douban_rate, bt.gist, bt.binding
+        FROM orders_tb o
+        left join order_books_tb ob on o.id = ob.order_id
+        left join books_tb bt on bt.id = ob.book_id where user_id = #{user_id} order by o.create_time desc
+    </select>
+
+    <select id="querOrderListInSection" resultMap="queryOrderAccount">
+        select
+        msg.id,
+        msg.user_id,
+        msg.`status`,
+        msg.`type`,
+        msg.total,
+        msg.province,
+        msg.city,
+        msg.district,
+        msg.street,
+        msg.phone,
+        msg.create_time,
+        msg.update_time,
+        msg.user_name,
+        ob.book_id,
+        bt.isbn10,
+        bt.isbn13,
+        bt.name,
+        bt.cover,
+        bt.author,
+        bt.price,
+        bt.publisher,
+        bt.pub_date,
+        bt.douban_rate,
+        bt.gist,
+        bt.binding
+        from (SELECT orders_tb.id, user_id, `status`, `type`, total, province, city, district, street, user_name,
+        phone,orders_tb.create_time,update_time,name
+        from orders_tb left join users_tb on users_tb.id = orders_tb.user_id where 1=1
+        <if test="start!=null and start!=''">
+            and DATE_FORMAT(create_time, '%Y-%m-%d')>= DATE_FORMAT(#{start}, '%Y-%m-%d')
+        </if>
+        <if test="end!=null and end!=''">
+            and DATE_FORMAT(#{end}, '%Y-%m-%d')>= DATE_FORMAT(create_time, '%Y-%m-%d')
+        </if>
+
+        <if test="name!=null and name!=''">
+            and name like "%"#{name}"%"
+        </if>
+
+        <if test="totalPriceStatus != null ">
+            order by
+            <if test="totalPriceStatus == 1">
+                total
+                <if test="totalStatus == 0">
+                    asc
+                </if>
+                <if test="totalStatus == 1">
+                    desc
+                </if>
+            </if>
+
+            <if test="totalPriceStatus == 2">
+                create_time
+                <if test="totalStatus == 0">
+                    asc
+                </if>
+                <if test="totalStatus == 1">
+                    desc
+                </if>
+            </if>
+
+            <if test="totalPriceStatus == 3">
+                update_time
+                <if test="totalStatus == 0">
+                    asc
+                </if>
+                <if test="totalStatus == 1">
+                    desc
+                </if>
+            </if>
+
+        </if>
+
+
+        limit #{index},#{pageSize})msg
+        left join order_books_tb ob on msg.id = ob.order_id
+        left join books_tb bt on bt.id = ob.book_id
+
+        <if test="totalPriceStatus != null ">
+            order by
+            <if test="totalPriceStatus == 1">
+                msg.total
+                <if test="totalStatus == 0">
+                    asc
+                </if>
+                <if test="totalStatus == 1">
+                    desc
+                </if>
+            </if>
+
+            <if test="totalPriceStatus == 2">
+                msg.create_time
+                <if test="totalStatus == 0">
+                    asc
+                </if>
+                <if test="totalStatus == 1">
+                    desc
+                </if>
+            </if>
+
+            <if test="totalPriceStatus == 3">
+                msg.update_time
+                <if test="totalStatus == 0">
+                    asc
+                </if>
+                <if test="totalStatus == 1">
+                    desc
+                </if>
+            </if>
+
+        </if>
+
+    </select>
+
+    <select id="querOrderListInSectionTotal" resultMap="queryOrderAccount">
+        SELECT
+        ot.id,
+        ot.user_id,
+        ot.`status`,
+        ot.`type`,
+        ot.total,
+        ot.province,
+        ot.city,
+        ot.district,
+        ot.street,
+        ot.user_name,
+        ot.phone,
+        ot.create_time,
+        ot.update_time,
+        ob.book_id,
+        ut.name,
+        bt.isbn10,
+        bt.isbn13,
+        bt.name,
+        bt.cover,
+        bt.author,
+        bt.price,
+        bt.publisher,
+        bt.pub_date,
+        bt.douban_rate,
+        bt.gist,
+        bt.binding
+        FROM orders_tb ot
+        left join order_books_tb ob on ot.id = ob.order_id
+        left join books_tb bt on bt.id = ob.book_id
+        left join users_tb ut on ut.id = ot.user_id
+        where 1 = 1
+        <if test="start!=null and start!=''">
+            and DATE_FORMAT(create_time, '%Y-%m-%d')>= DATE_FORMAT(#{start}, '%Y-%m-%d')
+        </if>
+        <if test="end!=null and end!=''">
+            and DATE_FORMAT(#{end}, '%Y-%m-%d')>= DATE_FORMAT(create_time, '%Y-%m-%d')
+        </if>
+        <if test="name!=null and name!=''">
+            and ut.name like "%"#{name}"%"
+        </if>
+    </select>
+
+    <select id="queryOrderListInSectionAndComplete" resultMap="queryOrderAccount">
+        select
+        msg.id,
+        msg.user_id,
+        msg.`status`,
+        msg.`type`,
+        msg.total,
+        msg.province,
+        msg.city,
+        msg.district,
+        msg.street,
+        msg.user_name,
+        msg.phone,
+        msg.create_time,
+        msg.update_time,
+        ob.book_id,
+        bt.isbn10,
+        bt.isbn13,
+        bt.name,
+        bt.cover,
+        bt.author,
+        bt.price,
+        bt.publisher,
+        bt.pub_date,
+        bt.douban_rate,
+        bt.gist,
+        bt.binding
+        from (SELECT orders_tb.id, user_id, `status`, `type`, total, province, city, district, street, user_name,
+        phone,create_time, update_time,name
+        from orders_tb left join users_tb on users_tb.id = orders_tb.user_id where 1=1
+        <if test="start!=null and start!=''">
+            and DATE_FORMAT(create_time, '%Y-%m-%d')>= DATE_FORMAT(#{start}, '%Y-%m-%d')
+        </if>
+        <if test="end!=null and end!=''">
+            and DATE_FORMAT(#{end}, '%Y-%m-%d')>= DATE_FORMAT(create_time, '%Y-%m-%d')
+        </if>
+        <if test="name!=null and name!=''">
+            and name like "%"#{name}"%"
+        </if>
+        and status = 6
+        limit #{index},#{pageSize})msg
+        left join order_books_tb ob on msg.id = ob.order_id
+        left join books_tb bt on bt.id = ob.book_id
+        order by msg.create_time desc
+    </select>
+    <select id="queryOrderListInSectionAndCompleteTotal" resultMap="queryOrderAccount">
+        SELECT
+        ot.id,
+        ot.user_id,
+        ot.`status`,
+        ot.`type`,
+        ot.total,
+        ot.province,
+        ot.city,
+        ot.district,
+        ot.street,
+        ot.user_name,
+        ot.phone,
+        ot.create_time,
+        ot.update_time,
+        ob.book_id,
+        ut.name,
+        bt.isbn10,
+        bt.isbn13,
+        bt.name,
+        bt.cover,
+        bt.author,
+        bt.price,
+        bt.publisher,
+        bt.pub_date,
+        bt.douban_rate,
+        bt.gist,
+        bt.binding
+        FROM orders_tb ot
+        left join order_books_tb ob on ot.id = ob.order_id
+        left join books_tb bt on bt.id = ob.book_id
+        left join users_tb ut on ut.id = ot.user_id
+        where 1 = 1
+        <if test="start!=null and start!=''">
+            and DATE_FORMAT(create_time, '%Y-%m-%d')>= DATE_FORMAT(#{start}, '%Y-%m-%d')
+        </if>
+        <if test="end!=null and end!=''">
+            and DATE_FORMAT(#{end}, '%Y-%m-%d')>= DATE_FORMAT(create_time, '%Y-%m-%d')
+        </if>
+        <if test="name!=null and name!=''">
+            and ut.name like "%"#{name}"%"
+        </if>
+        and status = 6
+    </select>
+
+    <update id="cancelOrder">
+        UPDATE orders_tb SET `status`= #{status} WHERE id = #{orderId}
+    </update>
+    <update id="updateOrderAddr">
+        UPDATE orders_tb SET province=#{address.province}, city=#{address.city}, district=#{address.district},
+        street=#{address.street}, user_name=#{address.name}, phone=#{address.phone}
+	    WHERE id =#{orderId}
+    </update>
+    <update id="updateOrderTotal">
+        UPDATE orders_tb SET total = #{total}
+	    WHERE id =#{orderId}
+    </update>
+
+</mapper>

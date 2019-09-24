@@ -1,0 +1,1088 @@
+<template>
+  <div class="home-wapper" ref="client">
+    <div class="home" @scroll="scrollHander()" ref="home">
+      <div class="banner">
+        <div class="banner-bg">
+          <div class="banner-wrapper">
+            <div class="logo">
+              <img src="https://images.weserv.nl/?url=http://dzy-asset.oss-cn-beijing.aliyuncs.com/logo_small.png" />
+            </div>
+            <div class="text">书吧其实有 App 了</div>
+            <div class="open">打开 App</div>
+          </div>
+        </div>
+      </div>
+      <router-link tag="div" :to="{ path: '/search' }">
+        <div class="search">
+          <div class="search-wrap">
+            <!-- <span class="dzy-icon-search"></span> -->
+            <span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                xmlns="http://www.w3.org/2000/svg"
+                class="Icon"
+              >
+                <circle cx="10.5" cy="10.5" r="7.5" />
+                <line x1="21" y1="21" x2="15.8" y2="15.8" />
+              </svg>
+            </span>
+            <div class="text">搜索多抓鱼</div>
+          </div>
+        </div>
+      </router-link>
+      <div class="collections">
+        <div class="collections-hiden-scroll">
+          <div class="collections-scroll">
+            <div v-for="(c,index) in collectionsBooksList" :key="index" v-show="collectionsBooksList !== null" @click="routerOpenCollection(c.id)">
+                <div
+                  class="collection"
+                  :style="{
+                  'color': 'rgb(238, 238, 238)',
+                  'border-radius': '5px',
+                  'background': 'linear-gradient(to top,'+c.backgroundColor+'00,35%, '+c.backgroundColor+' 69%) center top / auto no-repeat, url('+imgAgency+c.backgroundImage+') center center / cover no-repeat',
+                  'background-position':'center top, center center',
+                  'background-repeat': 'no-repeat, no-repeat'
+              }"
+                >
+                  <h3 class="title">{{c.name}}</h3>
+                  <div class="sub-title">{{c.contributorsCount}}人推荐了 {{c.itemsCount}}本书</div>
+                  <div class="avatars">
+                    <div v-for="(user,index) in c.contributors" :key="index">
+                    <img alt v-show="index < 3" :src="user.cover" />
+                    </div>
+                  </div>
+                </div>
+            </div>
+              <div class="book" @click="touterOpenCollections">
+                <div class="icon">
+                  <svg
+                    width="48.5"
+                    viewBox="0 0 97 83"
+                    style="fill:
+                                rgb(214, 186, 140); fill-rule: evenodd;"
+                  >
+                    <path
+                      d="M95.9184,51.7857C96.9388,51.3776
+                                    97.3469,50.1531
+                                    96.9388,49.1327C96.5306,48.1122
+                                    95.3061,47.7041
+                                    94.2857,48.1122C94.2857,48.1122
+                                    93.8776,48.3163
+                                    93.8776,48.3163C92.449,47.0918
+                                    91.6327,45.2551
+                                    91.6327,43.4184C91.6327,42.398
+                                    91.8367,41.3776
+                                    92.2449,40.5612C92.2449,40.5612
+                                    95.9184,38.9286
+                                    95.9184,38.9286C96.9388,38.5204
+                                    97.3469,37.2959
+                                    96.9388,36.2755C96.5306,35.2551
+                                    95.3061,34.8469
+                                    94.2857,35.2551C94.2857,35.2551
+                                    93.8776,35.4592
+                                    93.8776,35.4592C92.449,34.2347
+                                    91.6327,32.398
+                                    91.6327,30.5612C91.6327,29.5408
+                                    91.8367,28.5204
+                                    92.2449,27.7041C92.2449,27.7041
+                                    95.9184,26.0714
+                                    95.9184,26.0714C96.5306,25.6633
+                                    97.1429,25.051
+                                    97.1429,24.2347C97.1429,23.4184
+                                    96.7347,22.8061
+                                    95.9184,22.398C95.9184,22.398
+                                    45.7143,0.153061
+                                    45.7143,0.153061C45.102,-0.0510204
+                                    44.6939,-0.0510204
+                                    44.0816,0.153061C44.0816,0.153061
+                                    5.5102,17.7041 5.5102,17.7041C5.5102,17.7041
+                                    5.5102,17.7041
+                                    5.30612,17.7041C2.04082,19.1327 0,22.398
+                                    0,26.0714C0,28.5204 1.02041,30.7653
+                                    2.65306,32.602C1.02041,34.2347 0,36.4796
+                                    0,39.1327C0,41.5816 1.02041,44.0306
+                                    2.65306,45.6633C1.02041,47.2959 0,49.5408
+                                    0,52.1939C0,55.8673 2.04082,58.9286
+                                    5.30612,60.5612L55.3061,82.8061L55.3061,82.8061C55.3061,82.8061
+                                    55.3061,82.8061
+                                    55.3061,82.8061C55.3061,82.8061
+                                    55.3061,82.8061
+                                    55.3061,82.8061C55.5102,82.8061
+                                    55.7143,83.0102
+                                    56.1224,83.0102C56.1224,83.0102
+                                    56.3265,83.0102
+                                    56.3265,83.0102C56.5306,83.0102
+                                    56.7347,83.0102
+                                    56.7347,82.8061C56.7347,82.8061
+                                    56.9388,82.8061
+                                    56.9388,82.8061C56.9388,82.8061
+                                    95.7143,65.2551
+                                    95.7143,65.2551C96.7347,64.8469
+                                    97.1429,63.6224
+                                    96.7347,62.602C96.3265,61.5816
+                                    95.102,61.1735
+                                    94.0816,61.5816C94.0816,61.5816
+                                    93.6735,61.7857
+                                    93.6735,61.7857C92.2449,60.5612
+                                    91.4286,58.7245
+                                    91.4286,56.8878C91.4286,55.8673
+                                    91.6327,54.8469
+                                    92.0408,54.0306C92.0408,54.0306
+                                    95.9184,51.7857
+                                    95.9184,51.7857ZM3.87755,38.9286C3.87755,37.0918
+                                    4.69388,35.6633
+                                    6.12245,34.6429C6.12245,34.6429
+                                    52.2449,55.2551
+                                    52.2449,55.2551C50.8163,56.8878 50,58.9286
+                                    50,61.1735C50,61.7857 50,62.1939
+                                    50.2041,62.8061C50.2041,62.8061
+                                    6.93878,43.6224
+                                    6.93878,43.6224C6.93878,43.6224
+                                    6.93878,43.6224
+                                    6.93878,43.6224C5.10204,42.602
+                                    3.87755,40.9694
+                                    3.87755,38.9286ZM92.449,49.1327C92.449,49.1327
+                                    56.3265,65.4592
+                                    56.3265,65.4592C54.898,64.4388
+                                    53.8776,63.0102
+                                    53.8776,61.1735C53.8776,59.1327 54.898,57.5
+                                    56.7347,56.6837C56.7347,56.6837
+                                    56.7347,56.6837
+                                    56.9388,56.6837C56.9388,56.6837
+                                    57.1429,56.6837
+                                    57.1429,56.6837C57.1429,56.6837
+                                    90.6122,41.5816
+                                    90.6122,41.5816C90.4082,42.1939
+                                    90.4082,43.0102
+                                    90.4082,43.6224C90.2041,45.6633
+                                    91.0204,47.7041
+                                    92.449,49.1327ZM92.449,36.2755C92.449,36.2755
+                                    56.3265,52.602 56.3265,52.602C54.898,51.5816
+                                    53.8776,50.1531
+                                    53.8776,48.3163C53.8776,46.2755
+                                    54.898,44.6429
+                                    56.7347,43.6224C56.7347,43.6224
+                                    56.7347,43.6224
+                                    56.9388,43.6224C56.9388,43.6224
+                                    90.4082,28.3163
+                                    90.4082,28.3163C90.2041,28.9286
+                                    90.2041,29.7449
+                                    90.2041,30.5612C90.2041,32.8061
+                                    91.0204,34.8469
+                                    92.449,36.2755ZM44.898,4.03061L90.2041,24.2347L56.3265,39.7449L11.0204,19.5408L44.898,4.03061ZM6.12245,21.7857C6.12245,21.7857
+                                    52.2449,42.398
+                                    52.2449,42.398C50.8163,44.0306 50,46.0714
+                                    50,48.5204C50,49.1327 50,49.5408
+                                    50.2041,50.1531C50.2041,50.1531
+                                    6.93878,30.9694
+                                    6.93878,30.9694C6.93878,30.9694
+                                    6.73469,30.9694
+                                    6.73469,30.9694C4.89796,30.1531
+                                    3.87755,28.3163
+                                    3.87755,26.4796C3.87755,24.2347
+                                    4.69388,22.602
+                                    6.12245,21.7857ZM6.93878,56.4796C5.10204,55.6633
+                                    3.87755,53.8265
+                                    3.87755,51.7857C3.87755,49.949
+                                    4.69388,48.5204 6.12245,47.5C6.12245,47.5
+                                    52.2449,68.1122
+                                    52.2449,68.1122C50.8163,69.7449 50,71.7857
+                                    50,74.2347C50,74.8469 50,75.2551
+                                    50.2041,75.8673C50.2041,75.8673
+                                    6.93878,56.4796
+                                    6.93878,56.4796ZM92.449,61.9898C92.449,61.9898
+                                    56.3265,78.3163 56.3265,78.3163C54.898,77.5
+                                    54.0816,75.8673
+                                    54.0816,74.2347C54.0816,72.1939
+                                    55.102,70.5612
+                                    56.9388,69.5408C56.9388,69.5408
+                                    56.9388,69.5408
+                                    57.1429,69.5408C57.1429,69.5408
+                                    90.6122,54.2347
+                                    90.6122,54.2347C90.4082,54.8469
+                                    90.4082,55.6633
+                                    90.4082,56.4796C90.2041,58.7245
+                                    91.0204,60.5612 92.449,61.9898Z"
+                    />
+                  </svg>
+                </div>
+                <div class="text">
+                  看全部书单
+                  <svg
+                    width="7"
+                    viewBox="0 0 13 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style="margin-left: 7px;"
+                  >
+                    <g
+                      fill="currentColor"
+                      transform="translate(-707.000000,
+                                    -346.000000)"
+                    >
+                      <path
+                        d="M720.039467,358
+                                        C720.054396,357.701471
+                                        719.947859,357.398 719.719857,357.169998
+                                        L719.719857,357.169998
+                                        L708.870845,346.320986
+                                        L708.870845,346.320986
+                                        C708.442863,345.893005
+                                        707.748968,345.893005
+                                        707.320986,346.320986
+                                        C706.893005,346.748968
+                                        706.893005,347.442863
+                                        707.320986,347.870845 L717.450141,358
+                                        L707.320986,368.129155
+                                        C706.893005,368.557137
+                                        706.893005,369.251032
+                                        707.320986,369.679014
+                                        C707.748968,370.106995
+                                        708.442863,370.106995
+                                        708.870845,369.679014
+                                        L719.719857,358.830002
+                                        L719.719857,358.830002
+                                        C719.947859,358.602
+                                        720.054396,358.298529 720.039467,358 Z"
+                      />
+                    </g>
+                  </svg>
+                </div>
+                <span class="desc">{{openCollectionsCount}}个</span>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="categories">
+        <div class="catagory-hidden-scroll">
+          <div class="catagory-scroll">
+            <div class="category">
+              <span href="/categories">全部分类</span>
+            </div>
+            <div class="category active">
+              <span href="/categories/subscribed/176032101403984035">猜你喜欢</span>
+              <span class="icon">
+                <svg
+                  width="20px"
+                  height="8px"
+                  viewBox="0 0 40 16"
+                  version="1.1"
+                  fill="#D6BA8C"
+                  style="vertical-align: top;"
+                >
+                  <g stroke="none" stroke-width="1" fill-rule="evenodd">
+                    <path
+                      d="M20,0 C20,12.2462435 36.2572674,16.0350903
+                                40,15.9997556 L0,15.9997556
+                                C3.73342115,15.9997556 20,12.2404655 20,0 Z"
+                      id="Triangle-Copy"
+                      transform="translate(20.000000, 8.000000)
+                                scale(1, -1) translate(-20.000000, -8.000000)"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+            <div class="category">
+              <span href="/categories/subscribed/257213983914857135">鱼友推荐</span>
+            </div>
+            <div class="category">
+              <span href="/categories/subscribed/135481276860730989">豆瓣 8.5</span>
+            </div>
+            <div class="category">
+              <span href="/categories/subscribed/266177513393362452">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="35"
+                  height="13"
+                  viewBox="0 0 35 13"
+                  fill="rgb(170, 170, 170)"
+                >
+                  <g fill-rule="evenodd">
+                    <path
+                      d="M7.04639684.292157895C6.47371263.183778947 5.93797579.129589474 5.28729158.129589474 2.69728105.129589474 1.51291263 1.13004211 1.51291263 3.46511579L1.51291263 3.64041053C1.51291263 3.64041053.374933684 3.56076842.328954737 3.64041053.0547231579 4.11990526.139291579 6.27393684.328954737 6.27393684L1.51291263 6.27393684 1.51291263 11.9244211C1.51291263 12.0705684 1.63278632 12.1900316 1.77893368 12.1900316L4.60951263 12.1900316C4.74868105 12.1900316 4.86157579 12.0775474 4.86157579 11.9379684L4.86157579 6.48658947C4.86157579 6.36917895 4.95681789 6.27393684 5.07422842 6.27393684L6.69498632 6.27393684C6.86740737 6.27393684 7.00780737 6.13353684 7.00780737 5.96111579L7.00780737 3.96554737C7.00780737 3.78696842 6.86124947 3.64041053 6.68267053 3.64041053L4.86157579 3.64041053 4.86157579 3.50001053C4.86157579 2.90310526 5.08367053 2.49955789 5.93469158 2.49955789 5.93469158 2.49955789 6.82389158 2.51721053 7.06363895 2.51721053 7.32555474 2.51721053 7.31118632 1.14030526 7.29435474.576652632 7.28983895.435431579 7.18556526.318431579 7.04639684.292157895M12.0647116 5.29101368L12.0647116 3.93135053C12.0647116 3.77083474 11.9345747 3.64028737 11.7740589 3.64028737L9.17789053 3.64028737C9.01737474 3.64028737 8.88682737 3.77083474 8.88682737 3.93135053L8.88682737 11.7949821C8.88682737 12.0133821 9.06417474 12.1903189 9.28257474 12.1903189L11.6689642 12.1903189C11.8873642 12.1903189 12.0647116 12.0133821 12.0647116 11.7949821L12.0647116 8.22299263C12.3980589 7.01111895 13.1004695 6.74797158 14.1362274 6.74797158 14.43468 6.74797158 14.7158905 6.74797158 15.1370905 6.78327684L15.3476905 3.55325579C14.8735326 3.50029789 14.5927326 3.50029789 14.29428 3.50029789 13.3463747 3.50029789 12.6969221 4.04465579 12.0647116 5.29101368M19.6791126 7.08144211C19.8195126 6.11588421 20.2936705 5.65937895 21.0133232 5.65937895 21.8208284 5.65937895 22.2596811 6.15118947 22.2949863 7.08144211L19.6791126 7.08144211zM21.0133232 3.48235789C18.2570495 3.48235789 16.6243863 5.06288421 16.6243863 7.97721053 16.6243863 10.8381684 18.3100074 12.3480842 21.0133232 12.3480842 22.3623126 12.3480842 23.5007021 12.0020105 24.7487021 11.1846526 24.9203021 11.0725789 24.9827021 10.8406316 24.8915653 10.6567158L24.3287337 9.51996842C24.23226 9.32496842 23.9945653 9.24696842 23.7950495 9.334 22.8898389 9.72892632 22.1800389 9.90832632 21.1537232 9.90832632 20.2936705 9.90832632 19.8544074 9.57456842 19.6967653 8.76665263L24.98106 8.76665263C25.0336074 8.27525263 25.0508495 7.97721053 25.0508495 7.59049474 25.0508495 4.93972632 23.4887968 3.48235789 21.0133232 3.48235789zM29.2657232 7.08144211C29.4061232 6.11588421 29.8802811 5.65937895 30.5999337 5.65937895 31.4074389 5.65937895 31.8462916 6.15118947 31.8815968 7.08144211L29.2657232 7.08144211zM30.5999337 3.48235789C27.84366 3.48235789 26.2109968 5.06288421 26.2109968 7.97721053 26.2109968 10.8381684 27.8962074 12.3480842 30.5999337 12.3480842 31.9489232 12.3480842 33.0873126 12.0020105 34.3353126 11.1846526 34.5069126 11.0725789 34.5693126 10.8406316 34.4781758 10.6567158L33.9153442 9.51996842C33.8188705 9.32496842 33.5811758 9.24696842 33.3812495 9.334 32.4760389 9.72892632 31.7666495 9.90832632 30.7403337 9.90832632 29.8802811 9.90832632 29.4410179 9.57456842 29.2833758 8.76665263L34.5676705 8.76665263C34.6202179 8.27525263 34.6378705 7.97721053 34.6378705 7.59049474 34.6378705 4.93972632 33.0749968 3.48235789 30.5999337 3.48235789z"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+            <div class="category">
+              <span href="/categories/subscribed/165071856997498988">特价区</span>
+            </div>
+            <div class="category">
+              <span href="/categories/subscribed/135481276923645540">越贵越省钱</span>
+            </div>
+            <div class="category">
+              <span href="/categories/subscribed/0">新上架</span>
+            </div>
+            <div class="category">
+              <span href="/categories/subscribed/180702887762986021">有年头的书</span>
+            </div>
+            <div class="category">
+              <span href="/categories/subscribed/162556639629544058">只在多抓鱼有</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="books">
+        <div class="book" v-for="book in this.books" :key="book.id" @click="bookDetail(book.id)">
+          <div class="cover">
+            <img :src="book.cover" alt />
+          </div>
+          <div class="content">
+            <div class="header">
+              <div class="left">
+                <div
+                  class="category"
+                  v-if="book.categorys != null && book.categorys.length > 0 "
+                >{{book.categorys[0].name}}</div>
+                <h3 class="title" style="color: black;">{{book.name}}</h3>
+                <div class="authors">{{book.author}}</div>
+                <div class="rating">豆瓣评分 {{book.doubanRate}}</div>
+              </div>
+              <div class="right">
+                <img alt src="../../assets/img/guren-c.png" />
+              </div>
+            </div>
+            <div class="summary">
+              <div class="price">
+                <span class="market" style="color: black;">
+                  ￥{{book.price*book.discount/10 | numeral}}
+                  <span class="suffix">起</span>
+                </span>
+                <span class="discount">{{book.discount}}折</span>
+              </div>
+              <div class="remind" v-show="book.stock <= 0">
+                <span style="color: #18c3aa;">到货提醒</span>
+              </div>
+
+              <div class="close">
+                <svg
+                  viewBox="19 19 22 22"
+                  stroke-linecap="round"
+                  width="11"
+                  height="11"
+                  stroke="rgb(170, 170, 170)"
+                  stroke-width="2"
+                >
+                  <g transform="translate(21.000000, 21.000000)">
+                    <path d="M0.333333333,0.333333333 L17.4148373,17.4148373" />
+                    <path
+                      d="M0.333333333,0.333333333 L17.4148373,17.4148373"
+                      transform="translate(9.000000, 9.000000) scale(-1, 1) translate(-9.000000, -9.000000)"
+                    />
+                  </g>
+                </svg>
+              </div>
+            </div>
+
+            <!-- <div class="freeList">
+            <div class="freePrice">
+              <div class="freeButton">
+                <div class="free">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="35"
+                    height="13"
+                    viewBox="0 0 35 13"
+                    fill="#fff"
+                  >
+                    <g fill-rule="evenodd">
+                      <path
+                        d="M7.04639684.292157895C6.47371263.183778947 5.93797579.129589474 5.28729158.129589474 2.69728105.129589474 1.51291263 1.13004211 1.51291263 3.46511579L1.51291263 3.64041053C1.51291263 3.64041053.374933684 3.56076842.328954737 3.64041053.0547231579 4.11990526.139291579 6.27393684.328954737 6.27393684L1.51291263 6.27393684 1.51291263 11.9244211C1.51291263 12.0705684 1.63278632 12.1900316 1.77893368 12.1900316L4.60951263 12.1900316C4.74868105 12.1900316 4.86157579 12.0775474 4.86157579 11.9379684L4.86157579 6.48658947C4.86157579 6.36917895 4.95681789 6.27393684 5.07422842 6.27393684L6.69498632 6.27393684C6.86740737 6.27393684 7.00780737 6.13353684 7.00780737 5.96111579L7.00780737 3.96554737C7.00780737 3.78696842 6.86124947 3.64041053 6.68267053 3.64041053L4.86157579 3.64041053 4.86157579 3.50001053C4.86157579 2.90310526 5.08367053 2.49955789 5.93469158 2.49955789 5.93469158 2.49955789 6.82389158 2.51721053 7.06363895 2.51721053 7.32555474 2.51721053 7.31118632 1.14030526 7.29435474.576652632 7.28983895.435431579 7.18556526.318431579 7.04639684.292157895M12.0647116 5.29101368L12.0647116 3.93135053C12.0647116 3.77083474 11.9345747 3.64028737 11.7740589 3.64028737L9.17789053 3.64028737C9.01737474 3.64028737 8.88682737 3.77083474 8.88682737 3.93135053L8.88682737 11.7949821C8.88682737 12.0133821 9.06417474 12.1903189 9.28257474 12.1903189L11.6689642 12.1903189C11.8873642 12.1903189 12.0647116 12.0133821 12.0647116 11.7949821L12.0647116 8.22299263C12.3980589 7.01111895 13.1004695 6.74797158 14.1362274 6.74797158 14.43468 6.74797158 14.7158905 6.74797158 15.1370905 6.78327684L15.3476905 3.55325579C14.8735326 3.50029789 14.5927326 3.50029789 14.29428 3.50029789 13.3463747 3.50029789 12.6969221 4.04465579 12.0647116 5.29101368M19.6791126 7.08144211C19.8195126 6.11588421 20.2936705 5.65937895 21.0133232 5.65937895 21.8208284 5.65937895 22.2596811 6.15118947 22.2949863 7.08144211L19.6791126 7.08144211zM21.0133232 3.48235789C18.2570495 3.48235789 16.6243863 5.06288421 16.6243863 7.97721053 16.6243863 10.8381684 18.3100074 12.3480842 21.0133232 12.3480842 22.3623126 12.3480842 23.5007021 12.0020105 24.7487021 11.1846526 24.9203021 11.0725789 24.9827021 10.8406316 24.8915653 10.6567158L24.3287337 9.51996842C24.23226 9.32496842 23.9945653 9.24696842 23.7950495 9.334 22.8898389 9.72892632 22.1800389 9.90832632 21.1537232 9.90832632 20.2936705 9.90832632 19.8544074 9.57456842 19.6967653 8.76665263L24.98106 8.76665263C25.0336074 8.27525263 25.0508495 7.97721053 25.0508495 7.59049474 25.0508495 4.93972632 23.4887968 3.48235789 21.0133232 3.48235789zM29.2657232 7.08144211C29.4061232 6.11588421 29.8802811 5.65937895 30.5999337 5.65937895 31.4074389 5.65937895 31.8462916 6.15118947 31.8815968 7.08144211L29.2657232 7.08144211zM30.5999337 3.48235789C27.84366 3.48235789 26.2109968 5.06288421 26.2109968 7.97721053 26.2109968 10.8381684 27.8962074 12.3480842 30.5999337 12.3480842 31.9489232 12.3480842 33.0873126 12.0020105 34.3353126 11.1846526 34.5069126 11.0725789 34.5693126 10.8406316 34.4781758 10.6567158L33.9153442 9.51996842C33.8188705 9.32496842 33.5811758 9.24696842 33.3812495 9.334 32.4760389 9.72892632 31.7666495 9.90832632 30.7403337 9.90832632 29.8802811 9.90832632 29.4410179 9.57456842 29.2833758 8.76665263L34.5676705 8.76665263C34.6202179 8.27525263 34.6378705 7.97721053 34.6378705 7.59049474 34.6378705 4.93972632 33.0749968 3.48235789 30.5999337 3.48235789z"
+                      />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            </div>-->
+          </div>
+        </div>
+        <div
+          class="loading"
+          v-show="loading"
+          v-loading="loading"
+          element-loading-text="拼命加载中"
+          element-loading-spinner="el-icon-loading"
+        ></div>
+      </div>
+
+      <div class="tabbar">
+        <router-link to="/">
+          <span class="dzy-icon-index"></span>
+          <div class="text">首页</div>
+        </router-link>
+
+        <router-link to="/selling">
+          <span class="dzy-icon-sell"></span>
+          <div class="text">卖书</div>
+        </router-link>
+
+        <router-link to="/cart">
+          <span class="dzy-icon-cart"></span>
+          <div class="text">购物车</div>
+          <v-count v-show="cartCount" :cartCount="cartCount" class="shopping-cart-count"></v-count>
+        </router-link>
+
+        <router-link to="/my">
+          <span class="dzy-icon-user"></span>
+          <div class="text">我的</div>
+        </router-link>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import VCount from '@/components/count/CartCount';
+import { mapGetters, mapActions} from 'vuex';
+
+export default {
+  name: "index",
+
+  data() {
+    return {
+      collectionsBooksList: null,
+      openCollectionsCount:null,
+      imgAgency:"https://images.weserv.nl/?url=",
+      books: [],
+      pager: {
+        pageNum: 1,
+        pageSize: 3,
+        total: 0,
+        pages: -1,
+        lastPage: false
+      },
+      loading: false,
+      categorys: [],
+      bookScorll: null
+    };
+  },
+  async created() {
+    this.$http.get("/collection/list").then(res => {this.openCollectionsCount = res.data})
+    this.$http.get("/collection").then(res => {this.collectionsBooksList = res.data})
+    this.getHasStockCartCount();
+    this.getScorllHeight();
+    this.refresh(this.pager.pageNum);
+  },
+  methods: {
+    ...mapActions(["getHasStockCartCount"]),
+    // 书籍详情
+    bookDetail(id) {
+      console.info(id);
+      this.$router.push({
+        // path: "/booksDetails/:id",
+        name: "book",
+        params: {
+          id: id
+        }
+      });
+    },
+    touterOpenCollections(){
+      this.$router.push({
+          path: '/open-collections/'
+      })
+    },
+    routerOpenCollection(id){
+      this.$router.push({
+          path: '/open-collections/'+ id
+      })
+    },
+    //获取滚动条高度
+    getScorllHeight() {
+      this.$nextTick(function() {
+        let ele = this.$refs.home;
+        console.info(ele);
+        let firstElTop = ele.offsetTop;
+        console.info(firstElTop);
+        this.bookScorll = ele.scrollHeight;
+        //数据不够继续请求
+        if(this.bookScorll <= this.$refs.client.clientHeight) {
+          this.refresh(this.pager.pageNum+1);
+        }
+      });
+    },
+    //当前滚动条位置
+    scrollHander() {
+      let ele = this.$refs.home;
+      if (ele.scrollTop + ele.clientHeight >= this.bookScorll - 5) {
+        this.refresh(this.pager.pageNum + 1);
+      }
+    },
+    //刷新数据
+    async refresh(pageNum) {
+      if (this.loading) {
+        return;
+      }
+      this.loading = true; // 加载图标
+      let pageSize = this.pager.pageSize;
+      let pages = this.pager.pages;
+      // 是否是最一页
+      if (this.pager.lastPage) {
+        this.loading = false;
+        return;
+      }
+
+      pageNum = pageNum <= 0 ? 1 : pageNum;
+
+      let data = await this.$http.get("/book", {
+        params: {
+          pageSize,
+          pageNum
+        }
+      });
+      console.info(data.data);
+      let pager = data.data;
+      if (data.code === 0) {
+        //有数据返回追加
+        console.info(pager)
+        if (pager.list.length) {
+          this.books.push(...pager.list);
+          let {pageNum,pageSize,pages,total,lastPage} = pager;
+          this.pager = {pageNum,pageSize,pages,total,lastPage};
+          this.getScorllHeight();
+        }
+        
+      }
+      this.loading = false;
+      
+    }
+  },
+  computed: {
+    ...mapGetters(["cartCount"])
+  },
+  components: {
+    VCount
+  }
+};
+</script>
+
+<style lang="scss" type="text/scss" scoped>
+.home {
+  height: 100vh;
+  overflow-y: scroll;
+  // height: calc(100vh - 95px);
+  margin-right: -10px;
+  padding-right: 10px;
+  .banner {
+    height: 66px;
+    background: #fff;
+    .banner-bg {
+      background: #fff;
+      z-index: 1001;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 66px;
+      box-sizing: border-box;
+    }
+
+    .banner-wrapper {
+      height: 100%;
+      background-color: rgba(24, 195, 170, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0px 15px;
+
+      .logo {
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border-radius: 8px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(242, 242, 242);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 80%;
+        }
+      }
+
+      .text {
+        flex: 1;
+        color: rgb(24, 195, 170);
+        font-size: 15px;
+        font-weight: 500;
+        margin-left: 12px;
+      }
+
+      .open {
+        display: inline-block;
+        box-sizing: border-box;
+        padding: 8px 1.5em 8px;
+        font-size: 18px;
+        text-align: center;
+        text-decoration: none;
+        white-space: nowrap;
+        border: 0.5px solid rgb(242, 242, 242);
+        border-radius: 999px;
+        width: 80px;
+        height: 30px;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 5px;
+        color: #fff;
+        background: rgb(24, 195, 170);
+        border-color: rgb(24, 195, 170);
+      }
+    }
+  }
+
+  .search {
+    background: #fff;
+    padding: 16px 13px;
+    padding-top: 15px;
+    color: #aaa;
+    // box-sizing: border-box;
+
+    .search-wrap {
+      background: #f2f2f2;
+      border-radius: 999px;
+      height: 36px;
+      display: flex;
+      // padding: 6px 16px 6px 6px;
+      font-size: 14px;
+      align-content: center;
+      justify-content: left;
+
+      [class*="dzy-icon-"],
+      span {
+        width: 21px;
+        height: 21px;
+        font-size: 21px;
+        display: inline-block;
+        color: #666;
+        padding: 6px;
+      }
+
+      .text {
+        flex: 1;
+        align-self: center;
+      }
+    }
+  }
+
+  .collections {
+    background: #fff;
+    overflow: hidden;
+
+    .collections-hiden-scroll {
+      white-space: nowrap;
+      margin-bottom: -33px;
+      padding: 0 0 35px;
+      overflow-x: scroll;
+      display: flex;
+    }
+
+    .collections-scroll {
+      display: flex;
+      white-space: nowrap;
+    }
+
+    .collection {
+      display: block;
+      box-sizing: border-box;
+      padding: 16px;
+      position: relative;
+      width: 150px;
+      min-width: 150px;
+      margin-left: 0px;
+      margin-top: 0px;
+      font-size: 13px;
+      height: 200px;
+      white-space: initial;
+      color: rgb(238, 238, 238);
+      border-radius: 5px;
+      background-position: center top, center center;
+      background-repeat: no-repeat, no-repeat;
+
+      &:first-child {
+        margin-left: 15px;
+      }
+
+      .title {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+        margin-bottom: 6px;
+      }
+
+      .sub-title {
+        vertical-align: middle;
+        font-size: 12px;
+      }
+
+      .avatars {
+        display: flex;
+        flex-direction: row-reverse;
+        position: absolute;
+        bottom: 16px;
+        right: 16px;
+
+        img {
+          box-sizing: border-box;
+          width: 30px;
+          height: 30px;
+          background: rgb(242, 242, 242);
+          border-width: 1px;
+          border-style: solid;
+          border-color: rgb(242, 242, 242);
+          border-image: initial;
+          border-radius: 99px;
+          margin-right: -5.5px;
+        }
+      }
+    }
+
+    .book {
+      margin-right: 15px;
+      display: block;
+      width: 150px;
+      min-width: 150px;
+      height: 200px;
+      margin-right: 15px;
+      background: #fffde7;
+      border: 1px solid #efedd9;
+      border-radius: 5px;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 15px;
+
+      .icon {
+        border-radius: 50%;
+        width: 99px;
+        height: 99px;
+        background: rgb(250, 244, 217);
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        // justify-content: center;
+        justify-content: space-around;
+      }
+
+      .text {
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 16px;
+      }
+    }
+  }
+
+  .categories {
+    // display: flex;
+    // border: 1px solid #000;
+    white-space: nowrap;
+    overflow: auto;
+    background: #fff;
+    height: 66px;
+    overflow: hidden;
+
+    .catagory-hidden-scroll {
+      display: flex;
+      overflow-x: scroll;
+      padding-left: 15px;
+      padding: 16px 0 35px;
+      overflow: scroll hidden;
+
+      .catagory-scroll {
+        display: flex;
+        padding: 0 15px;
+      }
+    }
+
+    .category {
+      // flex: 0 0 0%;
+      position: relative;
+      margin-right: 10px;
+      height: 36px;
+      background-color: rgb(242, 242, 242);
+      color: rgb(170, 170, 170);
+      vertical-align: middle;
+      line-height: 36px;
+      font-weight: 400;
+      padding: 0px 15px;
+      border-radius: 5px;
+
+      &.active {
+        color: rgb(255, 255, 255);
+        background-color: rgb(214, 186, 140);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        background: #0000;
+        text-decoration: none;
+        outline: none;
+      }
+
+      .icon {
+        position: absolute;
+        height: 0px;
+        bottom: 0px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  .books {
+    min-height: 100vh;
+    // min-height: 31vh;
+    background: #fff;
+    padding-bottom: 50px;
+
+    .book {
+      display: flex;
+      padding: 25px 15px;
+      background: #fff;
+      border-bottom: 0.5px solid rgb(242, 242, 242);
+
+      .cover {
+        width: 90px;
+        height: 128px;
+
+        img {
+          width: 90px;
+          height: 128px;
+        }
+      }
+
+      .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin-left: 12px;
+
+        .header {
+          display: flex;
+          flex: 1;
+          justify-content: space-between;
+
+          .left {
+            .category {
+              margin-bottom: 10px;
+              display: inline-block;
+              font-size: 10px;
+              line-height: 1.4;
+              padding: 2px 4px;
+              border-radius: 2px;
+              color: rgb(144, 202, 200);
+              background: rgba(144, 202, 200, 0.2);
+            }
+
+            .title {
+              margin: 0;
+              margin: -0.1em 0 0;
+              font-size: 16px;
+              font-weight: 400;
+            }
+
+            .authors {
+              color: rgb(170, 170, 170);
+              margin-top: 4px;
+              align-items: center;
+              margin-top: 4px;
+              color: rgb(102, 102, 102);
+              font-size: 12px;
+            }
+
+            .rating {
+              color: rgb(214, 186, 140);
+              margin-top: 5px;
+              font-size: 12px;
+            }
+          }
+
+          .right {
+            position: relative;
+            box-sizing: border-box;
+            width: 45px;
+            height: 45px;
+            padding-left: 15px;
+            display: flex;
+            justify-content: flex-end;
+            margin-right: -3px;
+
+            svg {
+              width: 18px;
+              height: 18px;
+              vertical-align: middle;
+              fill: #18c3aa;
+              overflow: hidden;
+            }
+            img {
+              display: inline-block;
+              vertical-align: top;
+              box-sizing: border-box;
+              width: 30px;
+              height: 30px;
+              background: rgb(242, 242, 242);
+              border-width: 1px;
+              border-style: solid;
+              border-color: rgb(242, 242, 242);
+              border-image: initial;
+              border-radius: 99px;
+              overflow: hidden;
+            }
+          }
+        }
+
+        .summary {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 5px;
+          position: relative;
+          .price {
+            margin: 2px 0px;
+            display: flex;
+            align-items: center;
+
+            .market {
+              font-size: 18px;
+              font-weight: normal;
+
+              .suffix {
+                font-size: 13px;
+                margin-left: 3px;
+                font-weight: 300;
+              }
+            }
+
+            .discount {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              box-sizing: border-box;
+              height: 18px;
+              padding: 0 6px;
+              color: rgb(214, 186, 140);
+              font-weight: 400;
+              border: 0.5px solid rgb(214, 186, 140);
+              border-radius: 4px;
+              white-space: nowrap;
+              margin-left: 6px;
+              margin-right: 6px;
+              color: rgb(242, 129, 129);
+              border-color: rgb(242, 129, 129);
+              font-size: 12px;
+            }
+          }
+
+          .remind {
+            font-size: 12px;
+            padding: 6px 12px;
+            color: rgb(24, 195, 170);
+            background-color: rgb(255, 255, 255);
+            // background: rgb(24, 195, 170);
+            border: 0.5px solid rgb(242, 242, 242);
+            border-radius: 999px;
+            position: absolute;
+            right: 27px;
+          }
+
+          .close {
+            display: flex;
+            align-content: flex-end;
+            justify-content: center;
+          }
+        }
+        .freeList {
+          display: flex;
+          align-items: center;
+          margin-top: 5px;
+          flex-wrap: wrap;
+          .freePrice {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            flex-grow: 1;
+            margin: 2px 0px;
+            .freeButton {
+              line-height: 0;
+              .free {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                width: 52px;
+                height: 22px;
+                background-color: rgb(24, 195, 170);
+                border-radius: 4px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .loading {
+      padding-bottom: 40px;
+    }
+  }
+
+  .tabbar {
+    background: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    border-top: 0.5px solid rgb(223, 223, 223);
+
+    a {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      color: #666;
+      text-decoration: none;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+
+      [class*="dzy-icon-"] {
+        width: 23px;
+        height: 23px;
+        display: inline-block;
+        font-size: 23px;
+      }
+
+      .text {
+        margin-top: 4px;
+        font-size: 12px;
+      }
+
+      .shopping-cart-count {
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        
+      }
+      &.active {
+        color: #18c3aa;
+      }
+    }
+  }
+}
+</style>
+
+

@@ -1,0 +1,23 @@
+${AnsiColor.BRIGHT_MAGENTA}
+///////////////////////////////////////////////////////////////////
+//  ${AnsiColor.BRIGHT_YELLOW}                         _ooOoo_                          ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}                        o8888888o                         ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}                        88" . "88                         ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}                        (| ^_^ |)                         ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}                        O\  =  /O                         ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}                     ____/`---'\____                      ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}                    .'  \\|     |//  `.                   ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}                  /  \\|||  :  |||//  \                   ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}                  /  _||||| -:- |||||-  \                 ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}                 |   | \\\  -  /// |   |                  ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}                 | \_|  ''\---/''  |   |                  ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}                  \  .-\__  `-`  ___/-. /                 ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}               ___`. .'  /--.--\  `. . ___                ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}             ."" '<  `.___\_<|>_/___.'  >'"".             ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}          | | :  `- \`.;`\ _ /`;.`/ - ` : | |             ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}          \  \ `-.   \_ __\ /__ _/   .-` /  /             ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}    ========`-.____`-.___\_____/___.-`____.-'========     ${AnsiColor.BRIGHT_MAGENTA}   //
+//  ${AnsiColor.BRIGHT_YELLOW}                         `=---='                          ${AnsiColor.BRIGHT_MAGENTA}   //
+//      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       //
+//         佛祖保佑       永不宕机      永无BUG                   //
+///////////////////////////////////////////////////////////////////

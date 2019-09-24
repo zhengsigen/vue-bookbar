@@ -1,0 +1,1450 @@
+<template>
+  <div class="books" v-show="book.id">
+    <div style="max-width: 600px;margin: 0px auto;">
+      <div class="book-msg" > <!-- style="min-height: 100vh;" --> 
+        <div class="book-details">
+          <div class="book-details-body">
+            <div class="book-details-picture">
+              <div class="book-background" style="background-image: url(@/assets/img/263071e26bbf11e780c600163e04f327.jpeg);"></div>
+              <div class="book-picture">
+                <img class="img" :src="book.cover" style="cursor: pointer;" />
+              </div>
+              <div style="position: absolute;top: 123px;" v-if=" book.stock <= 0">
+                <p style="margin: 0;font: inherit;">暂时无货</p>
+                <div style="font-size: 12px;margin-top: 6px;">
+                  <span >预计 2 天到货</span>
+                </div>
+              </div>
+            </div>
+            <div class="book-item">
+              <div class="book-below">
+                <div style="color: black;">
+                    <div class="avatars-item">
+                      <div class="avatars-img">
+                        <div
+                          class="avatars-img-content"
+                          style="flex-flow: row-reverse;display: flex;"
+                        >
+                          <span class="avatars-img-body">
+                            <span class="avatars-img-body-content">
+                              <img src="../../assets/img/defd6d12b7b511e9b39702420ac8025a.jpeg" />
+                            </span>
+                          </span>
+                          <span class="avatars-img-body">
+                            <span class="avatars-img-body-content">
+                              <img src="../../assets/img/defd6d12b7b511e9b39702420ac8025a.jpeg" />
+                            </span>
+                          </span>
+                          <span class="avatars-img-body">
+                            <span class="avatars-img-body-content">
+                              <img src="../../assets/img/defd6d12b7b511e9b39702420ac8025a.jpeg" />
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="avatars-img-items" style="color: black;">
+                        <span class="avatars-img-item">书书书</span>
+                        <span>
+                          等
+                          <span class="count">1</span>
+                        </span>人卖过这本书
+                      </div>
+                      <i class="el-icon-arrow-right" width="22.4" height="22.4" style="color: rgb(210, 210, 210);"></i>
+                    </div>
+                </div>
+              </div>
+              <div class="book-below picture">
+                  <h1 class="book-name">{{book.name}}</h1>
+                <div class="book-price">
+                  <span class="book-price-content">￥{{book.price | numeral}}</span>
+                  <div class="book-discount">
+                    <span class="book-discount-wraps">
+                      <span class="book-discount-price">二手 {{book.discount}} 折</span>
+                    </span>
+                  </div>
+                </div>
+                <!-- 勿删 -->
+                <!-- <div class="free">
+                  <div class="free-sion">
+                    <div class="free-sions">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="35" height="13" viewBox="0 0 35 13" fill="#fff"><g fill-rule="evenodd">
+                        <path d="M7.04639684.292157895C6.47371263.183778947 5.93797579.129589474 5.28729158.129589474 2.69728105.129589474 1.51291263 1.13004211 1.51291263 3.46511579L1.51291263 3.64041053C1.51291263 3.64041053.374933684 3.56076842.328954737 3.64041053.0547231579 4.11990526.139291579 6.27393684.328954737 6.27393684L1.51291263 6.27393684 1.51291263 11.9244211C1.51291263 12.0705684 1.63278632 12.1900316 1.77893368 12.1900316L4.60951263 12.1900316C4.74868105 12.1900316 4.86157579 12.0775474 4.86157579 11.9379684L4.86157579 6.48658947C4.86157579 6.36917895 4.95681789 6.27393684 5.07422842 6.27393684L6.69498632 6.27393684C6.86740737 6.27393684 7.00780737 6.13353684 7.00780737 5.96111579L7.00780737 3.96554737C7.00780737 3.78696842 6.86124947 3.64041053 6.68267053 3.64041053L4.86157579 3.64041053 4.86157579 3.50001053C4.86157579 2.90310526 5.08367053 2.49955789 5.93469158 2.49955789 5.93469158 2.49955789 6.82389158 2.51721053 7.06363895 2.51721053 7.32555474 2.51721053 7.31118632 1.14030526 7.29435474.576652632 7.28983895.435431579 7.18556526.318431579 7.04639684.292157895M12.0647116 5.29101368L12.0647116 3.93135053C12.0647116 3.77083474 11.9345747 3.64028737 11.7740589 3.64028737L9.17789053 3.64028737C9.01737474 3.64028737 8.88682737 3.77083474 8.88682737 3.93135053L8.88682737 11.7949821C8.88682737 12.0133821 9.06417474 12.1903189 9.28257474 12.1903189L11.6689642 12.1903189C11.8873642 12.1903189 12.0647116 12.0133821 12.0647116 11.7949821L12.0647116 8.22299263C12.3980589 7.01111895 13.1004695 6.74797158 14.1362274 6.74797158 14.43468 6.74797158 14.7158905 6.74797158 15.1370905 6.78327684L15.3476905 3.55325579C14.8735326 3.50029789 14.5927326 3.50029789 14.29428 3.50029789 13.3463747 3.50029789 12.6969221 4.04465579 12.0647116 5.29101368M19.6791126 7.08144211C19.8195126 6.11588421 20.2936705 5.65937895 21.0133232 5.65937895 21.8208284 5.65937895 22.2596811 6.15118947 22.2949863 7.08144211L19.6791126 7.08144211zM21.0133232 3.48235789C18.2570495 3.48235789 16.6243863 5.06288421 16.6243863 7.97721053 16.6243863 10.8381684 18.3100074 12.3480842 21.0133232 12.3480842 22.3623126 12.3480842 23.5007021 12.0020105 24.7487021 11.1846526 24.9203021 11.0725789 24.9827021 10.8406316 24.8915653 10.6567158L24.3287337 9.51996842C24.23226 9.32496842 23.9945653 9.24696842 23.7950495 9.334 22.8898389 9.72892632 22.1800389 9.90832632 21.1537232 9.90832632 20.2936705 9.90832632 19.8544074 9.57456842 19.6967653 8.76665263L24.98106 8.76665263C25.0336074 8.27525263 25.0508495 7.97721053 25.0508495 7.59049474 25.0508495 4.93972632 23.4887968 3.48235789 21.0133232 3.48235789zM29.2657232 7.08144211C29.4061232 6.11588421 29.8802811 5.65937895 30.5999337 5.65937895 31.4074389 5.65937895 31.8462916 6.15118947 31.8815968 7.08144211L29.2657232 7.08144211zM30.5999337 3.48235789C27.84366 3.48235789 26.2109968 5.06288421 26.2109968 7.97721053 26.2109968 10.8381684 27.8962074 12.3480842 30.5999337 12.3480842 31.9489232 12.3480842 33.0873126 12.0020105 34.3353126 11.1846526 34.5069126 11.0725789 34.5693126 10.8406316 34.4781758 10.6567158L33.9153442 9.51996842C33.8188705 9.32496842 33.5811758 9.24696842 33.3812495 9.334 32.4760389 9.72892632 31.7666495 9.90832632 30.7403337 9.90832632 29.8802811 9.90832632 29.4410179 9.57456842 29.2833758 8.76665263L34.5676705 8.76665263C34.6202179 8.27525263 34.6378705 7.97721053 34.6378705 7.59049474 34.6378705 4.93972632 33.0749968 3.48235789 30.5999337 3.48235789z"/></g>
+                      </svg>
+                    </div>
+                    <div class="top-right">
+                      <svg viewBox="0 0 24 24" fill="#fff" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" class="Icon" width="16" height="16">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="16" x2="12" y2="12" />
+                        <line x1="12" y1="8" x2="12" y2="8" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="free-price">
+                    <div class="prices">服务费：每本 3 元</div>
+                  </div>
+                </div> -->
+                <div class style="margin-top:14px">
+                  <div class="grade" v-if="book.status === 1">
+                    <div class="grade-item">
+                      <span class="grade-item" style="font-size: 13px;">品相</span>
+                    </div>
+                    <div class="grade-content" >
+                      <span class="grade-name">{{conditions[book.condition]}}</span>
+                    </div>
+                  </div>
+                  <div class="grade">
+                    <div class="grade-item">
+                      <span class="grade-items" style="font-size: 13px;">原价</span>
+                    </div>
+                    <div class="grade-content">
+                      <span class="grade-name">￥{{book.price}}</span>
+                    </div>
+                  </div>
+                  <div class="grade">
+                    <div class="grade-item">
+                      <span class="grade-items" style="font-size: 13px;">作者</span>
+                    </div>
+                    <div class="grade-content">
+                      <span class="grade-name" style="color: #18c3aa;">{{book.author}}</span>
+                    </div>
+                  </div>
+                  <div class="grade">
+                    <div class="grade-item">
+                      <span class="grade-items" style="font-size: 13px;">出版社</span>
+                    </div>
+                    <div class="grade-content">
+                      <span class="grade-name">{{book.publisher}}</span>
+                    </div>
+                  </div>
+                  <div class="grade">
+                    <div class="grade-item">
+                      <span class="grade-items" style="font-size: 13px;">出版</span>
+                    </div>
+                    <div class="grade-content">
+                      <span class="grade-name">{{book.pubDate | moment('YYYY-MM')}}</span>
+                    </div>
+                  </div>
+                  <div class="grade">
+                    <div class="grade-item">
+                      <span class="grade-items" style="font-size: 13px;">装帧</span>
+                    </div>
+                    <div class="grade-content">
+                      <span class="grade-name">{{book.binding}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="book-below picture" v-if="this.book.doubanRate != 0">
+                <router-link class="douban" :to="{ path: '/redirect?link=https://book.douban.com/isbn/9787532162918' }">
+                  <div class="douban-item">
+                    <i class="el-icon-star-off" width="17" height="16" style="color: rgb(214, 186, 140);"></i>
+                    <span class="douban-rating">
+                      豆瓣评分
+                      <span class="rating">{{book.doubanRate}}</span>
+                    </span>
+                    <div class="douban-star">
+                      <el-rate :colors="colors" ></el-rate>
+                      <!-- <div style="margin-right: 3px;">
+                        <div style="position: absolute; width: 13px; overflow: hidden; color: rgb(214,186,140); ">
+                          <i class="el-icon-star-on" width="13" height="12"></i>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12" color="rgb(242, 242, 242)">
+                          <path fill="currentColor" fill-rule="evenodd" d="M6.15740527,10.6826336 L3.04530674,11.9566366 C2.65794378,12.1148978 2.23570873,11.8185976 2.27246579,11.4141522 L2.56463737,8.16012531 C2.58537213,7.93152574 2.50903052,7.7038054 2.35257736,7.53059727 L0.136785824,5.06348041 C-0.13842095,4.75662945 0.0227446608,4.27744959 0.431784867,4.18600976 L3.72484127,3.44833654 C3.95669356,3.39646203 4.15650121,3.2566646 4.27996727,3.05971728 L6.02262934,0.261131044 C6.2394018,-0.0870436812 6.76154068,-0.0870436812 6.97831314,0.261131044 L8.72097522,3.05971728 C8.84349879,3.2566646 9.04330644,3.39646203 9.27515873,3.44833654 L12.5682151,4.18600976 C12.9772553,4.27744959 13.138421,4.75662945 12.8632142,5.06348041 L10.6474226,7.53059727 C10.491912,7.7038054 10.4155704,7.93152574 10.4363051,8.16012531 L10.7284767,11.4141522 C10.7642913,11.8185976 10.3420562,12.1148978 9.95469326,11.9566366 L6.84259473,10.6826336 C6.6239373,10.5929522 6.3760627,10.5929522 6.15740527,10.6826336 Z"/>
+                        </svg>
+                      </div>
+                      <div style="margin-right: 3px;">
+                        <div style="position: absolute; width: 13px; overflow: hidden; color: rgb(214,186,140);">
+                          <i class="el-icon-star-on" width="13" height="12"></i>
+                        </div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="13"
+                          height="12"
+                          viewBox="0 0 13 12"
+                          color="rgb(242, 242, 242)"
+                        >
+                          <path
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            d="M6.15740527,10.6826336 L3.04530674,11.9566366 C2.65794378,12.1148978 2.23570873,11.8185976 2.27246579,11.4141522 L2.56463737,8.16012531 C2.58537213,7.93152574 2.50903052,7.7038054 2.35257736,7.53059727 L0.136785824,5.06348041 C-0.13842095,4.75662945 0.0227446608,4.27744959 0.431784867,4.18600976 L3.72484127,3.44833654 C3.95669356,3.39646203 4.15650121,3.2566646 4.27996727,3.05971728 L6.02262934,0.261131044 C6.2394018,-0.0870436812 6.76154068,-0.0870436812 6.97831314,0.261131044 L8.72097522,3.05971728 C8.84349879,3.2566646 9.04330644,3.39646203 9.27515873,3.44833654 L12.5682151,4.18600976 C12.9772553,4.27744959 13.138421,4.75662945 12.8632142,5.06348041 L10.6474226,7.53059727 C10.491912,7.7038054 10.4155704,7.93152574 10.4363051,8.16012531 L10.7284767,11.4141522 C10.7642913,11.8185976 10.3420562,12.1148978 9.95469326,11.9566366 L6.84259473,10.6826336 C6.6239373,10.5929522 6.3760627,10.5929522 6.15740527,10.6826336 Z"
+                          />
+                        </svg>
+                      </div>
+                      <div style="margin-right: 3px;">
+                        <div style="position: absolute; width: 13px; overflow: hidden; color: rgb(214,186,140);">
+                          <i class="el-icon-star-on" width="13" height="12"></i>
+                        </div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="13"
+                          height="12"
+                          viewBox="0 0 13 12"
+                          color="rgb(242, 242, 242)"
+                        >
+                          <path
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            d="M6.15740527,10.6826336 L3.04530674,11.9566366 C2.65794378,12.1148978 2.23570873,11.8185976 2.27246579,11.4141522 L2.56463737,8.16012531 C2.58537213,7.93152574 2.50903052,7.7038054 2.35257736,7.53059727 L0.136785824,5.06348041 C-0.13842095,4.75662945 0.0227446608,4.27744959 0.431784867,4.18600976 L3.72484127,3.44833654 C3.95669356,3.39646203 4.15650121,3.2566646 4.27996727,3.05971728 L6.02262934,0.261131044 C6.2394018,-0.0870436812 6.76154068,-0.0870436812 6.97831314,0.261131044 L8.72097522,3.05971728 C8.84349879,3.2566646 9.04330644,3.39646203 9.27515873,3.44833654 L12.5682151,4.18600976 C12.9772553,4.27744959 13.138421,4.75662945 12.8632142,5.06348041 L10.6474226,7.53059727 C10.491912,7.7038054 10.4155704,7.93152574 10.4363051,8.16012531 L10.7284767,11.4141522 C10.7642913,11.8185976 10.3420562,12.1148978 9.95469326,11.9566366 L6.84259473,10.6826336 C6.6239373,10.5929522 6.3760627,10.5929522 6.15740527,10.6826336 Z"
+                          />
+                        </svg>
+                      </div>
+                      <div style="margin-right: 3px;">
+                        <div style="position: absolute; width: 7.8px; overflow: hidden; color: rgb(214,186,140);">
+                          <i class="el-icon-star-on" width="13" height="12"></i>
+                        </div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="13"
+                          height="12"
+                          viewBox="0 0 13 12"
+                          color="rgb(242, 242, 242)"
+                        >
+                          <path
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            d="M6.15740527,10.6826336 L3.04530674,11.9566366 C2.65794378,12.1148978 2.23570873,11.8185976 2.27246579,11.4141522 L2.56463737,8.16012531 C2.58537213,7.93152574 2.50903052,7.7038054 2.35257736,7.53059727 L0.136785824,5.06348041 C-0.13842095,4.75662945 0.0227446608,4.27744959 0.431784867,4.18600976 L3.72484127,3.44833654 C3.95669356,3.39646203 4.15650121,3.2566646 4.27996727,3.05971728 L6.02262934,0.261131044 C6.2394018,-0.0870436812 6.76154068,-0.0870436812 6.97831314,0.261131044 L8.72097522,3.05971728 C8.84349879,3.2566646 9.04330644,3.39646203 9.27515873,3.44833654 L12.5682151,4.18600976 C12.9772553,4.27744959 13.138421,4.75662945 12.8632142,5.06348041 L10.6474226,7.53059727 C10.491912,7.7038054 10.4155704,7.93152574 10.4363051,8.16012531 L10.7284767,11.4141522 C10.7642913,11.8185976 10.3420562,12.1148978 9.95469326,11.9566366 L6.84259473,10.6826336 C6.6239373,10.5929522 6.3760627,10.5929522 6.15740527,10.6826336 Z"
+                          />
+                        </svg>
+                      </div>
+                      <div style="margin-right: 3px;">
+                        <div style="position: absolute; width: 0px; overflow: hidden;  color: rgb(214,186,140);">
+                          <i class="el-icon-star-on" width="13" height="12"></i>
+                        </div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="13"
+                          height="12"
+                          viewBox="0 0 13 12"
+                          color="rgb(242, 242, 242)"
+                        >
+                          <path
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                            d="M6.15740527,10.6826336 L3.04530674,11.9566366 C2.65794378,12.1148978 2.23570873,11.8185976 2.27246579,11.4141522 L2.56463737,8.16012531 C2.58537213,7.93152574 2.50903052,7.7038054 2.35257736,7.53059727 L0.136785824,5.06348041 C-0.13842095,4.75662945 0.0227446608,4.27744959 0.431784867,4.18600976 L3.72484127,3.44833654 C3.95669356,3.39646203 4.15650121,3.2566646 4.27996727,3.05971728 L6.02262934,0.261131044 C6.2394018,-0.0870436812 6.76154068,-0.0870436812 6.97831314,0.261131044 L8.72097522,3.05971728 C8.84349879,3.2566646 9.04330644,3.39646203 9.27515873,3.44833654 L12.5682151,4.18600976 C12.9772553,4.27744959 13.138421,4.75662945 12.8632142,5.06348041 L10.6474226,7.53059727 C10.491912,7.7038054 10.4155704,7.93152574 10.4363051,8.16012531 L10.7284767,11.4141522 C10.7642913,11.8185976 10.3420562,12.1148978 9.95469326,11.9566366 L6.84259473,10.6826336 C6.6239373,10.5929522 6.3760627,10.5929522 6.15740527,10.6826336 Z"
+                          />
+                        </svg>
+                      </div> -->
+                    </div>
+                  </div>
+
+                </router-link>
+              </div>
+              <div class="book-below picture">
+                <router-link class="douban" :to="{ path: '/redirect?link=/support/book-service' }">
+                  <span>
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="17"
+                        height="16"
+                        viewBox="0 0 17 16"
+                      >
+                        <path
+                          fill="none"
+                          stroke="#D6BA8C"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M10.535 5.9V3.1c0-1.16-.955-2.1-2.133-2.1L5.556 7.3V15h8.024c.71.008 1.316-.5 1.422-1.19l.982-6.3a1.385 1.385 0 0 0-.333-1.129 1.433 1.433 0 0 0-1.09-.481h-4.026zM5.556 15H3.423A1.411 1.411 0 0 1 2 13.6V8.7c0-.773.637-1.4 1.423-1.4h2.133V15z"
+                        />
+                      </svg>
+                      <span class="intro">多抓鱼自营 ‧ 正版保证 ‧ 消毒翻新</span>
+                      <i class="el-icon-arrow-right" width="13" height="12" style="color: rgb(210,210,210);height: 22.8px;width: 22.8px;position:  absolute;right: 15px;"></i>
+                    </div>
+                  </span>
+                </router-link>
+              </div>
+              <div class="book-below picture" > <!-- v-for循环 -->
+                <div class="book-comment">
+                  <div class="comment-data">
+                    <h2 class="comment-contents" style="flex-grow: 1;">{{comment.length}} 条鱼友评论</h2>
+                    
+                    <!-- 跳转评分评论页面 -->
+                    <div >
+                      <div class="good-score" @click="goGrade(book.id)">
+                        <span class="icon-wrap">
+                          <i class="el-icon-star-off" width="13" height="12" style="color: rgb(24, 195, 170);height: 16px;width: 16px;"></i>
+                        </span>
+                        <div class="book-score">给书评分</div>
+                      </div>
+                    </div>
+                  
+                  </div>
+                  <div >
+                    <div class="comment-content" v-for="(comments,id) in comment" :key="id" >
+                    <div class="comment-item" style="border-bottom: 0px none;margin-top: 0px;">
+                      <div>
+                        <span class="head-portrait">
+                          <!-- src="../../assets/img/defd6d12b7b511e9b39702420ac8025a.jpeg" -->
+                          <img
+                            class="user-photo"
+                            :src="comments.cover"
+                          />
+                        </span>
+                      </div>
+                      <div class="user-comment-content">
+                        <div
+                          href
+                          style="color:  black;display: inline-block;margin-bottom: 7px;font-size: 15px;font-weight: normal;line-height: 1.33;max-width: 70%;text-decoration: none;"
+                        >
+                          <span class="comment-text">{{comments.wxName}}</span>
+                        </div>
+
+                        <div >
+                          <p  :class="unfold ? 'comment-items' : 'comment-itemse' ">{{comments.comment}}</p>
+                          <div style="color:green" v-if="comments.comment.length > 78 && unfold " @click="updateUnfold" > 
+                            展开<i class="el-icon-arrow-down"  style="color: #18c3aa;font-size: 13px;margin-top: 3px;"></i>
+                          </div>
+
+                        </div>
+
+                        <div class="comment-bottom">
+                          <div class="comment-bottom-content">
+                            
+                            <div class="comment-bottom-item" style="margin-right: 40px;"  @click="enterComment(book.id,comments.id)"> <!-- 传书籍ID过去 -->
+                              <i class="el-icon-chat-line-square"  style="color: rgb(170,170,170); font-size: 18px;"></i>
+                              <div style="margin-left: 5px;">
+                                {{comments.commentNum}}
+                              </div>
+                            </div>
+
+                            <div class="comment-bottom-like" v-if="!comments.applaud" @click="good(comments.id)">
+                              <!-- <i class="el-icon-thumb" style="color: rgb(170, 170, 170);font-size: 18px;"></i> -->
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 19 18"
+                              >
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke="#AAA"
+                                  stroke-width="1.2"
+                                  transform="translate(1 1)"
+                                >
+                                  <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M2.74290235,5.6549 L1.32674307,5.9209 C0.564288721,6.0539 2.27373675e-13,6.8189 2.27373675e-13,7.7199 L2.27373675e-13,11.9069 C2.27373675e-13,13.4389 0.575163664,14.7399 2.35502937,14.7399 L3.1924,14.7529"
+                                  />
+                                  <path
+                                    stroke-linecap="square"
+                                    d="M3.5568,12.0065 L3.5568,5.5265 C3.5568,5.0625 3.66704045,4.6065 3.87715685,4.1995 L5.02667263,1.4615 C5.30368708,0.8025 6.22518415,0.2695 6.762253,0.7125 C7.33983756,1.1885 7.68751897,1.9135 7.71107462,2.6895 L7.71672798,2.9035 C7.74876366,3.9715 8.57321145,4.8195 9.58045109,4.8195 L15.0557266,4.8195 C16.6047462,4.8195 17.320838,6.4245 16.8638584,7.9955 L15.6361379,12.4075 C14.9680996,14.2355 13.3097818,15.4405 11.4630187,15.4405 L6.79240423,15.4405 C5.00500143,15.4405 3.5568,13.9025 3.5568,12.0065 Z"
+                                  />
+                                </g>
+                              </svg>
+                              <div class="dianzancount" style="margin-left: 5px;margin-top: 3px;" > <!-- v-if="comments.commentNum > 0" -->
+                                {{comments.applaudNum}}
+                              </div>
+                            </div>
+
+                            <div class="comment-bottom-like" v-else @click="good(comments.id)">
+                              <svg width="18" height="18" viewBox="0 0 19 16"><g fill="none" fill-rule="evenodd"><g transform="translate(0 4.39)"><mask id="zanle-b" fill="#fff"><polygon id="zanle-a" points="0 .941 3.5 .941 3.5 10.339 0 10.339"></polygon></mask><path fill="#D6BA8C" d="M3.4998,10.3395 L2.3548,10.3315 C0.5748,10.3315 -0.0002,9.0175 -0.0002,7.4695 L-0.0002,3.2405 C-0.0002,2.3295 0.5638,1.5575 1.3268,1.4225 L3.2778,0.9405 L3.4998,10.3395" mask="url(#zanle-b)"></path></g><path fill="#D6BA8C" d="M4.4665,11.7066 L4.4665,5.2266 C4.4665,4.7626 4.5765,4.3066 4.7865,3.8996 L5.9365,1.1616 C6.2135,0.5026 7.1345,-0.0304 7.6715,0.4126 C8.2495,0.8886 8.5975,1.6136 8.6205,2.3896 L8.6265,2.6036 C8.6585,3.6716 9.4825,4.5196 10.4905,4.5196 L15.9655,4.5196 C17.5145,4.5196 18.2305,6.1246 17.7735,7.6956 L16.5455,12.1076 C15.8775,13.9356 14.2195,15.1406 12.3725,15.1406 L7.7025,15.1406 C5.0625,15.1406 4.4665,13.6026 4.4665,11.7066"></path><path stroke="#D6BA8C" stroke-linecap="square" stroke-width=".5" d="M4.4665,11.7066 L4.4665,5.2266 C4.4665,4.7626 4.5765,4.3066 4.7865,3.8996 L5.9365,1.1616 C6.2135,0.5026 7.1345,-0.0304 7.6715,0.4126 C8.2495,0.8886 8.5975,1.6136 8.6205,2.3896 L8.6265,2.6036 C8.6585,3.6716 9.4825,4.5196 10.4905,4.5196 L15.9655,4.5196 C17.5145,4.5196 18.2305,6.1246 17.7735,7.6956 L16.5455,12.1076 C15.8775,13.9356 14.2195,15.1406 12.3725,15.1406 L7.7025,15.1406 C5.0625,15.1406 4.4665,13.6026 4.4665,11.7066 Z"></path></g></svg>
+                              <div class="dianzancount" style="margin-left: 5px;margin-top: 3px;" > <!-- v-if="comments.commentNum > 0" -->
+                                {{comments.applaudNum}}
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                <div
+                  class="book-intro"
+                  style="padding-bottom: 20px; padding-left: 0px; padding-right: 0px;"
+                  
+                >
+                  <h2 class="book-intro-content"  >简介和目录</h2>
+                  <div>
+                    <div :class="show ? 'book-intro-item': 'book-intro-items' ">
+                      <div class="book-intro-body">
+                        <div class="book-content-intro" v-if="book.gist">{{book.gist}}</div>
+                        <div class="book-content-intro" v-else style="text-align: center;">无简介</div>
+                      </div>
+                    </div>
+                    
+                    <div class="book-intro-bottom"  v-if="book.gist !=null && book.gist != '' && svgState">
+                      <div
+                        class="book-intro-buttom"
+                        style="margin-top: 20px;height: 18px;"
+                        @click="updateMore()"
+                        v-if="moreState"
+                      >
+                        查看更多
+                        <i class="el-icon-arrow-down"  style="color: #18c3aa;font-size: 13px;margin-top: 3px;"></i>
+                      </div>
+
+                      <div
+                        class="book-intro-buttom"
+                        style="margin-top: 20px; height: 18px;"
+                        @click="updateMore()"
+                        v-else
+                      >
+                        收起
+                        <i class="el-icon-arrow-up"  style="color: #18c3aa;font-size: 13px;margin-top: 3px;"></i>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="page-bottom">
+                <div class="page-bottom-item">
+                  <div class="page-bottom-content">
+                    <div class="page-home">
+                      <router-link tag="div"  :to="{ path: '/' }" exact>
+                        <svg viewBox="0 0 46 46" width="23" height="23" fill="rgb(102, 102, 102)">
+                          <path
+                            d="M40.408626,19.0936037 C41.5142794,19.0936037 41.7818872,18.4605103 40.999899,17.6798584 C40.999899,17.6798584 40.2374609,16.8932902 39.3786323,16.1092182 L28.307135,6.00143742 C25.3835998,3.33238081 20.5250347,3.33332761 17.6025366,6.00143742 L6.53103934,16.1092182 C5.27063301,17.2599127 4.94536401,17.5976819 4.94536401,17.5976819 C4.15404803,18.3630748 4.40272061,18.9835484 5.51069352,18.9835484 L8.12933604,18.9835484 L8.12933604,38.9782179 C8.12933604,40.6506196 9.44018899,42 11.0589093,42 L15.1960178,42 L15.1960178,36.1142596 C15.1960178,33.3521692 17.3690855,31.1184079 20.0602903,31.1184079 L25.9028188,31.1184079 C28.5876179,31.1184079 30.7670913,33.3503112 30.7670913,36.1142596 L30.7670913,42 L34.4156598,42 C36.0394895,42 37.3452331,40.6533202 37.3452331,38.9782179 L37.3452331,19.0936037 L40.408626,19.0936037 Z M28.9248518,45 L17.5567028,45 L11.0589093,45 C7.82972191,45 5.21194826,42.3082595 5.21194826,38.9782179 L5.21194826,21.9835484 C-0.845715653,22.0536625 0.249139206,17.8325867 4.5941418,13.8657941 L15.665639,3.75801332 C19.6913513,0.0827185006 26.2138163,0.0786065279 30.2440326,3.75801332 L41.3155298,13.8657941 C45.7999206,17.9598419 47.0068349,21.9607063 40.2626209,22.0536625 L40.2626209,38.9782179 C40.2626209,42.3039563 37.6567593,45 34.4156598,45 L28.9248518,45 Z M27.8497036,42 L27.8497036,36.1142596 C27.8497036,35.0088943 26.9780536,34.1184079 25.9028188,34.1184079 L20.0602903,34.1184079 C18.9774371,34.1184079 18.1134056,35.0119812 18.1134056,36.1142596 L18.1134056,42 L27.8497036,42 Z"
+                          />
+                        </svg>
+                      </router-link>
+                    </div>
+                    <div class="stack"></div>
+                    <router-link class="shopping-cart" tag="div" :to="{path:'/cart'}">
+                      <div>
+                        <svg viewBox="0 0 46 46" width="23" height="23" fill="rgb(102, 102, 102)">
+                          <path
+                            d="M5.13634582,14.9000848 C4.99035474,14.4862269 4.60514195,12.5971561 3.75482474,7.77983331 C2.83501781,3.52910793 4.43253177,0.5 8.76864821,0.5 L20.2546528,0.5 C21.0831633,0.5 21.7548039,1.17157288 21.7548039,2 C21.7548039,2.82842712 21.0831633,3.5 20.2546528,3.5 L8.76864821,3.5 C6.67624454,3.5 6.12473309,4.54574216 6.69830817,7.2015831 C6.81046467,7.83616231 6.91540462,8.42422373 7.01338927,8.96769281 C8.25306859,7.72925282 10.0046811,6.97740113 12.0370705,6.97740113 L33.2099771,6.97740113 C37.6256869,6.97740113 40.715656,10.5215446 40.1103966,14.9022962 L38.5838965,25.9508111 C37.9791832,30.3276098 33.9027269,33.8757062 29.4825248,33.8757062 L15.7645229,33.8757062 C11.3426874,33.8757062 7.26841058,30.3315627 6.66315116,25.9508111 L5.13665105,14.9022962 C5.1365492,14.901559 5.13644746,14.9008219 5.13634582,14.9000848 Z M10.5160122,46.5 C7.63321442,46.5 5.29950051,44.1540314 5.29950051,41.2641243 C5.29950051,38.3742171 7.63321442,36.0282486 10.5160122,36.0282486 C13.3988099,36.0282486 15.7325238,38.3742171 15.7325238,41.2641243 C15.7325238,44.1540314 13.3988099,46.5 10.5160122,46.5 Z M10.5160122,43.5 C11.738193,43.5 12.7322217,42.5007515 12.7322217,41.2641243 C12.7322217,40.0274971 11.738193,39.0282486 10.5160122,39.0282486 C9.29383135,39.0282486 8.29980262,40.0274971 8.29980262,41.2641243 C8.29980262,42.5007515 9.29383135,43.5 10.5160122,43.5 Z M36.2175797,46.5 C33.334782,46.5 31.0010681,44.1540314 31.0010681,41.2641243 C31.0010681,38.3742171 33.334782,36.0282486 36.2175797,36.0282486 C39.1003775,36.0282486 41.4340914,38.3742171 41.4340914,41.2641243 C41.4340914,44.1540314 39.1003775,46.5 36.2175797,46.5 Z M36.2175797,43.5 C37.4397606,43.5 38.4337893,42.5007515 38.4337893,41.2641243 C38.4337893,40.0274971 37.4397606,39.0282486 36.2175797,39.0282486 C34.9953989,39.0282486 34.0013702,40.0274971 34.0013702,41.2641243 C34.0013702,42.5007515 34.9953989,43.5 36.2175797,43.5 Z M9.63522588,25.540262 C10.0351674,28.434962 12.839098,30.8757062 15.7645229,30.8757062 L29.4825248,30.8757062 C32.4053871,30.8757062 35.2122993,28.4319287 35.6118218,25.540262 L37.1383219,14.491747 C37.4943309,11.9150223 35.8065182,9.97740113 33.2099771,9.97740113 L12.0370705,9.97740113 C9.44255541,9.97740113 7.75307191,11.9175926 8.10872577,14.491747 L9.63522588,25.540262 Z"
+                          />
+                        </svg>
+                        <v-count v-show="cartCount" :cartCount="cartCount" class="shopping-cart-count"></v-count>
+                      </div>
+                    </router-link>
+
+                    <!-- 品相获取 -->
+                    <div class="shopping-cart-item" >
+                      <!-- 未添加到购物车 -->
+                      <template v-if="bookInCart.bookId != null">
+                        <button disabled class="add-shopping-cartdh" v-if="book.status == 1">
+                          <div class="add-shopping-cartsdh">已添加到购物车</div>
+                        </button>
+                        <button class="add-shopping-cart" v-else @click="updateConditionState()">
+                          <div class="add-shopping-carts">可选其他品相</div>
+                        </button>
+                      </template>
+                      <template v-else>
+                        <button class="add-shopping-cartdh" v-if="book.stock <= 0" @click="addShopToCart(book.id,book.condition)">
+                          <div class="add-shopping-cartsdh">到货提醒</div>
+                        </button>
+                        <button class="add-shopping-cart" v-else-if="book.status == 1" @click="addShopToCart(book.id,book.condition)">
+                          <div class="add-shopping-carts">加入购物车</div>
+                        </button>
+                        <button class="add-shopping-cart" v-else @click="updateConditionState()">
+                          <div class="add-shopping-carts">多个品相可选</div>
+                        </button>
+                      </template>
+                      
+                    </div>
+
+                    <!-- 多个品相的额选择 -->
+                    <div v-if="showConditions">
+                      <div class="backgrounddim" @click.self="showConditions = false">
+                        <div class="conditionclose">
+                          <div class="conditionHeight">
+                            <div class="contents">
+                              <div class="contents-test">
+                                <div class="contents-head">
+                                  <div>
+                                    <h2 class="head-name">{{book.name}}</h2>
+                                    <p
+                                      class="contents-intro"
+                                      style="font-size: 13px;color: rgb(170, 170, 170);"
+                                    >
+                                      多个品相的书可以购买
+                                      <span
+                                        class="contents-issue"
+                                        style="color: rgb(51, 51, 51);"
+                                      >
+                                        不同品相有何区别？
+                                        <svg
+                                          viewBox="0 0 24 24"
+                                          fill="none"
+                                          stroke="rgb(170, 170, 170)"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          class="icon"
+                                          style="height: 18px;width: 18px;"
+                                        >
+                                          <polyline points="9 18 15 12 9 6" />
+                                        </svg>
+                                      </span>
+                                    </p>
+                                  </div>
+
+                                  <div class="chose-multi">
+                                    <div class="condition-template" v-for="sku in skus" :key="sku.id" :class="{'selected':selectCondition === sku.condition}"  @click.stop="checkSku(sku.condition)" >
+                                      <span class="condition-price">￥{{book.price*sku.discount/10 | numeral}}</span>
+                                      <span class="condition-title">
+                                        <span class="title"></span>
+                                        <!-- @click="style='border-color: rgb(242, 129, 129);'" -->
+                                        <!-- 选中框改变颜色 -->
+                                        {{conditions[sku.condition]}}
+                                      </span>
+                                    </div>
+                                    <!-- 免费 -->
+                                    <!-- <div class="condition-template">
+                                      <div class="free">
+                                        <div class="free-sion">
+                                          <div class="free-sions">
+                                            <svg
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              width="35"
+                                              height="13"
+                                              viewBox="0 0 35 13"
+                                              fill="#fff"
+                                            >
+                                              <g fill-rule="evenodd">
+                                                <path
+                                                  d="M7.04639684.292157895C6.47371263.183778947 5.93797579.129589474 5.28729158.129589474 2.69728105.129589474 1.51291263 1.13004211 1.51291263 3.46511579L1.51291263 3.64041053C1.51291263 3.64041053.374933684 3.56076842.328954737 3.64041053.0547231579 4.11990526.139291579 6.27393684.328954737 6.27393684L1.51291263 6.27393684 1.51291263 11.9244211C1.51291263 12.0705684 1.63278632 12.1900316 1.77893368 12.1900316L4.60951263 12.1900316C4.74868105 12.1900316 4.86157579 12.0775474 4.86157579 11.9379684L4.86157579 6.48658947C4.86157579 6.36917895 4.95681789 6.27393684 5.07422842 6.27393684L6.69498632 6.27393684C6.86740737 6.27393684 7.00780737 6.13353684 7.00780737 5.96111579L7.00780737 3.96554737C7.00780737 3.78696842 6.86124947 3.64041053 6.68267053 3.64041053L4.86157579 3.64041053 4.86157579 3.50001053C4.86157579 2.90310526 5.08367053 2.49955789 5.93469158 2.49955789 5.93469158 2.49955789 6.82389158 2.51721053 7.06363895 2.51721053 7.32555474 2.51721053 7.31118632 1.14030526 7.29435474.576652632 7.28983895.435431579 7.18556526.318431579 7.04639684.292157895M12.0647116 5.29101368L12.0647116 3.93135053C12.0647116 3.77083474 11.9345747 3.64028737 11.7740589 3.64028737L9.17789053 3.64028737C9.01737474 3.64028737 8.88682737 3.77083474 8.88682737 3.93135053L8.88682737 11.7949821C8.88682737 12.0133821 9.06417474 12.1903189 9.28257474 12.1903189L11.6689642 12.1903189C11.8873642 12.1903189 12.0647116 12.0133821 12.0647116 11.7949821L12.0647116 8.22299263C12.3980589 7.01111895 13.1004695 6.74797158 14.1362274 6.74797158 14.43468 6.74797158 14.7158905 6.74797158 15.1370905 6.78327684L15.3476905 3.55325579C14.8735326 3.50029789 14.5927326 3.50029789 14.29428 3.50029789 13.3463747 3.50029789 12.6969221 4.04465579 12.0647116 5.29101368M19.6791126 7.08144211C19.8195126 6.11588421 20.2936705 5.65937895 21.0133232 5.65937895 21.8208284 5.65937895 22.2596811 6.15118947 22.2949863 7.08144211L19.6791126 7.08144211zM21.0133232 3.48235789C18.2570495 3.48235789 16.6243863 5.06288421 16.6243863 7.97721053 16.6243863 10.8381684 18.3100074 12.3480842 21.0133232 12.3480842 22.3623126 12.3480842 23.5007021 12.0020105 24.7487021 11.1846526 24.9203021 11.0725789 24.9827021 10.8406316 24.8915653 10.6567158L24.3287337 9.51996842C24.23226 9.32496842 23.9945653 9.24696842 23.7950495 9.334 22.8898389 9.72892632 22.1800389 9.90832632 21.1537232 9.90832632 20.2936705 9.90832632 19.8544074 9.57456842 19.6967653 8.76665263L24.98106 8.76665263C25.0336074 8.27525263 25.0508495 7.97721053 25.0508495 7.59049474 25.0508495 4.93972632 23.4887968 3.48235789 21.0133232 3.48235789zM29.2657232 7.08144211C29.4061232 6.11588421 29.8802811 5.65937895 30.5999337 5.65937895 31.4074389 5.65937895 31.8462916 6.15118947 31.8815968 7.08144211L29.2657232 7.08144211zM30.5999337 3.48235789C27.84366 3.48235789 26.2109968 5.06288421 26.2109968 7.97721053 26.2109968 10.8381684 27.8962074 12.3480842 30.5999337 12.3480842 31.9489232 12.3480842 33.0873126 12.0020105 34.3353126 11.1846526 34.5069126 11.0725789 34.5693126 10.8406316 34.4781758 10.6567158L33.9153442 9.51996842C33.8188705 9.32496842 33.5811758 9.24696842 33.3812495 9.334 32.4760389 9.72892632 31.7666495 9.90832632 30.7403337 9.90832632 29.8802811 9.90832632 29.4410179 9.57456842 29.2833758 8.76665263L34.5676705 8.76665263C34.6202179 8.27525263 34.6378705 7.97721053 34.6378705 7.59049474 34.6378705 4.93972632 33.0749968 3.48235789 30.5999337 3.48235789z"
+                                                />
+                                              </g>
+                                            </svg>
+                                          </div>
+                                          <div class="top-right">
+                                            <svg
+                                              viewBox="0 0 24 24"
+                                              fill="#fff"
+                                              stroke="currentColor"
+                                              stroke-width="2"
+                                              stroke-linecap="round"
+                                              stroke-linejoin="round"
+                                              xmlns="http://www.w3.org/2000/svg"
+                                              class="icon"
+                                              width="16"
+                                              height="16"
+                                            >
+                                              <circle cx="12" cy="12" r="10" />
+                                              <line x1="12" y1="16" x2="12" y2="12" />
+                                              <line x1="12" y1="8" x2="12" y2="8" />
+                                            </svg>
+                                          </div>
+                                        </div>
+                                        <div class="free-price">
+                                          <div class="prices">服务费：每本 3 元</div>
+                                        </div>
+                                      </div>
+                                    </div> -->
+                                  </div>
+
+                                  <div class="confirm" @click.stop="selectShopToCart()">
+                                    <div class="confirm-title" >确定</div>
+                                  </div>
+                                </div>
+
+                                <div class="chose-close" @click.stop="showConditions = false">
+                                  <svg
+                                    @click="updateConditionState()"
+                                    viewBox="19 19 22 22"
+                                    stroke-linecap="round"
+                                    width="10"
+                                    height="10"
+                                    stroke="rgb(170, 170, 170)"
+                                  >
+                                    <g transform="translate(21.000000, 21.000000)">
+                                      <path d="M0.333333333,0.333333333 L17.4148373,17.4148373" />
+                                      <path
+                                        d="M0.333333333,0.333333333 L17.4148373,17.4148373"
+                                        transform="translate(9.000000, 9.000000) scale(-1, 1) 
+                                      translate(-9.000000, -9.000000)"
+                                      />
+                                    </g>
+                                  </svg>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import VCount from '@/components/count/CartCount';
+import { mapGetters, mapActions} from 'vuex';
+
+const CART_URL = "/cart";
+
+export default {
+  data() {
+    return {
+      conditions: ["品相良好", "品相中等"],
+      book: {},
+      skus: [],
+      selectCondition: null,
+      showConditions: false,
+      show: true,
+      moreState: true,
+      // isFree: false,
+      svgState : true,
+      bookInCart:{},
+      /* 五个星星的颜色 */
+      colors: ['#99A9BF', '#F7BA2A', '#FF9900'],
+      comment : [],
+      unfold : true,
+
+    };
+  },
+  async created() {
+    
+    this.getHasStockCartCount();
+    await this.queryBookInfo();
+    await this.queryBookInCart();
+    await this.queryComment();
+    
+  },
+  methods: {
+    ...mapActions(["getHasStockCartCount"]),
+    //查询书籍评论
+    async queryComment(){
+      let commentData = await this.$http.get("/comment?bookId="+this.$route.params.id);
+      console.info("测试获取数据：",commentData)
+      if(commentData.code === 0 && commentData.data != null){
+        if(commentData.data[0] != null){
+          this.comment = commentData.data
+        
+        }else{
+          this.comment = ''
+        }
+        
+        console.info("this.comment:",this.comment)
+      }else{
+        console.info("commentData.code == 0 或者为 null")
+      }
+    },
+    
+    //查询书籍详情
+    async queryBookInfo(){
+      // debugger
+      let data = await this.$http.get("/book/" + this.$route.params.id);
+      if (data.code === 0 && data.data != null) {
+        this.book = data.data
+      } else {
+        this.$router.go(-1);
+        his.$message({
+            message: "这本书暂无销售",
+            type: "error"
+        });
+      }
+    //  await this.$http.get("/book/" + this.$route.params.id).then(res=>{
+    //    console.info(res.data)
+    //     // if (data.code === 0 && data.data != null) {
+    //     //   this.book = data.data
+    //     //   console.info("1111111:",this.book)
+        
+    //     // } else {
+    //     //   this.$router.go(-1);
+    //     // }
+    //  })
+    },
+    //查询书籍品相
+    async queryBookSku(bookId){
+      let data = await this.$http.get("/book/sku/"+bookId);
+      if(data.code === 0){
+        this.skus = data.data;
+        this.selectCondition = this.bookInCart.condition || this.skus[0].condition;
+      }
+    },
+    //查询书籍是否已添加到购物车
+    async queryBookInCart() {
+      let data = await this.$http.get(CART_URL+"/book/"+this.book.id);
+      if(data.code === 0) {
+        this.bookInCart = data.data || {};
+        this.selectCondition = this.bookInCart.condition;
+      }
+    },
+    //添加到购物车
+    async addShopToCart(bookId,condition){
+      console.info(bookId,condition);
+      let data = await this.$http.post(CART_URL,{bookId,condition});
+      if(data.code === 0) {
+        this.queryBookInCart();
+        this.getHasStockCartCount();
+      }
+    },
+    //多品相 选择品相添加到购物车或切换品相
+    async selectShopToCart(){
+      console.info(this.bookInCart.bookId || "未添加")
+      console.info(this.selectCondition);
+      let bookId = this.book.id;
+      let condition = this.selectCondition;
+      let cartId = this.bookInCart.id;
+      
+      if(this.bookInCart.bookId) {
+        console.info("修改品相");
+        //品相不变则不修改
+        if(this.bookInCart.condition === condition){
+          return;
+        }
+
+        let data = await this.$http.patch("/cart",{bookId,condition,id:cartId});
+        if(data.code === 0){
+          this.queryBookInCart();
+        }
+      }else {
+        this.addShopToCart(bookId,condition);
+      }
+      
+      this.showConditions = false;
+    },
+    updateConditionState() {
+      this.showConditions = !this.showConditions;
+      console.info(this.showConditions)
+      if(this.showConditions){
+        this.queryBookSku(this.book.id);
+      }
+    },
+    //切换品相
+    checkSku(condition) {
+      console.info(condition)
+      this.selectCondition = condition;
+    },
+    
+    updateMore() {
+      this.show = !this.show;
+      this.moreState = !this.moreState;
+    },
+    goGrade(id){
+      this.$router.push("/book/"+id+"/grade")
+    },
+    enterComment(bookId,commentId){
+      console.info("书籍id",bookId)
+      console.info("评论id",commentId)
+      this.$router.push({
+        path:"/comment?commentId="+commentId + "&bookId="+bookId
+      })
+
+
+      // if(bookId != null && bookId !='' && commentId != null && commentId != '' ){
+      //   let data =  this.$.post("/comment/message?commentId="+commentId + "&bookId="+bookId)
+      //   console.info("测试获取数据：",data)
+      // }else{
+      //   console.info("id == null")
+      // }
+        
+    },
+    updateUnfold(){
+      this.unfold = !this.unfold;
+    },
+    good(id){
+      if(id != null && id != ''){
+        this.$http.post("/comment/applaud?commentId="+id)
+        this.queryComment();
+      }else{
+        console.info("id == null & id == '' ")
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(["cartCount"])
+  },
+  components: {
+    VCount
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+li {
+  list-style: none;
+}
+.books {
+  .book-msg {
+    position: relative;
+    min-height: 100vh;
+    .book-details-body {
+      padding-bottom: 51px;
+      min-height: 100vh;
+      .book-details-picture {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        color: rgb(255, 255, 255);
+        overflow: hidden;
+        padding: 30px 15px 28px;
+        .book-background {
+          position: absolute;
+          bottom: -50px;
+          right: -50px;
+          left: -50px;
+          top: -50px;
+          z-index: -1;
+          filter: blur(25px);
+          background: center center / cover rgb(214, 186, 140);
+          background-position: center center;
+        }
+        .book-picture {
+          width: 150px;
+          height: auto;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          .img {
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 10px;
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            height: 223px;
+          }
+        }
+      }
+      .book-item {
+        padding: 18px 0px;
+        background: rgb(255, 255, 255);
+
+        .book-below {
+          margin-bottom: 15px;
+          padding: 0px 15px;
+          background: rgb(255, 255, 255);
+          .avatars-item {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            .avatars-img {
+              margin-right: 10px;
+              .avatars-img-body {
+                margin-right: -5px;
+                .avatars-img-body-content {
+                  display: inline-block;
+                  vertical-align: top;
+                  box-sizing: border-box;
+                  width: 30px;
+                  height: 30px;
+                  background: rgb(242, 242, 242);
+                  border-width: 1px;
+                  border-style: solid;
+                  border-color: rgb(242, 242, 242);
+                  border-image: initial;
+                  border-radius: 99px;
+                  overflow: hidden;
+                  img {
+                    display: block;
+                    width: 100%;
+                  }
+                }
+              }
+            }
+            .avatars-img-items {
+              flex: 1 1 0%;
+              text-decoration: none;
+              .avatars-img-item {
+                display: inline-block;
+                vertical-align: top;
+                max-width: 6em;
+                overflow: hidden;
+                white-space: nowrap;
+                .count {
+                  padding-right: 0.25em;
+                  padding-left: 0.25em;
+                }
+              }
+            }
+            .svg {
+              width: 1.4em;
+              vertical-align: text-bottom;
+            }
+          }
+        }
+        .picture {
+          border-top: 0.5px solid rgb(242, 242, 242);
+          padding: 15px 0px 15px 0px;
+          margin: 0px 15px;
+          .book-name {
+            font-size: 20px;
+            font-weight: 500;
+            text-align: left;
+            color: rgb(51, 51, 51);
+            user-select: initial;
+            margin: -5px 0px 0px;
+          }
+          .book-price {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-top: 17px;
+            .book-price-content {
+              font-weight: 500;
+              line-height: 1;
+              font-size: 24px;
+            }
+            .book-discount {
+              line-height: 0;
+              margin: 0px 6px;
+              .book-discount-wraps {
+                height: 22px;
+                color: rgb(242, 129, 129);
+                border-color: rgb(242, 129, 129);
+                box-sizing: border-box;
+                display: inline-flex;
+                align-items: center;
+                padding: 0 6px;
+                font-size: 12px;
+                font-weight: 400;
+                border: 0.5px solid rgb(214, 186, 140);
+                border-radius: 4px;
+                white-space: nowrap;
+
+                .book-discount-price {
+                  margin-right: 3px;
+                  color: rgb(242, 129, 129);
+                }
+              }
+            }
+          }
+          .free {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-top: 17px;
+            .free-sion {
+              position: relative;
+              .free-sions {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                width: 52px;
+                height: 22px;
+                background-color: rgb(24, 195, 170);
+                border-radius: 4px;
+              }
+            }
+            .free-price {
+              position: relative;
+              .prices {
+                margin-left: 8px;
+                font-size: 12px;
+                font-weight: 300;
+                line-height: 1.5;
+                color: rgb(170, 170, 170);
+              }
+            }
+            .top-right {
+              color: rgb(24, 195, 170);
+              top: 0px;
+              right: 0px;
+              position: absolute;
+              display: inline-block;
+              font-size: 0.8em;
+              margin: -8px -8px -8px -4px;
+            }
+          }
+
+          .grade {
+            display: flex;
+            flex-direction: row;
+            line-height: 1.69;
+            font-size: 13px;
+            height: 20px;
+            .grade-item {
+              flex-shrink: 0;
+              width: 39px;
+              position: relative;
+              color: rgb(170, 170, 170);
+              font-weight: 300;
+              text-align: justify;
+              font-size: 0px;
+              ::before {
+                content: ":";
+                margin-left: 2px;
+                position: absolute;
+                top: -2px;
+                right: -5px;
+                line-height: 1.69;
+                color: rgb(170, 170, 170);
+                font-size: 13px;
+              }
+              ::after {
+                content: "";
+                width: 100%;
+                display: inline-block;
+              }
+            }
+            .grade-content {
+              flex-direction: row;
+              align-items: center;
+              margin-left: 15px;
+              color: rgb(51, 51, 51);
+              position: relative;
+              .grade-name {
+                color: rgb(102, 102, 102);
+                line-height: 1.31;
+                font-size: 13px;
+              }
+            }
+          }
+          .douban {
+            color: inherit;
+            text-decoration: none;
+            .douban-item {
+              align-items: center;
+              flex-direction: row;
+              display: flex;
+            }
+            .douban-rating {
+              flex-grow: 1;
+              margin-left: 10px;
+              color: rgb(214, 186, 140);
+              font-size: 13px;
+              .rating {
+                margin-left: 5px;
+                font-size: 15px;
+              }
+            }
+            .douban-star {
+              display: flex;
+            }
+            .icon {
+              vertical-align: text-bottom;
+              overflow: hidden;
+              width: 1.4em;
+            }
+            .intro {
+              flex-grow: 1;
+              margin-left: 10px;
+              color: rgb(214, 186, 140);
+              font-size: 13px;
+            }
+          }
+          .book-comment {
+            margin: 0px;
+            padding-bottom: 35px;
+            padding: 0px 0px 15px;
+            background: rgb(255, 255, 255);
+            .comment-data {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              padding-top: 15px;
+              padding-right: 3px;
+              .comment-contents {
+                font-size: 18px;
+                font-weight: normal;
+                line-height: 1.56;
+                text-align: left;
+                margin: 0px;
+              }
+              .good-score {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                .icon-wrap {
+                  margin-bottom: -3px;
+                }
+                .book-score {
+                  margin-left: 5px;
+                  font-size: 15px;
+                  font-weight: normal;
+                  color: rgb(24, 195, 170);
+                }
+              }
+            }
+            .comment-item {
+              display: flex;
+              flex-direction: row;
+              align-items: flex-start;
+              padding: 18px 0px;
+              .head-portrait {
+                display: inline-block;
+                vertical-align: top;
+                box-sizing: border-box;
+                width: 30px;
+                height: 30px;
+                background: rgb(242, 242, 242);
+                border-width: 1px;
+                border-style: solid;
+                border-color: rgb(242, 242, 242);
+                border-image: initial;
+                border-radius: 99px;
+                overflow: hidden;
+                .user-photo {
+                  display: block;
+                  width: 100%;
+                }
+              }
+            }
+            .user-comment-content {
+              margin-left: 12px;
+              width: 100%;
+              .comment-text {
+                font-size: 15px;
+                line-height: 1.6;
+                overflow-wrap: break-word;
+                word-break: break-word;
+                user-select: initial;
+              }
+              .comment-items {
+                color: black;
+                font-size: 15px;
+                line-height: 1.6;
+                overflow-wrap: break-word;
+                word-break: break-word;
+                user-select: initial;
+                margin-top: 0px;
+
+                overflow: hidden;
+                -webkit-line-clamp: 4;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+              }
+              .comment-itemse {
+                color: black;
+                font-size: 15px;
+                line-height: 1.6;
+                overflow-wrap: break-word;
+                word-break: break-word;
+                user-select: initial;
+                margin-top: 0px;
+              }
+
+              .comment-bottom {
+                margin-top: 14px;
+                .comment-bottom-content {
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+                  font-size: 13px;
+                  color: rgb(170, 170, 170);
+                  .comment-bottom-item {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    font-size: 13px;
+                    font-weight: normal;
+                    line-height: 1.23;
+                  }
+                  .comment-bottom-like {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    font-size: 13px;
+                    font-weight: normal;
+                    line-height: 1.23;
+                  }
+                }
+              }
+            }
+          }
+          .book-intro {
+            margin-bottom: 15px;
+            padding: 0px 15px;
+            background: rgb(255, 255, 255);
+            .book-intro-content {
+              font-size: 18px;
+              font-weight: normal;
+              line-height: 1.56;
+              text-align: left;
+            }
+            .book-intro-item {
+              //max-height: 7.2em;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 4;
+              overflow: hidden;
+            }
+            book-intro-items {
+              font-size: 13px;
+              .book-intro-body {
+                line-height: 1.8;
+                white-space: pre-wrap;
+                overflow-wrap: break-word;
+                .book-content-intro {
+                  margin-bottom: 1.6em;
+                  user-select: initial;
+                }
+                .writer-intro {
+                  margin-bottom: 1.6em;
+                  user-select: initial;
+                }
+                .book-catalog {
+                  position: relative;
+                  right: 100px;
+                  margin-bottom: 0px;
+                  user-select: initial;
+                }
+              }
+            }
+            .book-intro-bottom {
+              display: flex;
+              justify-content: center;
+              margin-top: 12px;
+              display: inline;
+              .book-intro-buttom {
+                flex: 1;
+                color: rgb(24, 195, 170);
+                font-size: 13px;
+                padding: 5px 1em;
+                justify-content: center;
+                display: flex;
+                .icon {
+                  width: 1.4em;
+                  vertical-align: text-bottom;
+                }
+              }
+            }
+          }
+        }
+      }
+      .page-bottom {
+        position: fixed;
+        bottom: 0px;
+        right: 0;
+        left: 0;
+        z-index: 1;
+        .page-bottom-item {
+          max-width: 600px;
+          margin: 0px auto;
+          .page-bottom-content {
+            display: flex;
+            width: 100%;
+            height: 64px;
+            flex-direction: row;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+            border-top: 0.5px solid rgb(230, 230, 230);
+            .page-home {
+              
+              line-height: 0;
+              margin: 0px 27px;
+            }
+            .stack {
+              width: 1px;
+              height: 44px;
+              background-color: rgb(242, 242, 242);
+            }
+            .shopping-cart {
+              position: relative;
+              line-height: 0;
+              margin: 0px 30px;
+              .shopping-cart-count {
+                position: absolute;
+                top: -3px;
+                left: 50%;
+              }
+            }
+            .shopping-cart-item {
+              flex-grow: 1;
+              margin-right: 15px;
+              overflow: hidden;
+              .add-shopping-cart {
+                border-color: rgb(242, 129, 129);
+                box-shadow: none;
+                padding: 0 1.2em;
+                border-radius: 999px;
+                height: 44px;
+                font-size: 15px;
+                font-weight: 500;
+                width: 100%;
+                color: #fff;
+                background-color: rgb(242, 129, 129);
+                outline:none;
+                &:hover,&::focus,&:active{
+                  outline:none;
+                }
+                .add-shopping-cart {
+                  align-items: center;
+                  height: 100%;
+                  display: flex;
+                }
+              }
+              .add-shopping-cartdh {
+                border-color: rgb(24, 195, 170);
+                box-shadow: none;
+                padding: 0 1.2em;
+                border-radius: 999px;
+                height: 44px;
+                font-size: 15px;
+                font-weight: 500;
+                width: 100%;
+                color: #fff;
+                background-color: rgb(24, 195, 170);
+                outline:none;
+                &:hover,&::focus,&:active{
+                  outline:none;
+                }
+                .add-shopping-cartdh {
+                  align-items: center;
+                  height: 100%;
+                  display: flex;
+                }
+              }
+            }
+            .backgrounddim {
+              position: fixed;
+              left: 0;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              overflow: hidden;
+              background-color: rgba(0, 0, 0, 0.3);
+              .conditionclose {
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                z-index: 1;
+                .conditionHeight {
+                  max-width: 600px;
+                  margin: 0px auto;
+                  .contents {
+                    position: relative;
+                    padding: 20px;
+                    background: rgb(255, 255, 255);
+                    border-radius: 10px 10px 0px 0px;
+                    .contents-test {
+                      box-sizing: border-box;
+                      width: 100%;
+                      .head-name {
+                        margin-right: 30px;
+                        font-size: 18px;
+                        font-weight: 500;
+                        margin-top: 0px;
+                        color: rgb(51, 51, 51);
+                        .contents-intro {
+                          margin-top: 2px;
+                          line-height: 1.46;
+                          font-size: 13px;
+                          color: rgb(170, 170, 170);
+                          .contents-issue {
+                            margin-left: 5px;
+                            font-size: 13px;
+                            line-height: 1.46;
+                            color: rgb(51, 51, 51);
+
+                            .icon {
+                              width: 1.4em;
+                              vertical-align: -0.3em;
+                            }
+                          }
+                        }
+                      }
+                      .chose-multi {
+                        margin-top: 16px;
+                        margin-bottom: 12px;
+                        overflow: scroll;
+                        .condition-template {
+                          border-color: rgb(242, 242, 242);
+                          border-width: 2px;
+                          padding: 0px 12px 0px 17px;
+                          display: flex;
+                          box-sizing: border-box;
+                          height: 72px;
+                          margin-bottom: 12px;
+                          flex-direction: row;
+                          align-items: center;
+                          border-radius: 4px;
+                          border-style: solid;
+                          border-image: initial;
+                          .condition-price {
+                            font-weight: 500;
+                            line-height: 1.2;
+                            font-size: 22px;
+                          }
+                          .condition-title {
+                            margin-left: 7px;
+                            line-height: 0;
+                            color: rgb(170, 170, 170);
+                            .title {
+                              line-height: 1.31;
+                              font-size: 13px;
+                            }
+                          }
+                          &.selected {
+                            border-color: rgb(242, 129, 129);
+                          }
+                        }
+                        .free {
+                          display: flex;
+                          flex-direction: row;
+                          align-items: center;
+                          margin-top: 17px;
+                          .free-sion {
+                            position: relative;
+                            .free-sions {
+                              display: flex;
+                              flex-direction: row;
+                              align-items: center;
+                              justify-content: center;
+                              width: 52px;
+                              height: 22px;
+                              background-color: rgb(24, 195, 170);
+                              border-radius: 4px;
+                            }
+                          }
+                          .free-price {
+                            position: relative;
+                            .prices {
+                              margin-left: 8px;
+                              font-size: 12px;
+                              font-weight: 300;
+                              line-height: 1.5;
+                              color: rgb(170, 170, 170);
+                            }
+                          }
+                          .top-right {
+                            color: rgb(24, 195, 170);
+                            top: 0px;
+                            right: 0px;
+                            position: absolute;
+                            display: inline-block;
+                            font-size: 0.8em;
+                            margin: -8px -8px -8px -4px;
+                          }
+                        }
+                      }
+                      .confirm {
+                        border-color: rgb(242, 129, 129);
+                        background-color: rgb(242, 129, 129);
+                        box-shadow: none;
+                        display: block;
+                        height: 40px;
+                        font-size: 15px;
+                        padding: 0 1em;
+                        border-radius: 3px;
+                        width: 90%;
+                        .confirm-title {
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          height: 100%;
+                        }
+                      }
+                      .chose-close {
+                        width: 50px;
+                        height: 50px;
+                        position: absolute;
+                        right: -13px;
+                        top: 23px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</style>

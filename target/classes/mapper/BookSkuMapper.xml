@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.c1801.spring.dzy.mapper.BookSkuMapper">
+
+
+    <resultMap id="bookSku" type="bookSku" autoMapping="true">
+        <id column="id" property="id"/>
+        <result column="bookCreateDate" property="createDate"/>
+        <result column="bookUpdateDate" property="updateDate"/>
+        <collection property="skus" ofType="sku"  column="skuId" autoMapping="true">
+            <id column="skuId" property="id"/>
+            <result column="id" property="bookId"></result>
+            <result column="skuCreateDate" property="createDate"/>
+            <result column="skuUpdateDate" property="updateDate"/>
+        </collection>
+        <collection property="categorys" ofType="category" column="cId" autoMapping="true">
+            <id column="cId" property="id"/>
+            <result column="cName" property="name"/>
+        </collection>
+
+    </resultMap>
+    <select id="getBookSku" resultMap="bookSku">
+        select b.id as id, b.isbn10 as isbn10, b.isbn13 as isbn13, b.name as name, b.cover as cover, b.author as author, b.price as price, b.publisher as publisher, b.pub_date as pubDate, b.douban_rate as doubanRate, b.gist as gist, b.binding as binding, b.create_date as bookCreateDate, b.update_date as bookUpdateDate,
+            s.id as skuId, s.condition , s.status as status, s.is_free as isFree, s.discount as discount, s.stock as stock, s.sale as sale,s.create_date as skuCreateDate, s.update_date as skuUpdateDate
+
+        from books_tb b right join book_sku_tb s on b.id=s.book_id
+
+        where b.id=#{bookId}
+    </select>
+
+<!--    c.id as cId, c.name as cName-->
+<!--    left join book_category_tb bc on s.book_id=bc.book_id left join category_tb c on c.id=bc.category_id-->
+
+<!--    查询在售书籍信息-->
+    <select id="getIsSellBookInfo" resultType="bookInfo">
+        select b.id as id, b.isbn10 as isbn10, b.isbn13 as isbn13, b.name as name, b.cover as cover, b.author as author, b.price as price, b.publisher as publisher, b.pub_date as pubDate, b.douban_rate as doubanRate, b.binding as binding,b.gist gist, b.create_date as bookCreateDate, b.update_date as bookUpdateDate,
+        min(bs.discount) as discount ,sum(bs.stock) as stock, sum(bs.sale) as sale, count(bs.`condition`) status, max(bs.`condition`) `condition`
+        from books_tb b right join book_sku_tb bs on b.id=bs.book_id
+        where b.id = #{bookId} and bs.status = 1
+        group by b.id
+
+    </select>
+
+
+    <select id="getBookSkuList" resultMap="bookSku">
+        select b.id as id, b.isbn10 as isbn10, b.isbn13 as isbn13, b.name as name, b.cover as cover, b.author as author, b.price as price, b.publisher as publisher, b.pub_date as pubDate, b.douban_rate as doubanRate, b.gist as gist, b.binding as binding, b.create_date as bookCreateDate, b.update_date as bookUpdateDate,
+        s.id as skuId, s.condition , s.status as status, s.is_free as isFree, s.discount as discount, s.stock as stock, s.sale as sale,s.create_date as skuCreateDate, s.update_date as skuUpdateDate,
+        c.id as cId, c.name as cName
+        from books_tb b right join book_sku_tb s on b.id=s.book_id left join book_category_tb bc on s.book_id=bc.book_id left join category_tb c on c.id=bc.category_id
+        where  b.id in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        or b.isbn10 in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+        or b.isbn13 in
+        <foreach item="item" collection="list" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="queryBookSkuList" resultMap="bookSku">
+        select b.id as id, b.isbn10 as isbn10, b.isbn13 as isbn13, b.name as name, b.cover as cover, b.author as author, b.price as price, b.publisher as publisher, b.pub_date as pubDate, b.douban_rate as doubanRate, b.gist as gist, b.binding as binding, b.create_date as bookCreateDate, b.update_date as bookUpdateDate,
+        s.id as skuId, s.condition , s.status as status, s.is_free as isFree, s.discount as discount, s.stock as stock, s.sale as sale,s.create_date as skuCreateDate, s.update_date as skuUpdateDate,
+        c.id as cId, c.name as cName
+        from books_tb b right join book_sku_tb s on b.id=s.book_id left join book_category_tb bc on s.book_id=bc.book_id left join category_tb c on c.id=bc.category_id
+        <where>
+            <if test="name!=null and name!=''">
+                b.name like concat("%", #{name}, "%") or b.author like concat("%", #{name}, "%")
+            </if>
+        </where>
+        order by b.douban_rate desc, s.discount asc
+    </select>
+
+
+    <select id="queryIsSellBookInfoList" resultType="bookInfo">
+
+        select b.id as id, b.isbn10 as isbn10, b.isbn13 as isbn13, b.name as name, b.cover as cover, b.author as author, b.price as price, b.publisher as publisher, b.pub_date as pubDate, b.douban_rate as doubanRate, b.binding as binding, b.create_date as bookCreateDate, b.update_date as bookUpdateDate,
+        min(bs.discount) as discount ,sum(bs.stock) as stock, sum(bs.sale) as sale, count(bs.`condition`) status, max(bs.`condition`) `condition`
+        from books_tb b right join book_sku_tb bs on b.id=bs.book_id
+        where bs.status = 1
+        <if test="name!=null and name!=''">
+            and (b.name like concat("%", #{name}, "%") or b.author like concat("%", #{name}, "%"))
+        </if>
+        <if test="rate != null">
+            and douban_rate > #{rate}
+        </if>
+        group by b.id
+    </select>
+
+<!--    查询书籍sku信息-->
+    <select id="querySkuByBookId" resultType="sku">
+
+        select id, book_id, `condition`, `status` is_free, discount, stock, sale from book_sku_tb where book_id = #{bookId} order by `condition`
+    </select>
+
+</mapper>
